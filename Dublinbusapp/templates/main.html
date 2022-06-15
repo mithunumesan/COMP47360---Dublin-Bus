@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons"> -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <!-- custom css file link -->
+    <link rel="stylesheet" href="style.css">
+    <title>Dublin Bus Dashboard</title>
+    <!-- header section -->
+    <header class="header">
+        <a href="main.html" class="logo"> <i class="fas fa-bus"></i> Dublin Bus </a>
+
+        <nav class="navbar">
+            <a href="" class="journeyPlanning">Journey Planning</a>
+            <a href="" class="leapCard">Leap Card</a>
+            <a href="" class="weather">Weather</a>
+        </nav>
+
+        <div class="icons">
+            <div id="menu-btn" class="fas fa-bars"></div>
+            <div id="login-btn" class="fas fa-users"></div>
+        </div>
+
+        <form action="" class="login-form">
+            <h3>log In</h3>
+            <input type="email" placeholder="enter your email" class="box">
+            <input type="password" placeholder="enter your password" class="box">
+            <div class="remember">
+                <input type="checkbox" name="" id="remember-me">
+                <label for="remember-me">remember me</label>
+            </div>
+            <input type="submit" value="login now" class="btn">
+            <p>don't have an account? <a href="#">Sign Up</a></p>
+        </form>
+
+    </header>
+    <section>
+        <div id="journeyPlanningBox">
+            <div class="flex-container">
+                <div class="box1">
+                    <h1>Journey Planning</h1>
+                    <form action="" class="journey-form">
+                        <input type="search" placeholder="Start Point" class="box">
+                        <input type="search" placeholder="Destination" class="box">
+                        <label for="time">Choose a time to start the journey: </label>
+                        <select id="option" onchange="run()">
+                                <option value="now">Leave Now</option>
+                                <option value="depart">Depart At</option>
+                                <option value="arrive">Arrive By</option>
+                                <option value="lastAvaliable">Last Avaliable</option>
+                              </select>
+
+                        <div id="time"></div>
+                        <input type="submit" value="Search" class="btn">
+                    </form>
+                    <div id="result"></div>
+                </div>
+                <div class="box2">
+                    <div id="map"></div>
+                </div>
+            </div>
+        </div>
+        <div id="leapCardBox">
+            <h1>Leap Card</h1>
+        </div>
+        <div id="weatherBox">
+            <h1>Weather</h1>
+        </div>
+    </section>
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+    <script defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCdf-x6SluXsWzP9qpwxVGBY08pm_3TAQU&callback=initMap"></script>
+
+    <script src="script.js"></script>
+
+    </body>
+
+</html>
