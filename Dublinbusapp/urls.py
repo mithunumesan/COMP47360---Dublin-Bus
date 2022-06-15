@@ -3,7 +3,7 @@ from . import views
 
 
 urlpatterns = [
-    path('testDjango/', views.test)
+    path('home/', views.test)
 
 
 ]
