@@ -4,44 +4,45 @@ document.querySelector('#login-btn').onclick = () => {
     loginForm.classList.toggle('active');
     navbar.classList.remove('active');
 }
-
+let navbar = document.querySelector('.navbar');
 window.onscroll = () => {
-        loginForm.classList.remove('active');
-        navbar.classList.remove('active');
-    }
-    // document.getElementById("journeyPlanningBox").default = true;
-    // document.getElementById("weatherBox").default = false;
-    // document.getElementById("leapCardBox").default = false;
-    // let journeyPlanningBox = document.querySelector('.journeyPlanningBox');
-    // journeyPlanningBox.classList.toggle('active');
-    // section.classlist.remove('active');
+    loginForm.classList.remove('active');
+    navbar.classList.remove('active');
+}
+
+// A $( document ).ready() block.
+$(document).ready(function() {
+    $('#weatherBox').hide();
+    $('#leapCardBox').hide();
+    $('#journeyPlanningBox').show();
+});
 
 $('[class^="journeyPlanning"]').on('click', function(e) {
     e.preventDefault();
-    $('#journeyPlanningBox').show();
     $('#weatherBox').hide();
     $('#leapCardBox').hide();
-    
+    $('#journeyPlanningBox').show();
 });
 
-$('[class^="leapCard"]').on('click', function(e) {
+$('.leapCard').on('click', function(e) {
     e.preventDefault();
-    $('#journeyPlanningBox').hide();
     $('#weatherBox').hide();
+    $('#leapCardBox').show();
+    $('#journeyPlanningBox').hide();
     $('#leapCardWholeCon').hide();
-    $('#leapCardConBox').show();
+    //$('#leapCardConBox').show();
     
-    let loginLeapForm = document.querySelector('.login-leapCardform');
+    let loginLeapForm = document.querySelector('.leapCard-login-form');
     loginLeapForm.classList.toggle('active');
 
 });
-$('#leapcardbtn').on('click', function(e) {
+$('[class^="leapCard-btn"]').on('click', function(e){  
     e.preventDefault();
-    $('#leapCardWholeCon').show();
-    $('#leapCardLog').hide();
-  
-
+     
+     $('#leapCardWholeCon').show();
+     $('#leapCardLog').hide();
 });
+
 
 $('[class^="weather"]').on('click', function(e) {
     e.preventDefault();
@@ -49,3 +50,38 @@ $('[class^="weather"]').on('click', function(e) {
     $('#weatherBox').show();
     $('#leapCardBox').hide();
 });
+
+var map;
+
+function initMap() {
+    map = new google.maps.Map(document.getElementById('map'), {
+        center: {
+            lat: 53.3463,
+            lng: -6.2631
+        },
+        zoom: 13,
+        styles: [{
+            featureType: "poi",
+            elementType: "labels",
+            stylers: [{
+                visibility: "off"
+            }]
+        }, {
+            featureType: "road",
+            elementType: "labels",
+            stylers: [{
+                visibility: "off"
+            }]
+        }],
+        mapTypeControl: false
+    });
+}
+
+function run() {
+    var option = document.getElementById("option").value;
+    if (option != "now") {
+        document.getElementById("time").innerHTML = '<input type="date" name="" class="date">' + '<input type="time" name="" class="time">';
+    } else {
+        document.getElementById("time").innerHTML = "";
+    }
+}

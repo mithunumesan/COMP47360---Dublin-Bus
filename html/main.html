@@ -41,7 +41,29 @@
     </header>
     <section class="section">
         <div id="journeyPlanningBox">
-            <h1>Journey Planning</h1>
+             <div class="flex-container">
+                <div class="box1">
+                    <h1>Journey Planning</h1>
+                    <form action="" class="journey-form">
+                        <input type="search" placeholder="Start Point" class="box">
+                        <input type="search" placeholder="Destination" class="box">
+                        <label for="time">Choose a time to start the journey: </label>
+                        <select id="option" onchange="run()">
+                                <option value="now">Leave Now</option>
+                                <option value="depart">Depart At</option>
+                                <option value="arrive">Arrive By</option>
+                                <option value="lastAvaliable">Last Avaliable</option>
+                              </select>
+
+                        <div id="time"></div>
+                        <input type="submit" value="Search" class="btn">
+                    </form>
+                    <div id="result"></div>
+                </div>
+                <div class="box2">
+                    <div id="map"></div>
+                </div>
+            </div>
         </div>
         <div id="leapCardBox">
             <div id="leapCardLog">
@@ -105,13 +127,13 @@
                         
                     <div class="leapCard-Trip-Con">
                         <div><div style="float:left;"><span>14 Jun </span>&nbsp;<span>21:37</span>&nbsp;<span>Leap Top-Up App</span></div><div class="lpTripValue"><span style="color:green">+€10.00</span></div></div>
-                        <div>-------------------------------------------------------------------</div>
+                        <div>---------------------------------------------------------------</div>
                         <div style="margin-top:15px"><div style="float:left;"><span>12 Jun </span>&nbsp;<span>21:43</span>&nbsp;<span>Go-Ahead Ireland</span></div><div class="lpTripValue"><span >-€1.00</span></div></div>
-                        <div>-------------------------------------------------------------------</div>
+                        <div>---------------------------------------------------------------</div>
                         <div style="margin-top:15px"><div style="float:left;"><span>09 Jun </span>&nbsp;<span>15:38</span>&nbsp;<span>Go-Ahead Ireland</span></div><div class="lpTripValue"><span style="color:green">+€0.00</span></div></div>
-                        <div>-------------------------------------------------------------------</div>
+                        <div>---------------------------------------------------------------</div>
                         <div style="margin-top:15px"><div style="float:left;"><span>09 Jun </span>&nbsp;<span>14:56</span>&nbsp;<span>Go-Ahead Ireland</span></div><div class="lpTripValue"><span >-€1.00</span></div></div>
-                        <div>-------------------------------------------------------------------</div>
+                        <div>---------------------------------------------------------------</div>
                         <div style="margin-top:15px"><div style="float:left;"><span>05 Jun </span>&nbsp;<span>21:40</span>&nbsp;<span>Go-Ahead Ireland</span></div><div class="lpTripValue"><span >-€1.00</span></div></div>
                     
                     </div>    
@@ -123,8 +145,10 @@
         </div>
     </section>
     <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+    <script defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCdf-x6SluXsWzP9qpwxVGBY08pm_3TAQU&callback=initMap"></script>
 
     <script src="script.js"></script>
+
     </body>
 
 </html>
