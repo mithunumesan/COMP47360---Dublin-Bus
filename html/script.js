@@ -21,13 +21,26 @@ $('[class^="journeyPlanning"]').on('click', function(e) {
     $('#journeyPlanningBox').show();
     $('#weatherBox').hide();
     $('#leapCardBox').hide();
+    
 });
 
 $('[class^="leapCard"]').on('click', function(e) {
     e.preventDefault();
     $('#journeyPlanningBox').hide();
     $('#weatherBox').hide();
-    $('#leapCardBox').show();
+    $('#leapCardWholeCon').hide();
+    $('#leapCardConBox').show();
+    
+    let loginLeapForm = document.querySelector('.login-leapCardform');
+    loginLeapForm.classList.toggle('active');
+
+});
+$('#leapcardbtn').on('click', function(e) {
+    e.preventDefault();
+    $('#leapCardWholeCon').show();
+    $('#leapCardLog').hide();
+  
+
 });
 
 $('[class^="weather"]').on('click', function(e) {
