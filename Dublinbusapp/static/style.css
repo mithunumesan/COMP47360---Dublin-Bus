@@ -16,6 +16,202 @@ section {
   padding: 10rem 9%;
 }
 
+section #leapCardBox {
+  margin: auto;
+  height: 250px;
+  width: 1000px;
+}
+
+section .leapCard-Logo {
+  float: left;
+  margin-right: 5px;
+  margin-top: 4px;
+}
+
+section .leapCard-Balance {
+  float: left;
+  height: 250px;
+  width: 500px;
+  border: rebeccapurple;
+  background-color: #F7F7F7;
+  margin-top: 30px;
+  margin-bottom: 50px;
+  border-radius: 5px;
+  -webkit-box-shadow: 5px 5px 10px #888888;
+          box-shadow: 5px 5px 10px #888888;
+}
+
+section .lpBal0 {
+  height: 250px;
+  width: 500px;
+  border: #d2d2d3;
+  background-color: #F7F7F7;
+  margin-top: 30px;
+  margin-bottom: 50px;
+  border-radius: 5px;
+  -webkit-box-shadow: 5px 5px 10px #888888;
+          box-shadow: 5px 5px 10px #888888;
+}
+
+section .leapCard-AccInfo {
+  float: right;
+  height: 600px;
+  width: 430px;
+  margin-top: 30px;
+  background-color: #e6e4e4;
+  border: 10px;
+  border: #0d0c0f;
+  /*border-top-left-radius:5px;
+        border-top-right-radius: 5px;
+        border-bottom-left-radius: 5px;
+        border-bottom-right-radius: 5px;
+        
+        /*box-shadow: 5px 5px 10px #888888;*/
+  /*border-style: none;*/
+}
+
+section .leapCard-Trip {
+  height: 300px;
+  width: 500px;
+  border: rebeccapurple;
+  background-color: #F7F7F7;
+  border-radius: 5px;
+  -webkit-box-shadow: 5px 5px 10px #888888;
+          box-shadow: 5px 5px 10px #888888;
+}
+
+section .leapCard-ba-divTitle {
+  margin-top: 20px;
+  margin-left: 15px;
+}
+
+section .leapCard-ba-spanTitle {
+  font-size: 1.5rem;
+  color: blue;
+}
+
+section .leapCard-ba-divCon {
+  width: 500px;
+  height: 105px;
+  background-color: rgba(194, 231, 254, 0.3);
+  margin-top: 10px;
+}
+
+section .leapCard-ba-conLogo {
+  float: left;
+  font-size: 35px;
+  margin-left: 15px;
+  margin-right: 15px;
+}
+
+section .leapCard-ba-conP {
+  margin-top: 5Px;
+  margin-left: 15Px;
+  margin-right: 15Px;
+}
+
+section .leapCard-AccInfo-Title {
+  border-top-left-radius: 5px;
+  border-top-right-radius: 5px;
+  font-size: 1.5rem;
+  background-color: #e6e4e4;
+  height: 30px;
+  color: blue;
+}
+
+section .leapCard-AccInfo-Logo {
+  float: right;
+  margin-right: 30px;
+  margin-top: -10px;
+  font-size: 30px;
+}
+
+section .leapCard-AccInfo-Con {
+  font-size: 1.5rem;
+  background-color: white;
+  height: 555px;
+  border: 10px;
+  border-bottom-left-radius: 5px;
+  border-bottom-right-radius: 5px;
+  /*border-style: none;*/
+}
+
+section .fontTitle {
+  font-size: 12px;
+  font-weight: 800;
+}
+
+section .leapCard-AccInfo-ConDiv {
+  margin-bottom: 15px;
+}
+
+section .leapCard-AccInfo-fontValueDiv {
+  margin-left: 135px;
+  font-size: 12px;
+  font-weight: 400;
+}
+
+section .leapCard-AccInfo-imag {
+  margin-top: 40px;
+  margin-left: 70px;
+  border: 0px;
+}
+
+section .leapCard-Trip-Title {
+  margin-left: 15px;
+}
+
+section .leapCard-Trip-logo {
+  float: right;
+  margin-right: 40px;
+  margin-top: -10px;
+  font-size: 25px;
+}
+
+section .leapCard-Trip-Con {
+  margin-left: 15px;
+}
+
+section .lpTripValue {
+  margin-left: 400px;
+}
+
+section .leapCard-login-form {
+  position: absolute;
+  left: 40%;
+  top: 20%;
+  background: white;
+  border-radius: .5rem;
+  -webkit-box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.1);
+  box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.1);
+  width: 35rem;
+  padding: 2rem;
+}
+
+section .leapCard-login-form h3 {
+  color: black;
+  text-transform: uppercase;
+  font-size: 1.5rem;
+  text-align: center;
+  margin-bottom: .7rem;
+}
+
+section .leapCard-box {
+  margin: .7rem 0;
+  border: 0.1rem solid rgba(0, 0, 0, 0.1);
+  padding: 1rem 1.2rem;
+  font-size: 1.5rem;
+  color: black;
+  text-transform: none;
+  width: 100%;
+}
+
+section .leapCard-btn {
+  margin: 1rem 0;
+  width: 100%;
+  text-align: center;
+}
+
 html {
   font-size: 62.5%;
   overflow-x: hidden;
