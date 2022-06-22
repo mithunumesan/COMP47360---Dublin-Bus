@@ -10,7 +10,6 @@ window.onscroll = () => {
     navbar.classList.remove('active');
 }
 
-// A $( document ).ready() block.
 $(document).ready(function() {
     $('#weatherBox').hide();
     $('#leapCardBox').hide();
@@ -24,23 +23,21 @@ $('[class^="journeyPlanning"]').on('click', function(e) {
     $('#journeyPlanningBox').show();
 });
 
-$('.leapCard').on('click', function(e) {
+$('[class^="leapCard"]').on('click', function(e) {
     e.preventDefault();
     $('#weatherBox').hide();
     $('#leapCardBox').show();
     $('#journeyPlanningBox').hide();
     $('#leapCardWholeCon').hide();
-    //$('#leapCardConBox').show();
-    
+
     let loginLeapForm = document.querySelector('.leapCard-login-form');
     loginLeapForm.classList.toggle('active');
-
 });
-$('[class^="leapCard-btn"]').on('click', function(e){  
+$('[class^="leapCard-btn"]').on('click', function(e) {
     e.preventDefault();
-     
-     $('#leapCardWholeCon').show();
-     $('#leapCardLog').hide();
+
+    $('#leapCardWholeCon').show();
+    $('#leapCardLog').hide();
 });
 
 
