@@ -38,7 +38,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'Dublinbusapp',
-    'weather.apps.WeatherConfig',
+    
 ]
 
 MIDDLEWARE = [
@@ -77,12 +77,8 @@ WSGI_APPLICATION = 'Dublinbus.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'weather_data',
-        'USER': 'user',
-        'PASSWORD': 'mypassword',
-        'HOST': 'localhost',
-        'PORT': '3306',
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': BASE_DIR / 'db.sqlite3',
     }
 }
 
