@@ -1,3 +1,8 @@
 from django.contrib import admin
 
-# Register your models here.
+from .models import Dublinbusapp
+
+class DublinbusappAdmin(admin.ModelAdmin):
+  list = ('title', 'description', 'completed')
+
+admin.site.register(Dublinbusapp, DublinbusappAdmin)
