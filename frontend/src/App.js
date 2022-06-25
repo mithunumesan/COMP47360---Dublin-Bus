@@ -10,16 +10,16 @@ class App extends Component {
         description: "",
         completed: false
       },
-      todoList: []
+      DublinbusappList: []
       };
   }
 
     async componentDidMount() {
       try {
-        const res = await fetch('http://localhost:8000/api/todos/');
-        const todoList = await res.json();
+        const res = await fetch('http://localhost:8000/api/Dublinbusapp/');
+        const DublinbusappList = await res.json();
         this.setState({
-          todoList
+          DublinbusappList
         });
       } catch (e) {
         console.log(e);
@@ -27,7 +27,7 @@ class App extends Component {
     }
     renderItems = () => {
       const { viewCompleted } = this.state;
-      const newItems = this.state.todoList.filter(
+      const newItems = this.state.DublinbusappList.filter(
         item => item.completed === viewCompleted
       );
       return newItems.map(item => (
@@ -36,8 +36,8 @@ class App extends Component {
           className="list-group-item d-flex justify-content-between align-items-center"
         >
           <span 
-            className={`todo-title mr-2 ${
-              this.state.viewCompleted ? "completed-todo" : ""
+            className={`Dublinbusapp-title mr-2 ${
+              this.state.viewCompleted ? "completed-Dublinbusapp" : ""
             }`}
             title={item.description}
             >
