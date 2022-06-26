@@ -16,7 +16,7 @@ class App extends Component {
 
     async componentDidMount() {
       try {
-        const res = await fetch('http://localhost:8000/api/Dublinbusapp/');
+        const res = await fetch('http://localhost:8000/api/Dublinbusapps/');
         const DublinbusappList = await res.json();
         this.setState({
           DublinbusappList
