@@ -1,7 +1,7 @@
 from rest_framework import serializers
-from .models import dublinbusapp
+from .models import Dublinbusapp
 
 class DublinbusappSerializer(serializers.ModelSerializer):
     class Meta:
-        model = dublinbusapp
+        model = Dublinbusapp
         fields = ('id' ,'title', 'description', 'completed')
