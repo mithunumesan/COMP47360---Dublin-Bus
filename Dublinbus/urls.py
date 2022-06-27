@@ -15,9 +15,15 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
+from rest_framework import routers                 
+from Dublinbusapp import views
+
+router = routers.DefaultRouter()                   
+router.register(r'Dublinbusapps', views.DublinbusappView, 'Dublinbusapp') 
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('Dublinbusapp/', include('Dublinbusapp.urls')),
-    path('weather/', include('weather.urls')),
+    path('api/', include(router.urls))
+    
 ]
