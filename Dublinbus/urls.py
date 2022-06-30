@@ -20,6 +20,7 @@ from Dublinbusapp import views
 
 router = routers.DefaultRouter()                   
 router.register(r'Dublinbusapps', views.DublinbusappView, 'Dublinbusapp') 
+router.register(r'WeatherData', views.WeatherDataView, 'WeatherData')
 
 urlpatterns = [
     path('admin/', admin.site.urls),
