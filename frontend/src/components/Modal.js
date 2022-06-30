@@ -36,7 +36,7 @@ export default class CustomModal extends Component {
 
     return (
       <Modal isOpen={true} toggle={toggle}>
-        <ModalHeader toggle={toggle}>Todo Item</ModalHeader>
+        <ModalHeader toggle={toggle}>Dublinbusapp Item</ModalHeader>
         <ModalBody>
           <Form>
             <FormGroup>
