@@ -7,6 +7,6 @@ from .models import Dublinbusapp
 def test(request):
     return render(request, 'main.html')
 
-class DublinbusappView(viewsets.ModelViewSet):  
+class DublinbusappView(viewsets.ModelViewSet):
     serializer_class = DublinbusappSerializer   
-    queryset = Dublinbusapp.objects.all() 
+    queryset = Dublinbusapp.objects.all()
