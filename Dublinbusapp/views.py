@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from django.http import HttpResponse
+from django.http import JsonResponse
 from .serializers import DublinbusappSerializer, WeatherDataSerializer
 from rest_framework import viewsets      
 from .models import Dublinbusapp, WeatherData
@@ -12,16 +12,16 @@ from .models import WeatherData
 from Dublinbusapp.forecastUpdater import forecast_api
 
     
-
-
 def test(request):
+    return render(request, 'main.html')
+
+def WeatherResponse(request):
     try:
         latest_forecast = WeatherData.objects.latest('timestamp')
     except:
         latest_forecast = None
-    # print("latest forecast time is:", latest_forecast)
+
     an_hour_ago = datetime.now(tz=pytz.timezone('Europe/Dublin')) - timedelta(hours=1)
-    # print("what is" ,latest_forecast.timestamp, "this is", type(latest_forecast.timestamp))
     
     if latest_forecast is None or (latest_forecast.timestamp < an_hour_ago):
         forecast_api.update_forecast()
@@ -31,12 +31,10 @@ def test(request):
 
     temperature_in_c = latest_forecast.temperatue
     temperature_in_f = (latest_forecast.temperatue * decimal.Decimal(1.8)) + 32
-    description = latest_forecast.description.capitalize
+    description = latest_forecast.description.capitalize()
     timestamp = "{t.year}/{t.month:02d}/{t.day:02d} - {t.hour:02d}:{t.minute:02d}:{t.second:02d}".format( t=latest_forecast.timestamp)
     
-    return render(request, 
-    'main.html',
-    {
+    return JsonResponse({
                 'temperature_in_c': temperature_in_c,
                 'temperature_in_f': round(temperature_in_f,2),
                 'description': description,

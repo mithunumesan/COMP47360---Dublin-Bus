@@ -11,10 +11,10 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
     <!-- custom css file link -->
     <link rel="stylesheet" href="{% static 'style.css' %}">
-    <title>Dublin Bus Dashboard</title>
+    <title>meow Dashboard</title>
     <!-- header section -->
     <header class="header">
-        <a href="main.html" class="logo"> <i class="fas fa-bus"></i> Dublin Bus </a>
+        <a href="main.html" class="logo"> <i class="fas fa-meow"></i> meow </a>
 
         <nav class="navbar">
             <a href="" class="journeyPlanning">Journey Planning</a>
@@ -143,16 +143,45 @@
         </div>
         <div id="weatherBox">
             <h1>Weather</h1>
-            <h5>Currently in Dublin</h5>
+            <h5>current weather conditions</h5>
             <h4>{{temperature_in_f}} F | {{temperature_in_c}} C</h4>
             <h4>{{description}}</h4>
             <p><em>Last updated {{utc_update_time}} GMT</em></p>
         </div>
     </section>
+
+    <script>
+        (function updateStatus() {
+          fetch(`/Dublinbusapp/weatherdata`, {
+            method: 'GET',
+            headers: {
+              'Content-Type': 'application/json'
+            },
+          })
+          .then(response => response.json())
+          .then(res => {
+            const html = `
+              <h1>Weather</h1>
+              <h5>current weather conditions</h5>
+              <h4>${res.temperature_in_f}F° | ${res.temperature_in_c}C°</h4>
+              <h4>${res.description}</h4>
+              <p><em>Last updated ${res.utc_update_time} GMT</em></p>`;
+            const newInfo = document.getElementById('weatherBox');
+            newInfo.innerHTML = html;
+        
+            setTimeout(function() {
+              updateStatus();
+            }, 60000);
+          })
+          .catch(err => console.log(err));
+        })();
+        </script>
     <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
     <script defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCdf-x6SluXsWzP9qpwxVGBY08pm_3TAQU&callback=initMap"></script>
 
     <script src="{% static 'script.js' %}"></script>
+
+    
 
     </body>
 
