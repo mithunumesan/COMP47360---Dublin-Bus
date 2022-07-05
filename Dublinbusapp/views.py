@@ -1,5 +1,6 @@
 from django.shortcuts import render
 from django.http import JsonResponse
+from flask import redirect
 from .serializers import DublinbusappSerializer, WeatherDataSerializer
 from rest_framework import viewsets      
 from .models import Dublinbusapp, WeatherData
@@ -8,8 +9,9 @@ import decimal
 from datetime import datetime, timedelta
 import pytz
 from django.views.generic import TemplateView
-from .models import WeatherData
 from Dublinbusapp.forecastUpdater import forecast_api
+from django.contrib.auth.models import User
+from django.contrib import messages
 
     
 def test(request):
@@ -48,7 +50,23 @@ class WeatherDataView(viewsets.ModelViewSet):
     serializer_class = WeatherDataSerializer   
     queryset = WeatherData.objects.all() 
 
+def signup(request):
 
+    if request.method == "POST":
+        username = request.POST['username']
+        pass1 = request.POST['pass1']
+        pass2 = request.POST['pass2']
+
+        myuser = User.objects.create_user(username,pass1)
+        myuser.u_name = username
+
+        myuser.save()
+
+        messages.success(request, "Account Successfully Created.")
+
+        return redirect('home')
+
+    return render(request, 'signup.html')
 # class WeatherPage(TemplateView):
 #     def get(self, request, **kwargs):
         

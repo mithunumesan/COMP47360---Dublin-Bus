@@ -48,6 +48,11 @@ $('[class^="leapCard-btn"]').on('click', function(e){
      $('#leapCardLog').hide();
 });
 
+$('[class^="signup"]').on('click', function(e){  
+    e.preventDefault();
+     
+     window.location = "signup/"
+});
 
 $('[class^="weather"]').on('click', function(e) {
     e.preventDefault();
