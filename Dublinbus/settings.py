@@ -93,10 +93,10 @@ WSGI_APPLICATION = 'Dublinbus.wsgi.application'
 DATABASES = {  
     'default': {  
         'ENGINE': 'django.db.backends.mysql',  
-        'NAME': 'DBUS',  
-        'USER': 'root',  
-        'PASSWORD': 'Ilikeapples1$',  
-        'HOST': 'localhost',  
+        'NAME': 'Dublinbus',  
+        'USER': 'admin',  
+        'PASSWORD': 'Busdublin1$',  
+        'HOST': 'dublinbus.cmd8vuwgew1e.us-east-1.rds.amazonaws.com',  
         'PORT': '3306',  
           
     }  
