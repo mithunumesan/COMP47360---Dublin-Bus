@@ -10,7 +10,7 @@ const Weather = () => {
     unit: 'metric', // values are (metric, standard, imperial)
   })
   
-{return (
+return (
     <ReactWeather
       isLoading={isLoading}
       errorMessage={errorMessage}
@@ -20,6 +20,5 @@ const Weather = () => {
       unitsLabels={{ temperature: 'C', windSpeed: 'Km/h' }}
       showForecast
     />);
-}
 }
 export default Weather;
