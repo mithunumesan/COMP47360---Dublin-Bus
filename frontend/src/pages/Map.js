@@ -1,18 +1,6 @@
-
-// import { GoogleMap,withGoogleMap,withScriptjs } from 'react-google-maps';
-
-// function Map()  {
-  
-//   return (<GoogleMap defaultZoom={13} defaultCenter={{lat: 53.3463,
-//     lng: -6.2631}} />
-//   );
-// }
-// const WrappedMap = withScriptjs(withGoogleMap(Map));
-// export default function AppMap() {
-//   return (<WrappedMap googleMapURL={'AIzaSyCdf-x6SluXsWzP9qpwxVGBY08pm_3TAQU'} />);
-// }
-import React from 'react'
-import { GoogleMap, LoadScript } from '@react-google-maps/api';
+// import { React } from 'react'
+import { GoogleMap,Marker} from '@react-google-maps/api';
+import { useState } from 'react';
 
 const containerStyle = {
   width: '100%',
@@ -23,22 +11,25 @@ const center = {
   lat: 53.3463,
   lng: -6.2631
 };
-
 function MyMap() {
-  return (
-    <LoadScript
-      googleMapsApiKey="AIzaSyCdf-x6SluXsWzP9qpwxVGBY08pm_3TAQU"
-    >
+// const { isLoaded } = useJsApiLoader({
+//   googleMapsApiKey: "AIzaSyCdf-x6SluXsWzP9qpwxVGBY08pm_3TAQU",
+//   libraries:['places'],
+// })
+
+// const [map, setMap] = useState(null);
+
+return (
       <GoogleMap
         mapContainerStyle={containerStyle}
         center={center}
         zoom={13}
       >
         { /* Child components, such as markers, info windows, etc. */ }
-        <></>
+        <Marker position={center} />
       </GoogleMap>
-    </LoadScript>
   )
 }
 
-export default React.memo(MyMap)
+
+export default MyMap;

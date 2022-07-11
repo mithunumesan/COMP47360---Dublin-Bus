@@ -1,2 +1,2 @@
 weather_key.txt
-node_modules
+__pycache__/
