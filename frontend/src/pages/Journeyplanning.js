@@ -57,7 +57,7 @@ function JourneyPlanning() {
     return  (<><div className='weather-card'><WeatherCard /></div>
     <div className="flex-container">
         <div className="box1">
-            <h1>Journey Planning</h1>
+            <h1>Journey Planner</h1>
             <div className="journey-form">
                 <Autocomplete>
                 <input type="search" placeholder="Start Point" className="box" ref={startRef}></input>

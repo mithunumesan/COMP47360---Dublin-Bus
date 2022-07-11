@@ -5,7 +5,7 @@ function MainNavigation() {
         <div class="logo"> <i class="fas fa-bus"></i> Dublin Bus </div>
 
         <nav className="navbar">
-            <Link to='/' className="journeyPlanning">Journey Planning</Link>
+            <Link to='/' className="journeyPlanning">Journey Planner</Link>
             <Link to='/leapcardlogin'  className="leapCard">Leap Card</Link>
             <Link to='/weather'  className="weather">Weather</Link>
         </nav>
