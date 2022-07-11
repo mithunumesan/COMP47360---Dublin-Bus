@@ -23,7 +23,7 @@ router.register(r'Dublinbusapps', views.DublinbusappView, 'Dublinbusapp')
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('Dublinbusapp/', include('Dublinbusapp.urls')),
+    path('', include('Dublinbusapp.urls')),
     path('api/', include(router.urls))
     
 ]
