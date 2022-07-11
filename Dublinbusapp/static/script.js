@@ -29,24 +29,18 @@ $('[class^="journeyPlanning"]').on('click', function(e) {
     $('#journeyPlanningBox').show();
 });
 
-$('.leapCard').on('click', function(e) {
-    e.preventDefault();
-    $('#weatherBox').hide();
-    $('#leapCardBox').show();
-    $('#journeyPlanningBox').hide();
-    $('#leapCardWholeCon').hide();
-    //$('#leapCardConBox').show();
+// $('.myaccount').on('click', function(e) {
+//     e.preventDefault();
+//     $('#weatherBox').hide();
+//     $('#leapCardBox').show();
+//     $('#journeyPlanningBox').hide();
+//     $('#leapCardWholeCon').hide();
+//     //$('#leapCardConBox').show();
     
-    let loginLeapForm = document.querySelector('.leapCard-login-form');
-    loginLeapForm.classList.toggle('active');
+//     let loginLeapForm = document.querySelector('.leapCard-login-form');
+//     loginLeapForm.classList.toggle('active');
 
-});
-$('[class^="leapCard-btn"]').on('click', function(e){  
-    e.preventDefault();
-     
-     $('#leapCardWholeCon').show();
-     $('#leapCardLog').hide();
-});
+// });
 
 $('[class^="signup"]').on('click', function(e){  
     e.preventDefault();
