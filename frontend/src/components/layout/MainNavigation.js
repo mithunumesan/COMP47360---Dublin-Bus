@@ -1,7 +1,36 @@
 import { Link } from 'react-router-dom';
+import {useState} from 'react';
+import WeatherCard from './WeatherCard';
+import LoginForm from './LoginForm';
 
 function MainNavigation() {
-    return <header className="header">
+    const [loginFromIsOpen, setLoginFormOpen] = useState(false);
+    const [weatherCardIsOpen, setWeatherCard] = useState(false);
+
+    function openLoginForm() {
+        if(loginFromIsOpen===false || weatherCardIsOpen===true){
+            setLoginFormOpen(true);
+            setWeatherCard(false);
+        } else {
+            setLoginFormOpen(false);
+        }
+    }
+
+    function openWeatherCard() {
+        if(weatherCardIsOpen===false || loginFromIsOpen===true){
+            setWeatherCard(true);
+            setLoginFormOpen(false);
+        } else {
+            setWeatherCard(false);
+        }
+    }
+
+    window.onscroll= () => {
+        setLoginFormOpen(false);
+        setWeatherCard(false);
+    }
+
+    return (<header className="header">
         <div class="logo"> <i class="fas fa-bus"></i> Dublin Bus </div>
 
         <nav className="navbar">
@@ -11,30 +40,17 @@ function MainNavigation() {
         </nav>
 
         <div className="icons">
-            <div id="menu-btn" className="fas fa-bars"></div>
-            <div id="login-btn" className="fas fa-users" onClick = {() => {
-                let navbar = document.querySelector('.navbar');
-                let loginForm = document.querySelector('.login-form');
-                    loginForm.classList.toggle('active');
-                    navbar.classList.remove('active');
-                }}>
+            <div id="menu-btn" className="fas fa-cloud-sun" onClick={openWeatherCard}></div>
+            <div id="login-btn" className="fas fa-users" onClick = {openLoginForm}>
+            <div id="weather-btn" className=""></div>
+            
             
         </div>
         </div>
-
-        <form action="" className="login-form">
-            <h3>log In</h3>
-            <input type="email" placeholder="enter your email" className="box"></input>
-            <input type="password" placeholder="enter your password" className="box"></input>
-            <div className="remember">
-                <input type="checkbox" name="" id="remember-me"></input>
-                <label for="remember-me">remember me</label>
-            </div>
-            <input type="submit" value="login now" className="btn"></input>
-            <p>don't have an account? <button>Sign Up</button></p>
-        </form>
-
-    </header>;
+        {loginFromIsOpen ? <LoginForm /> : null}
+        {weatherCardIsOpen ? <div className='weather-card'><WeatherCard /></div> : null}
+    </header>
+    );
 }
 
 export default MainNavigation;

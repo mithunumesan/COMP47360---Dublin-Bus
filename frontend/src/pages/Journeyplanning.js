@@ -14,8 +14,19 @@ const containerStyle = {
     lat: 53.3463,
     lng: -6.2631
   };
+
+  const defaultBounds = {
+    north: center.lat + 0.1,
+    south: center.lat - 0.1,
+    east: center.lng + 0.1,
+    west: center.lng - 0.1,
+  };
+
+  
     
 function JourneyPlanning() {
+
+    //react google map api using is refereneced from https://www.youtube.com/watch?v=iP3DnhCUIsE&list=RDCMUCr0y1P0-zH2o3cFJyBSfAKg&start_radio=1&rv=iP3DnhCUIsE&t=1614
     const [directionsResponse, setDirectionsResponse] = useState(null)
    
     /**@type React.MutableRefObject<HTMLInputElement> */
@@ -54,16 +65,25 @@ function JourneyPlanning() {
     }
    }
 
-    return  (<><div className='weather-card'><WeatherCard /></div>
-    <div className="flex-container">
+    return  (<><div className="flex-container">
         <div className="box1">
             <h1>Journey Planner</h1>
             <div className="journey-form">
-                <Autocomplete>
-                <input type="search" placeholder="Start Point" className="box" ref={startRef}></input>
+                <Autocomplete options={{
+                    bounds: defaultBounds,
+                    componentRestrictions: { country: ["IE"] },
+                    fields: ["place_id", "geometry", "name"],
+                    strictBounds: true,
+                }}>
+                    <input type="search" placeholder="Start Point" className="box" ref={startRef}></input>
                 </Autocomplete>
-                <Autocomplete>
-                <input type="search" placeholder="Destination" className="box" ref={destinationRef}></input>
+                <Autocomplete options={{
+                    bounds: defaultBounds,
+                    componentRestrictions: { country: ["IE"] },
+                    fields: ["place_id", "geometry", "name"],
+                    strictBounds: true,
+                }}>
+                    <input type="search" placeholder="Destination" className="box" ref={destinationRef}></input>
                 </Autocomplete>
                 <label for="time">Choose a time to start the journey: </label>
                 <select id="option" onChange={() => {
@@ -81,7 +101,7 @@ function JourneyPlanning() {
                 </select>
 
                 <div id="time"></div>
-                <button type="submit"  className="btn" onClick={caculateRoute}>Search</button>
+                <button type="submit" className="btn" onClick={caculateRoute}>Search</button>
             </div>
             <div id="result"></div>
         </div>
@@ -92,13 +112,19 @@ function JourneyPlanning() {
                     center={center}
                     zoom={13}
                     onLoad={map => setMap(map)}
-                    >
-                    { /* Child components, such as markers, info windows, etc. */ }
+                    options={{
+                        bounds: defaultBounds,
+                        componentRestrictions: { country: ["IE"] },
+                        fields: ["place_id", "geometry", "name"],
+                        strictBounds: true,
+                    }}
+                >
+                    {/* Child components, such as markers, info windows, etc. */}
                     {/* <Marker position={center} /> */}
                     {directionsResponse && (<DirectionsRenderer directions={directionsResponse} />)}
-                 </GoogleMap>
+                </GoogleMap>
             </div>
         </div>
-        
+
     </div></>);}
 export default JourneyPlanning;

@@ -1,6 +1,4 @@
-// import { React } from 'react'
 import { GoogleMap,Marker} from '@react-google-maps/api';
-import { useState } from 'react';
 
 const containerStyle = {
   width: '100%',
@@ -30,6 +28,5 @@ return (
       </GoogleMap>
   )
 }
-
 
 export default MyMap;

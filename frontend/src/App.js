@@ -2,7 +2,7 @@ import { Route, Routes }  from 'react-router-dom';
 import JourneyPlanning from './pages/Journeyplanning';
 import LeapCard from './pages/Leapcard';
 import LeapCardLogIn from './pages/Leapcardlogin';
-import Weather from './pages/Weather';
+import WeatherCard from './components/layout/WeatherCard';
 import MainNavigation from './components/layout/MainNavigation';
 
 
@@ -19,7 +19,7 @@ function App() {
                 </Route>
                 <Route path='/leapcard' element={<LeapCard />}>
                 </Route>
-                <Route path='/weather' element={<Weather />}>
+                <Route path='/weather' element={<WeatherCard props={true} />}>
                 </Route>
             </Routes>
         </switch>

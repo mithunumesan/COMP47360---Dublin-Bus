@@ -273,7 +273,7 @@
   .header .login-form {
     position: absolute;
     top: 115%;
-    right: -100%;
+    right: 1%;
     background: white;
     border-radius: .5rem;
     -webkit-box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.1);
@@ -282,11 +282,11 @@
     padding: 2rem;
   }
   
-  .header .login-form.active {
+  /* .header .login-form.active {
     right: 1%;
     -webkit-transition: .4s linear;
     transition: .4s linear;
-  }
+  } */
   
   .header .login-form h3 {
     color: black;
@@ -452,5 +452,12 @@
     font-size: 120%;
     border: 0.2rem solid rgba(0, 0, 0, 0.1);
     min-width: 80px;
+  }
+
+  .weather-card {
+    height: 150px;
+    position: absolute;
+    top: 115%;
+    right: 1%;
   }
   /*# sourceMappingURL=index.css.map */
