@@ -24,12 +24,33 @@ function JourneyPlanning() {
     //react google map api using is refereneced from https://www.youtube.com/watch?v=iP3DnhCUIsE&list=RDCMUCr0y1P0-zH2o3cFJyBSfAKg&start_radio=1&rv=iP3DnhCUIsE&t=1614
     const [directionsResponse, setDirectionsResponse] = useState({})
     //save markers
-    const [markers,setMarkers]=useState({});
+    const [markers,setMarkers]=useState({})
    
     /**@type React.MutableRefObject<HTMLInputElement> */
     const startRef = useRef()
     /**@type React.MutableRefObject<HTMLInputElement> */
     const destinationRef = useRef()
+
+    //save select option value
+    const [selected, setSelected] = useState();
+    //the event for time select 
+    const changeSelected = event => {
+        setSelected(event.target.value);
+        if (selected !== "now") {
+            setBooleanValue(true);
+        } else {
+            setBooleanValue(false);
+        }
+    }
+
+    const [booleanValue,setBooleanValue] = useState(false);
+    
+    const [dateTime, setDateTime] = useState(null);
+
+    const handleChange = event => {
+        setDateTime(event.target.value);
+    }
+
     const [map, setMap] = useState(/** @type google.maps.Map */ (null))
     const { isLoaded } = useJsApiLoader({
     googleMapsApiKey: "AIzaSyCdf-x6SluXsWzP9qpwxVGBY08pm_3TAQU",
@@ -45,6 +66,38 @@ function JourneyPlanning() {
         }
         // eslint-disable-next-line
         const directionsService = new google.maps.DirectionsService()
+        let departTime;
+        let arrivalTime;
+        if( selected ==='depart') {
+            departTime = new Date(dateTime);
+            // eslint-disable-next-line
+            const results = await directionsService.route({
+                origin: startRef.current.value,
+                destination: destinationRef.current.value,
+                // eslint-disable-next-line
+                travelMode: google.maps.TravelMode.TRANSIT,
+                provideRouteAlternatives: true,
+                transitOptions: {
+                departureTime: departTime,
+                },
+            })
+            setDirectionsResponse(results);
+        }else if( selected ==='arrive') {
+            arrivalTime = new Date(dateTime);
+            // eslint-disable-next-line
+            const results = await directionsService.route({
+            origin: startRef.current.value,
+            destination: destinationRef.current.value,
+            // eslint-disable-next-line
+            travelMode: google.maps.TravelMode.TRANSIT,
+            provideRouteAlternatives: true,
+            transitOptions: {
+            arrivalTime: arrivalTime,
+            // routingPreference:
+            },
+        })
+            setDirectionsResponse(results);
+        } else {
         // eslint-disable-next-line
         const results = await directionsService.route({
             origin: startRef.current.value,
@@ -53,12 +106,13 @@ function JourneyPlanning() {
             travelMode: google.maps.TravelMode.TRANSIT,
             provideRouteAlternatives: true,
         })
-        setDirectionsResponse(results);
+            setDirectionsResponse(results);
+        }
     }
 
     async function clearRoute() {
-            // eslint-disable-next-line
-            const geocoder = new google.maps.Geocoder();
+        // eslint-disable-next-line
+        const geocoder = new google.maps.Geocoder();
         if((destinationRef.current.value === '')&&(startRef.current.value === '')){
            markers.setMap(null);
            setMarkers({});
@@ -67,7 +121,6 @@ function JourneyPlanning() {
             // eslint-disable-next-line
             const marker = new google.maps.Marker({ map: map });
             const placeId = directionsResponse.geocoded_waypoints[1].place_id;
-            console.log(placeId);
             geocoder
             .geocode({ placeId: placeId})
             .then(({ results }) => {
@@ -83,9 +136,7 @@ function JourneyPlanning() {
         } else if(destinationRef.current.value === '') {
             // eslint-disable-next-line
             const marker = new google.maps.Marker({ map: map });
-            console.log("remove destination marker");
             const placeId = directionsResponse.geocoded_waypoints[0].place_id;
-            console.log(placeId)
             geocoder
             .geocode({ placeId: placeId})
             .then(({ results }) => {
@@ -123,21 +174,15 @@ function JourneyPlanning() {
                     <input type="search" placeholder="Destination" className="box" ref={destinationRef} onChange={clearRoute}></input>
                 </Autocomplete>
                 <label for="time">Choose a time to start the journey: </label>
-                <select id="option" onChange={() => {
-                    var option = document.getElementById("option").value;
-                    if (option !== "now") {
-                        document.getElementById("time").innerHTML = '<input type="date" name="" class="date">' + '<input type="time" name="" class="time">';
-                    } else {
-                        document.getElementById("time").innerHTML = "";
-                    }
-                } }>
+                <select id="option" value={selected} onChange={changeSelected}>
                     <option value="now">Leave Now</option>
                     <option value="depart">Depart At</option>
                     <option value="arrive">Arrive By</option>
                     <option value="lastAvaliable">Last Avaliable</option>
                 </select>
-
-                <div id="time"></div>
+                {/* add the html input datetime element or not */}
+                {booleanValue ? <div id="time"><input type="datetime-local" id="datetime" onChange={handleChange} value={dateTime}></input></div> : null}
+                
                 <button type="submit" className="btn" onClick={caculateRoute}>Search</button>
             </div>
             <div id="panel"></div>
@@ -149,12 +194,6 @@ function JourneyPlanning() {
                     center={center}
                     zoom={13}
                     onLoad={map => setMap(map)}
-                    // options={{
-                    //     bounds: defaultBounds,
-                    //     componentRestrictions: { country: ["IE"] },
-                    //     fields: ["place_id", "geometry", "name"],
-                    //     strictBounds: true,
-                    // }}
                 >
                     {/* Child components, such as markers, info windows, etc. */}
                     {/* <Marker position={center} /> */}

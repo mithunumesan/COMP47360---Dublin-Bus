@@ -42,9 +42,7 @@ function MainNavigation() {
         <div className="icons">
             <div id="menu-btn" className="fas fa-cloud-sun" onClick={openWeatherCard}></div>
             <div id="login-btn" className="fas fa-users" onClick = {openLoginForm}>
-            <div id="weather-btn" className=""></div>
-            
-            
+            <div id="weather-btn" className=""></div>     
         </div>
         </div>
         {loginFromIsOpen ? <LoginForm /> : null}
