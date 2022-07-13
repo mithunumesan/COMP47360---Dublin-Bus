@@ -48,7 +48,7 @@ function MainNavigation() {
         </div>
         </div>
         {loginFromIsOpen ? <LoginForm /> : null}
-        {weatherCardIsOpen ? <div className='weather-card'><WeatherCard /></div> : null}
+        {weatherCardIsOpen ? <div className='weather-card'><WeatherCard boolean={false} /></div> : null}
     </header>
     );
 }

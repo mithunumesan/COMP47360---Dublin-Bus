@@ -1,9 +1,5 @@
-import WeatherCard from '../components/layout/WeatherCard';
-
 import { useJsApiLoader, Autocomplete,DirectionsRenderer,GoogleMap,Marker } from '@react-google-maps/api';
 import { useState,useRef } from 'react';
-
-
 
 const containerStyle = {
     width: '100%',
@@ -22,12 +18,11 @@ const containerStyle = {
     west: center.lng - 0.1,
   };
 
-  
-    
+
 function JourneyPlanning() {
 
     //react google map api using is refereneced from https://www.youtube.com/watch?v=iP3DnhCUIsE&list=RDCMUCr0y1P0-zH2o3cFJyBSfAKg&start_radio=1&rv=iP3DnhCUIsE&t=1614
-    const [directionsResponse, setDirectionsResponse] = useState(null)
+    const [directionsResponse, setDirectionsResponse] = useState({})
    
     /**@type React.MutableRefObject<HTMLInputElement> */
     const startRef = useRef()
@@ -53,17 +48,38 @@ function JourneyPlanning() {
             origin: startRef.current.value,
             destination: destinationRef.current.value,
             // eslint-disable-next-line
-            travelMode: google.maps.TravelMode.TRANSIT
+            travelMode: google.maps.TravelMode.TRANSIT,
+            provideRouteAlternatives: true,
+            
+        
         })
         setDirectionsResponse(results)
-        console.log(results)
+        // console.log(directionsResponse)
+
+        const location = directionsResponse.geocoded_waypoints[0].place_id;
+        console.log(location)
     }
 
-   function clearRoute() {
-    if(startRef.current.value === '' || destinationRef.current.value === '') {
-        setDirectionsResponse(null);
+    function clearRoute() {
+        // const marker = new google.maps.Marker({ map: map });
+        // const geocoder = new google.maps.Geocoder();
+        if(startRef.current.value === '') {
+            // const location = directionsResponse.geocoded_waypoints[0].place_id;
+            // console.log(location)
+            //[0].place_id.geometry.location
+            // <GoogleMap>
+            //     <Marker position={location} />
+            // </ GoogleMap>
+            setDirectionsResponse(null);
+            // const location = results.geocoded_waypoints[0].place_id.geometry.location;
+            // <GoogleMap>
+            //     <Marker position={location} />
+            // </ GoogleMap>
+        } else if(destinationRef.current.value === '') {
+            setDirectionsResponse(null);
+        }
+        document.getElementById('panel').innerHTML="";
     }
-   }
 
     return  (<><div className="flex-container">
         <div className="box1">
@@ -75,7 +91,7 @@ function JourneyPlanning() {
                     fields: ["place_id", "geometry", "name"],
                     strictBounds: true,
                 }}>
-                    <input type="search" placeholder="Start Point" className="box" ref={startRef}></input>
+                    <input type="search" placeholder="Start Point" className="box" ref={startRef} onChange= {clearRoute}></input>
                 </Autocomplete>
                 <Autocomplete options={{
                     bounds: defaultBounds,
@@ -83,7 +99,7 @@ function JourneyPlanning() {
                     fields: ["place_id", "geometry", "name"],
                     strictBounds: true,
                 }}>
-                    <input type="search" placeholder="Destination" className="box" ref={destinationRef}></input>
+                    <input type="search" placeholder="Destination" className="box" ref={destinationRef} onChange={clearRoute}></input>
                 </Autocomplete>
                 <label for="time">Choose a time to start the journey: </label>
                 <select id="option" onChange={() => {
@@ -103,7 +119,7 @@ function JourneyPlanning() {
                 <div id="time"></div>
                 <button type="submit" className="btn" onClick={caculateRoute}>Search</button>
             </div>
-            <div id="result"></div>
+            <div id="panel"></div>
         </div>
         <div className="box2">
             <div id="map">
@@ -121,7 +137,7 @@ function JourneyPlanning() {
                 >
                     {/* Child components, such as markers, info windows, etc. */}
                     {/* <Marker position={center} /> */}
-                    {directionsResponse && (<DirectionsRenderer directions={directionsResponse} />)}
+                    {directionsResponse && (<DirectionsRenderer directions={directionsResponse} panel={ document.getElementById('panel') } routeIndex={0}/>)}
                 </GoogleMap>
             </div>
         </div>

@@ -406,8 +406,10 @@
     padding: 2rem;
   }
   
-  .flex-container .box1 #result {
-    height: 200px;
+  .flex-container .box1 #panel {
+    height: 30rem;
+    overflow: scroll;
+    margin-top:2rem;
   }
   
   .flex-container .box1 h1 {
@@ -460,4 +462,6 @@
     top: 115%;
     right: 1%;
   }
+
+  
   /*# sourceMappingURL=index.css.map */
