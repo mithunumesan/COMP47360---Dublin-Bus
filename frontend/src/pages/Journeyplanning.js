@@ -23,6 +23,8 @@ function JourneyPlanning() {
 
     //react google map api using is refereneced from https://www.youtube.com/watch?v=iP3DnhCUIsE&list=RDCMUCr0y1P0-zH2o3cFJyBSfAKg&start_radio=1&rv=iP3DnhCUIsE&t=1614
     const [directionsResponse, setDirectionsResponse] = useState({})
+    //save markers
+    const [markers,setMarkers]=useState({});
    
     /**@type React.MutableRefObject<HTMLInputElement> */
     const startRef = useRef()
@@ -50,34 +52,53 @@ function JourneyPlanning() {
             // eslint-disable-next-line
             travelMode: google.maps.TravelMode.TRANSIT,
             provideRouteAlternatives: true,
-            
-        
         })
-        setDirectionsResponse(results)
-        // console.log(directionsResponse)
-
-        const location = directionsResponse.geocoded_waypoints[0].place_id;
-        console.log(location)
+        setDirectionsResponse(results);
     }
 
-    function clearRoute() {
-        // const marker = new google.maps.Marker({ map: map });
-        // const geocoder = new google.maps.Geocoder();
-        if(startRef.current.value === '') {
-            // const location = directionsResponse.geocoded_waypoints[0].place_id;
-            // console.log(location)
-            //[0].place_id.geometry.location
-            // <GoogleMap>
-            //     <Marker position={location} />
-            // </ GoogleMap>
-            setDirectionsResponse(null);
-            // const location = results.geocoded_waypoints[0].place_id.geometry.location;
-            // <GoogleMap>
-            //     <Marker position={location} />
-            // </ GoogleMap>
-        } else if(destinationRef.current.value === '') {
-            setDirectionsResponse(null);
+    async function clearRoute() {
+            // eslint-disable-next-line
+            const geocoder = new google.maps.Geocoder();
+        if((destinationRef.current.value === '')&&(startRef.current.value === '')){
+           markers.setMap(null);
+           setMarkers({});
         }
+        else if(startRef.current.value === '') {
+            // eslint-disable-next-line
+            const marker = new google.maps.Marker({ map: map });
+            const placeId = directionsResponse.geocoded_waypoints[1].place_id;
+            console.log(placeId);
+            geocoder
+            .geocode({ placeId: placeId})
+            .then(({ results }) => {
+                // Set the position of the marker using the place ID and location.
+                // @ts-ignore TODO This should be in @typings/googlemaps.
+                marker.setPlace({
+                  placeId: placeId,
+                  location: results[0].geometry.location,
+                });
+                setMarkers(marker);
+            });
+            setDirectionsResponse(null);
+        } else if(destinationRef.current.value === '') {
+            // eslint-disable-next-line
+            const marker = new google.maps.Marker({ map: map });
+            console.log("remove destination marker");
+            const placeId = directionsResponse.geocoded_waypoints[0].place_id;
+            console.log(placeId)
+            geocoder
+            .geocode({ placeId: placeId})
+            .then(({ results }) => {
+                // Set the position of the marker using the place ID and location.
+                // @ts-ignore TODO This should be in @typings/googlemaps.
+                marker.setPlace({
+                  placeId: placeId,
+                  location: results[0].geometry.location,
+                });
+                setMarkers(marker);
+            });
+            setDirectionsResponse(null);
+        } 
         document.getElementById('panel').innerHTML="";
     }
 
@@ -128,12 +149,12 @@ function JourneyPlanning() {
                     center={center}
                     zoom={13}
                     onLoad={map => setMap(map)}
-                    options={{
-                        bounds: defaultBounds,
-                        componentRestrictions: { country: ["IE"] },
-                        fields: ["place_id", "geometry", "name"],
-                        strictBounds: true,
-                    }}
+                    // options={{
+                    //     bounds: defaultBounds,
+                    //     componentRestrictions: { country: ["IE"] },
+                    //     fields: ["place_id", "geometry", "name"],
+                    //     strictBounds: true,
+                    // }}
                 >
                     {/* Child components, such as markers, info windows, etc. */}
                     {/* <Marker position={center} /> */}
