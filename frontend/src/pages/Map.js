@@ -24,8 +24,8 @@ const containerStyle = {
 // )
 
 const center = {
-  lat: 53.3463,
-  lng: -16.2631
+  lat: 43.3463,
+  lng: -6.2631
 };
 function MyMap() {
 // const { isLoaded } = useJsApiLoader({

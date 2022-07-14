@@ -1,8 +1,8 @@
 import WeatherCard from '../components/layout/WeatherCard';
 
 import { useJsApiLoader, Autocomplete,DirectionsRenderer,GoogleMap,Marker } from '@react-google-maps/api';
-import { useState,useRef } from 'react';
-
+import { useState,useRef,useEffect } from 'react';
+import { getmarkers} from '../components/markers';
 
 
 const containerStyle = {
@@ -10,12 +10,31 @@ const containerStyle = {
     height: '100%'
   };
   
-  const center = {
+
+const center = {
     lat: 53.3463,
     lng: -6.2631
   };
     
+
 function JourneyPlanning() {
+    
+    
+    const [markers,setmarkers]=useState([]);
+
+
+
+    useEffect(() => {
+        let mounted = true;
+        getmarkers()
+          .then(markers => {
+            if(mounted) {
+              setmarkers(markers)
+            }
+          })
+        return () => mounted = false;
+      }, [])
+
     const [directionsResponse, setDirectionsResponse] = useState(null)
    
     /**@type React.MutableRefObject<HTMLInputElement> */
@@ -54,7 +73,8 @@ function JourneyPlanning() {
     }
    }
 
-    return  (<><div className='weather-card'><WeatherCard /></div>
+    return  (
+    <><div className='weather-card'><WeatherCard /></div>
     <div className="flex-container">
         <div className="box1">
             <h1>Journey Planner</h1>
@@ -69,6 +89,7 @@ function JourneyPlanning() {
                 <select id="option" onChange={() => {
                     var option = document.getElementById("option").value;
                     if (option !== "now") {
+                        
                         document.getElementById("time").innerHTML = '<input type="date" name="" class="date">' + '<input type="time" name="" class="time">';
                     } else {
                         document.getElementById("time").innerHTML = "";
@@ -87,6 +108,7 @@ function JourneyPlanning() {
         </div>
         <div className="box2">
             <div id="map">
+            
                 <GoogleMap
                     mapContainerStyle={containerStyle}
                     center={center}
@@ -94,7 +116,15 @@ function JourneyPlanning() {
                     onLoad={map => setMap(map)}
                     >
                     { /* Child components, such as markers, info windows, etc. */ }
-                    {/* <Marker position={center} /> */}
+                   
+                    {
+                    markers.map((marker, index) => (
+                     <Marker
+                    key={index}
+                    name={marker.name}
+                    position={{ lat:marker.latitude, lng:marker.longitude  }}
+                     />
+                     ))}
                     {directionsResponse && (<DirectionsRenderer directions={directionsResponse} />)}
                  </GoogleMap>
             </div>
