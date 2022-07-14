@@ -1,14 +1,28 @@
 import ReactWeather, { useOpenWeather } from 'react-open-weather';
 
+const customStyles = {
+	fontFamily:  'Helvetica, sans-serif',
+	gradientStart:  '#0181C2',
+	gradientMid:  '#04A7F9',
+	gradientEnd:  '#4BC4F7',
+	locationFontColor:  '#FFF',
+	todayTempFontColor:  '#FFF',
+	todayDateFontColor:  '#B5DEF4',
+	todayRangeFontColor:  '#B5DEF4',
+	todayDescFontColor:  '#B5DEF4',
+	todayInfoFontColor:  '#B5DEF4',
+	todayIconColor:  '#FFF',
 
-const WeatherCard = () => {
+};
+
+function WeatherCard(props) {
   const { data,isLoading, errorMessage } = useOpenWeather({
     key: 'f775d12211646f76b3f266a5076c78a9',
     lat: '53.344',
     lon: '-6.2672',
     lang: 'en',
     unit: 'metric', // values are (metric, standard, imperial)
-  })
+  });
   
 {return (
     <ReactWeather
@@ -18,7 +32,8 @@ const WeatherCard = () => {
       lang="en"
       locationLabel="Dublin"
       unitsLabels={{ temperature: 'C', windSpeed: 'Km/h' }}
-      showForecast={false}
+      showForecast={props.boolean}
+      theme = {customStyles}
     />);
 }
 }
