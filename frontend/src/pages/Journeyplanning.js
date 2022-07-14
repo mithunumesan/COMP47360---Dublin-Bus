@@ -14,6 +14,7 @@ const center = {
     lng: -6.2631
   };
     
+  const icon = { url: require('./bus.png') ,scaledSize:{ width: 20, height: 20}};
 
 function JourneyPlanning() {
     
@@ -228,6 +229,7 @@ function JourneyPlanning() {
                     key={index}
                     name={marker.name}
                     position={{ lat:marker.latitude, lng:marker.longitude  }}
+                    icon={icon}
                      />
                      ))}
                     {directionsResponse && (<DirectionsRenderer directions={directionsResponse} panel={ document.getElementById('panel') } routeIndex={0}/>)}

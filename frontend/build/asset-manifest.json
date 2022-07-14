@@ -1,15 +1,15 @@
 {
   "files": {
     "main.css": "/static/css/main.1820f4cd.css",
-    "main.js": "/static/js/main.3810c661.js",
+    "main.js": "/static/js/main.d4fa32c4.js",
     "static/media/cardLabel.jpeg": "/static/media/cardLabel.fdef6f065bbc221f113c.jpeg",
     "static/media/leapCard.png": "/static/media/leapCard.954b1d969a8c7c82a751.png",
     "index.html": "/index.html",
     "main.1820f4cd.css.map": "/static/css/main.1820f4cd.css.map",
-    "main.3810c661.js.map": "/static/js/main.3810c661.js.map"
+    "main.d4fa32c4.js.map": "/static/js/main.d4fa32c4.js.map"
   },
   "entrypoints": [
     "static/css/main.1820f4cd.css",
-    "static/js/main.3810c661.js"
+    "static/js/main.d4fa32c4.js"
   ]
 }
