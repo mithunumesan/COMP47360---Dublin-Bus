@@ -133,7 +133,7 @@ function JourneyPlanning() {
         // eslint-disable-next-line
         const geocoder = new google.maps.Geocoder();
         if((destinationRef.current.value === '')&&(startRef.current.value === '')){
-           markers.setMap(null);
+           markerSave.setMap(null);
            setMarkerSave({});
         }
         else if(startRef.current.value === '') {

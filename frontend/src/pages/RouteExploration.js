@@ -22,6 +22,8 @@ function searchLine() {
 
 }
 
+// reference from react autocomplete search from api https://www.youtube.com/watch?v=Q2aky3eeO40
+
 function RouteExploration() {
 
     const[text,setText] =useState('')
@@ -81,7 +83,7 @@ function RouteExploration() {
                     <input type="search" placeholder="Search for a line" className="box" value={text} onChange= {e => onChangeHandler(e.target.value)}></input>
                 <div className='search-results'>
                 {suggestions && suggestions.map((suggestion,i) =>
-                    <div key={i} className="search-result" onClick={()=>onSuggestHandler(suggestion.routeshortname)}>{suggestion.routeshortname} &nbsp;&nbsp; {suggestion.routelongname}</div>
+                    <div key={i} className="search-result" onClick={()=>onSuggestHandler(suggestion.routeshortname)}><i class="fas fa-bus"></i>&nbsp;&nbsp;{suggestion.routeshortname} &nbsp;&nbsp; {suggestion.routelongname}</div>
                 )}
                 </div>
             </div>
