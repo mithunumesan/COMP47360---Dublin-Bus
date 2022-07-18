@@ -6,6 +6,7 @@ from Dublinbusapp import views
 
 router = routers.DefaultRouter()
 router.register(r'Stops', views.StopsView, 'Stops')
+router.register(r'Routes', views.RoutesView, 'Routes')
 
 urlpatterns = [
     #path('home/', views.test)

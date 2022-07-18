@@ -1,5 +1,6 @@
 import { useJsApiLoader, Autocomplete,DirectionsRenderer,GoogleMap,Marker } from '@react-google-maps/api';
 import { useState,useRef,useEffect } from 'react';
+import { Link } from 'react-router-dom';
 import { getmarkers} from '../components/markers';
 
 
@@ -16,11 +17,8 @@ const center = {
     
 
 function JourneyPlanning() {
-    
-    
+  
     const [markers,setmarkers]=useState([]);
-
-
 
     useEffect(() => {
         let mounted = true;
@@ -41,9 +39,6 @@ function JourneyPlanning() {
     east: center.lng + 0.1,
     west: center.lng - 0.1,
   };
-
-
-
 
     //react google map api using is refereneced from https://www.youtube.com/watch?v=iP3DnhCUIsE&list=RDCMUCr0y1P0-zH2o3cFJyBSfAKg&start_radio=1&rv=iP3DnhCUIsE&t=1614
     const [directionsResponse, setDirectionsResponse] = useState({})
@@ -179,7 +174,14 @@ function JourneyPlanning() {
 
     return  (<><div className="flex-container">
         <div className="box1">
-            <h1>Journey Planner</h1>
+        <div className="container">
+            <div className="link3">
+            <Link to="/" ><h1 style={{color: '#666'}}>Journey Planner</h1></Link>
+            </div>
+            <div className="link4">
+            <Link to='/routesexploration'><h1 style={{color: '#666'}}>Route Exploration</h1></Link>
+            </div>
+            </div>
             <div className="journey-form">
                 <Autocomplete options={{
                     bounds: defaultBounds,
