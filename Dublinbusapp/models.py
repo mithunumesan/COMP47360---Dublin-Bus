@@ -49,8 +49,8 @@ class Trips(models.Model):
         db_table = 'trips'
 
 class Routes(models.Model):
-    routeid = models.CharField(db_column='routeId', max_length=50, blank=True, primary_key = True)  # Field name made lowercase.
-    agencyid = models.IntegerField(db_column='agencyId', blank=True, null=True)  # Field name made lowercase.
+    routeid = models.CharField(db_column='routeId', max_length=50, blank=True,primary_key = True)  # Field name made lowercase.
+    agencyid = models.CharField(db_column='agencyId', max_length=50, blank=True, null=True)  # Field name made lowercase.
     routeshortname = models.CharField(db_column='routeShortName', max_length=50, blank=True, null=True)  # Field name made lowercase.
     routelongname = models.CharField(db_column='routeLongName', max_length=50, blank=True, null=True)  # Field name made lowercase.
     routetype = models.IntegerField(db_column='routeType', blank=True, null=True)  # Field name made lowercase.
