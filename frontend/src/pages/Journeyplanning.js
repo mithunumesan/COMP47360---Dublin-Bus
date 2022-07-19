@@ -178,6 +178,10 @@ function JourneyPlanning() {
         document.getElementById('panel').innerHTML="";
     }
 
+    function handleMarkerClick(){
+        console.log('Click')
+      }
+
     return  (<><div className="flex-container">
         <div className="box1">
             <h1>Journey Planner</h1>
@@ -230,6 +234,7 @@ function JourneyPlanning() {
                     name={marker.name}
                     position={{ lat:marker.latitude, lng:marker.longitude  }}
                     icon={icon}
+                    onClick={handleMarkerClick}
                      />
                      ))}
                     {directionsResponse && (<DirectionsRenderer directions={directionsResponse} panel={ document.getElementById('panel') } routeIndex={0}/>)}

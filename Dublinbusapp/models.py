@@ -9,8 +9,20 @@ class Dublinbusapp(models.Model):
    def _str_(self):
      return self.title
 
+class Routes(models.Model):
+    routeid = models.CharField(db_column='routeId', primary_key=True, max_length=50)  # Field name made lowercase.
+    agencyid = models.CharField(db_column='agencyId', max_length=50, blank=True, null=True)  # Field name made lowercase.
+    routeshortname = models.CharField(db_column='routeShortName', max_length=50, blank=True, null=True)  # Field name made lowercase.
+    routelongname = models.CharField(db_column='routeLongName', max_length=200, blank=True, null=True)  # Field name made lowercase.
+    routetype = models.IntegerField(db_column='routeType', blank=True, null=True)  # Field name made lowercase.
+
+    class Meta:
+        managed = False
+        db_table = 'routes'
+
+
 class Stops(models.Model):
-    stopid = models.CharField(max_length=50,primary_key = True, blank=True)
+    stopid = models.CharField(max_length=100, primary_key=True)
     stopname = models.CharField(max_length=255, blank=True, null=True)
     latitude = models.FloatField(blank=True, null=True)
     longitude = models.FloatField(blank=True, null=True)
@@ -21,7 +33,7 @@ class Stops(models.Model):
 
 
 class Stoptimes(models.Model):
-    tripid = models.CharField(primary_key=True, max_length=45)
+    tripid = models.CharField(max_length=45, blank=True, null=True)
     arrivaltime = models.CharField(max_length=45, blank=True, null=True)
     departuretime = models.CharField(max_length=45, blank=True, null=True)
     stopid = models.CharField(max_length=45, blank=True, null=True)
@@ -37,24 +49,13 @@ class Stoptimes(models.Model):
 
 
 class Trips(models.Model):
-    routeid = models.CharField(db_column='routeId', max_length=50, blank=True, primary_key = True)  # Field name made lowercase.
-    serviceid = models.IntegerField(db_column='serviceId', blank=True, null=True)  # Field name made lowercase.
-    tripid = models.CharField(db_column='tripId', max_length=50, blank=True, null=True)  # Field name made lowercase.
-    shapeid = models.CharField(db_column='shapeId', max_length=50, blank=True, null=True)  # Field name made lowercase.
-    tripheadsign = models.CharField(db_column='tripHeadsign', max_length=50, blank=True, null=True)  # Field name made lowercase.
-    directionid = models.IntegerField(db_column='directionId', blank=True, null=True)  # Field name made lowercase.
+    routeid = models.CharField(db_column='routeId', max_length=100, blank=True, null=True)  # Field name made lowercase.
+    serviceid = models.CharField(db_column='serviceId', max_length=100, blank=True, null=True)  # Field name made lowercase.
+    tripid = models.CharField(db_column='tripId', max_length=100, blank=True, null=True)  # Field name made lowercase.
+    shapeid = models.CharField(db_column='shapeId', max_length=100, blank=True, null=True)  # Field name made lowercase.
+    tripheadsign = models.CharField(db_column='tripHeadsign', max_length=100, blank=True, null=True)  # Field name made lowercase.
+    directionid = models.CharField(db_column='directionId', max_length=100, blank=True, null=True)  # Field name made lowercase.
 
     class Meta:
         managed = False
         db_table = 'trips'
-
-class Routes(models.Model):
-    routeid = models.CharField(db_column='routeId', max_length=50, blank=True, primary_key = True)  # Field name made lowercase.
-    agencyid = models.IntegerField(db_column='agencyId', blank=True, null=True)  # Field name made lowercase.
-    routeshortname = models.CharField(db_column='routeShortName', max_length=50, blank=True, null=True)  # Field name made lowercase.
-    routelongname = models.CharField(db_column='routeLongName', max_length=50, blank=True, null=True)  # Field name made lowercase.
-    routetype = models.IntegerField(db_column='routeType', blank=True, null=True)  # Field name made lowercase.
-
-    class Meta:
-        managed = False
-        db_table = 'routes'
