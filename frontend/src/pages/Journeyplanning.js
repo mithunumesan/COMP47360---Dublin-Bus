@@ -1,4 +1,4 @@
-import { useJsApiLoader, Autocomplete,DirectionsRenderer,GoogleMap,Marker } from '@react-google-maps/api';
+import { useJsApiLoader, Autocomplete,DirectionsRenderer,GoogleMap,Marker ,InfoWindow} from '@react-google-maps/api';
 import { useState,useRef,useEffect } from 'react';
 import { getmarkers} from '../components/markers';
 
@@ -20,6 +20,7 @@ function JourneyPlanning() {
     
     
     const [markers,setmarkers]=useState([]);
+    const [infowindows,setinfowindows]=useState(null);
 
 
 
@@ -234,9 +235,29 @@ function JourneyPlanning() {
                     name={marker.name}
                     position={{ lat:marker.latitude, lng:marker.longitude  }}
                     icon={icon}
-                    onClick={handleMarkerClick}
+                    onClick={() => {
+                        setinfowindows(marker);
+                      }}
                      />
+
+                     
                      ))}
+      {infowindows && (
+        <InfoWindow
+          onCloseClick={() => {
+            setinfowindows(null);
+          }}
+          position={{
+            lat: infowindows.latitude,
+            lng: infowindows.longitude
+          }}
+        >
+          <div>
+            <h2>{infowindows.stopname}</h2>
+          </div>
+        </InfoWindow>
+      )}
+
                     {directionsResponse && (<DirectionsRenderer directions={directionsResponse} panel={ document.getElementById('panel') } routeIndex={0}/>)}
                 </GoogleMap>
             </div>
