@@ -2,6 +2,7 @@ import { useJsApiLoader, Autocomplete,DirectionsRenderer,GoogleMap,Marker } from
 import { useState,useRef,useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { getmarkers} from '../components/markers';
+import * as Icons from "react-icons/hi";
 
 
 const containerStyle = {
@@ -48,8 +49,13 @@ function JourneyPlanning() {
     /**@type React.MutableRefObject<HTMLInputElement> */
     const startRef = useRef()
     /**@type React.MutableRefObject<HTMLInputElement> */
-    const destinationRef = useRef()
+    const destinationRef = useRef();
 
+    //set sidebar toggle variable
+    const [sidebar,setSidebar] = useState(true);
+    console.log(sidebar);
+    const notShowSidebar = () => setSidebar(false);
+    const showSidebar = () => setSidebar(true);
     //save select option value
     const [selected, setSelected] = useState();
     //the event for time select 
@@ -172,15 +178,15 @@ function JourneyPlanning() {
         document.getElementById('panel').innerHTML="";
     }
 
-    return  (<><div className="flex-container">
-        <div className="box1">
-        <div className="container">
-            <div className="link3">
-            <Link to="/" ><h1 style={{color: '#666'}}>Journey Planner</h1></Link>
-            </div>
-            <div className="link4">
-            <Link to='/routesexploration'><h1 style={{color: '#666'}}>Route Exploration</h1></Link>
-            </div>
+    return  (<>
+        <div className={sidebar ? 'box1 active' : 'box1'}>
+            <div className="container">
+                <div className="link3">
+                    <Link to="/" ><h1 style={{color: '#666'}}>Journey Planner</h1></Link>
+                </div>
+                <div className="link4">
+                    <Link to='/routesexploration'><h1 style={{color: '#666'}}>Route Exploration</h1></Link>
+                </div>
             </div>
             <div className="journey-form">
                 <Autocomplete options={{
@@ -208,14 +214,15 @@ function JourneyPlanning() {
                 </select>
                 {/* add the html input datetime element or not */}
                 {booleanValue ? <div id="time"><input type="datetime-local" id="datetime" onChange={handleChange} value={dateTime}></input></div> : null}
-                
                 <button type="submit" className="btn" onClick={caculateRoute}>Search</button>
             </div>
             <div id="panel"></div>
         </div>
+        <div className={sidebar ? 'sidebar-toggle' : 'sidebar-toggle-off'}>
+            {sidebar ? <Icons.HiChevronDoubleLeft style={{fontSize:'22px'}} onClick={notShowSidebar} /> : <Icons.HiChevronDoubleRight style={{fontSize:'22px'}} onClick={showSidebar}/>}
+        </div>
+        
         <div className="box2">
-            <div id="map">
-            
                 <GoogleMap
                     mapContainerStyle={containerStyle}
                     center={center}
@@ -223,7 +230,6 @@ function JourneyPlanning() {
                     onLoad={map => setMap(map)}
                     >
                     { /* Child components, such as markers, info windows, etc. */ }
-                   
                     {
                     markers.map((marker, index) => (
                      <Marker
@@ -234,8 +240,6 @@ function JourneyPlanning() {
                      ))}
                     {directionsResponse && (<DirectionsRenderer directions={directionsResponse} panel={ document.getElementById('panel') } routeIndex={0}/>)}
                 </GoogleMap>
-            </div>
         </div>
-
-    </div></>);}
+   </>);}
 export default JourneyPlanning;

@@ -13,7 +13,7 @@
     "react-scripts": "^5.0.1",
     "web-vitals": "^2.1.4",
     "react-autocomplete": "1.8.1",
-    "@mui/material":"5.9.0"
+    "react-icons":"4.4.0"
   },
   "scripts": {
     "start": "react-scripts start",
