@@ -50,11 +50,28 @@ class Trips(models.Model):
 
 class Routes(models.Model):
     routeid = models.CharField(db_column='routeId', max_length=50, blank=True,primary_key = True)  # Field name made lowercase.
-    agencyid = models.CharField(db_column='agencyId', max_length=50, blank=True, null=True)  # Field name made lowercase.
     routeshortname = models.CharField(db_column='routeShortName', max_length=50, blank=True, null=True)  # Field name made lowercase.
     routelongname = models.CharField(db_column='routeLongName', max_length=50, blank=True, null=True)  # Field name made lowercase.
-    routetype = models.IntegerField(db_column='routeType', blank=True, null=True)  # Field name made lowercase.
+    shapeidlist = models.TextField(db_column='shapeIdList', max_length=1000, blank=True, null=True)  # Field name made lowercase.
 
     class Meta:
         managed = False
-        db_table = 'routes'
+        db_table = 'routeShape'
+
+class AllTrip(models.Model):
+    routeid = models.CharField(db_column='routeId', max_length=50,primary_key = True)  # Field name made lowercase.
+    shapeid = models.CharField(db_column='shapeId', max_length=50)  # Field name made lowercase.
+    tripheadsign = models.CharField(db_column='tripHeadsign',max_length=50)
+    routeshortname = models.CharField(db_column='routeShortName', max_length=50)  # Field name made lowercase.
+    routelongname = models.CharField(db_column='routeLongName', max_length=50)  # Field name made lowercase.
+    directionid = models.IntegerField(db_column='directionId')  # Field name made lowercase.
+    stopid = models.CharField(db_column='stopId', max_length=50)
+    stopsequence = models.IntegerField(db_column='stopsequence')
+    stopname = models.CharField(db_column='stopname', max_length=50)
+    latitude = models.FloatField(db_column='latitude',max_length=50)
+    longitude = models.FloatField(db_column='longitude',max_length=50)
+
+    class Meta:
+       
+        managed = False
+        db_table = 'allTrip'

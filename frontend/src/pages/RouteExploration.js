@@ -3,6 +3,7 @@ import { useJsApiLoader,GoogleMap,Marker } from '@react-google-maps/api';
 import { useRef,useState,useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { getRoutes } from "../components/routes";
+import { getTrips } from "../components/trips";
 import * as Icons from "react-icons/hi";
 
 
@@ -40,10 +41,16 @@ function RouteExploration() {
 
     const[suggestions, setSuggestions]= useState([])
 
+    let routeResult = []
+
+    const [markers,setmarkers]=useState([]);
+
+    // const [loop, = true;
+
     useEffect(() => {
         const loadUsers =async() => {
             const response = await getRoutes()
-            console.log(response)
+            console.log('finds',response)
             setFinds(response)
         }
         loadUsers();
@@ -61,11 +68,46 @@ function RouteExploration() {
         setSuggestions(matches)
         setText(text)
     }
-
+    
     const onSuggestHandler = (text)=> {
         setText(text);
         setSuggestions([])
+        //cause there is no break in forEach react js
+        for(var i=0;i<finds.length;i++) {
+            if(finds[i].routeshortname===text){
+                console.log('text',text)
+                routeResult = finds[i]
+                console.log('routeResult',routeResult)
+                break
+            }
+        }
+        let shapeList = routeResult.shapeidlist
+        shapeList = shapeList.split(',')
+        console.log(shapeList)
+        let shapeDdirection0 = []
+        let shapeDdirection1 = []
+        shapeList.forEach(shape => {
+            if(shape.endsWith('O')) {
+                shapeDdirection0.push(shape) 
+            } else if(shape.endsWith('I')) {
+                shapeDdirection1.push(shape)
+            }
+        });
+        console.log('direction0',shapeDdirection0)
+        console.log('direction1',shapeDdirection1)
+        let response
+        const load = async() => {
+            console.log(shapeDdirection0[0])
+            const para = shapeDdirection0[0]
+            let response = await getTrips(para)
+            console.log('trips',response)
+            setmarkers(response)
+        }
+        load();
+              
+          
     }
+
 
     const [map, setMap] = useState(/** @type google.maps.Map */ (null))
     const { isLoaded } = useJsApiLoader({
@@ -107,9 +149,16 @@ function RouteExploration() {
                     onLoad={map => setMap(map)}
                     >
                     { /* Child components, such as markers, info windows, etc. */ }
+                    {
+                    markers.map((marker, index) => (
+                     <Marker
+                    key={index}
+                    
+                    position={{ lat:marker.latitude, lng:marker.longitude  }}
+                     />
+                     ))}
                 </GoogleMap>
         </div>
-
     </>);}
 
 
