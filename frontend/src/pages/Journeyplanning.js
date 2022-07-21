@@ -23,6 +23,7 @@ function JourneyPlanning() {
     
     // const mapRef = useRef();
     const [markers,setmarkers]=useState([]);
+
     const [infowindows,setinfowindows]=useState(null);
     // const [zoom, setZoom] = useState(13);
     // const [bounds, setBounds] = useState(null);
@@ -89,8 +90,9 @@ function JourneyPlanning() {
 
     //set sidebar toggle variable
     const [sidebar,setSidebar] = useState(true);
-    console.log(sidebar);
+   
     const notShowSidebar = () => setSidebar(false);
+
     const showSidebar = () => setSidebar(true);
     //save select option value
     const [selected, setSelected] = useState();
@@ -263,7 +265,7 @@ function JourneyPlanning() {
                     mapContainerStyle={containerStyle}
                     center={center}
                     zoom={13}
-                    // onLoad={map => setMap(map)}
+                    onLoad={map => setMap(map)}
                     // yesIWantToUseGoogleMapApiInternals
                     // onGoogleApiLoaded={({ map }) => {
                     //   mapRef.current = map;
