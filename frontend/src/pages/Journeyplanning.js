@@ -1,6 +1,7 @@
-import { useJsApiLoader, Autocomplete,DirectionsRenderer,GoogleMap,Marker } from '@react-google-maps/api';
+import { useJsApiLoader, Autocomplete,DirectionsRenderer,GoogleMap,Marker ,InfoWindow} from '@react-google-maps/api';
 import { useState,useRef,useEffect } from 'react';
 import { getmarkers} from '../components/markers';
+// import useSupercluster from "use-supercluster";
 
 
 const containerStyle = {
@@ -14,12 +15,16 @@ const center = {
     lng: -6.2631
   };
     
+  const icon = { url: require('./bus.png') ,scaledSize:{ width: 20, height: 20}};
 
 function JourneyPlanning() {
     
-    
+    // const mapRef = useRef();
     const [markers,setmarkers]=useState([]);
-
+    const [infowindows,setinfowindows]=useState(null);
+    // const [zoom, setZoom] = useState(13);
+    // const [bounds, setBounds] = useState(null);
+    
 
 
     useEffect(() => {
@@ -34,6 +39,34 @@ function JourneyPlanning() {
       }, [])
 
   
+
+
+
+
+//       const points = markers.map(marker => ({
+//         type: "Feature",
+//         properties: { cluster: false,name:marker.stopid},
+//         geometry: {
+//           type: "Point",
+//           coordinates: [
+//             parseFloat(marker.longitude),
+//             parseFloat(marker.latitude)
+//           ]
+//         }
+//       }));
+
+//       const { clusters, supercluster } = useSupercluster({
+//         points,
+//         bounds,
+//         zoom,
+//         options: { radius: 75, maxZoom: 20 }
+
+//       });
+
+// console.log(clusters);
+
+
+
 
   const defaultBounds = {
     north: center.lat + 0.1,
@@ -177,6 +210,8 @@ function JourneyPlanning() {
         document.getElementById('panel').innerHTML="";
     }
 
+    
+
     return  (<><div className="flex-container">
         <div className="box1">
             <h1>Journey Planner</h1>
@@ -218,9 +253,22 @@ function JourneyPlanning() {
                     mapContainerStyle={containerStyle}
                     center={center}
                     zoom={13}
-                    onLoad={map => setMap(map)}
+                    // onLoad={map => setMap(map)}
+                    // yesIWantToUseGoogleMapApiInternals
+                    // onGoogleApiLoaded={({ map }) => {
+                    //   mapRef.current = map;
+                    // }} 
+                    // onChange={({ zoom, bounds }) => {
+                    //   setZoom(zoom);
+                    //   setBounds([
+                    //     bounds.nw.lng,
+                    //     bounds.se.lat,
+                    //     bounds.se.lng,
+                    //     bounds.nw.lat
+                    //   ]);
+                    // }}
                     >
-                    { /* Child components, such as markers, info windows, etc. */ }
+                   
                    
                     {
                     markers.map((marker, index) => (
@@ -228,8 +276,30 @@ function JourneyPlanning() {
                     key={index}
                     name={marker.name}
                     position={{ lat:marker.latitude, lng:marker.longitude  }}
+                    icon={icon}
+                    onClick={() => {
+                        setinfowindows(marker);
+                      }}
                      />
+
+                     
                      ))}
+      {infowindows && (
+        <InfoWindow
+          onCloseClick={() => {
+            setinfowindows(null);
+          }}
+          position={{
+            lat: infowindows.latitude,
+            lng: infowindows.longitude
+          }}
+        >
+          <div>
+            <h2>{infowindows.stopname}</h2>
+          </div>
+        </InfoWindow>
+      )}
+
                     {directionsResponse && (<DirectionsRenderer directions={directionsResponse} panel={ document.getElementById('panel') } routeIndex={0}/>)}
                 </GoogleMap>
             </div>
