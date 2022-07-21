@@ -1,467 +1,534 @@
 * {
-    font-family: 'Poppins', sans-serif;
-    margin: 0;
-    padding: 0;
-    -webkit-box-sizing: border-box;
-            box-sizing: border-box;
-    outline: none;
-    border: none;
-    text-decoration: none;
-    text-transform: capitalize;
-    -webkit-transition: .2s linear;
-    transition: .2s linear;
-  }
-  
-  section {
-    padding: 10rem 9%;
-  }
-  
-  section #leapCardBox {
-    margin: auto;
-    height: 250px;
-    width: 1000px;
-  }
-  
-  section .leapCard-Logo {
-    float: left;
-    margin-right: 5px;
-    margin-top: 4px;
-  }
-  
-  section .leapCard-Balance {
-    float: left;
-    height: 250px;
-    width: 500px;
-    border: rebeccapurple;
-    background-color: #F7F7F7;
-    margin-top: 30px;
-    margin-bottom: 50px;
-    border-radius: 5px;
-    -webkit-box-shadow: 5px 5px 10px #888888;
-            box-shadow: 5px 5px 10px #888888;
-  }
-  
-  section .lpBal0 {
-    height: 250px;
-    width: 500px;
-    border: #d2d2d3;
-    background-color: #F7F7F7;
-    margin-top: 30px;
-    margin-bottom: 50px;
-    border-radius: 5px;
-    -webkit-box-shadow: 5px 5px 10px #888888;
-            box-shadow: 5px 5px 10px #888888;
-  }
-  
-  section .leapCard-AccInfo {
-    float: right;
-    height: 600px;
-    width: 430px;
-    margin-top: 30px;
-    background-color: #e6e4e4;
-    border: 10px;
-    border: #0d0c0f;
-    /*border-top-left-radius:5px;
-          border-top-right-radius: 5px;
-          border-bottom-left-radius: 5px;
-          border-bottom-right-radius: 5px;
-          
-          /*box-shadow: 5px 5px 10px #888888;*/
-    /*border-style: none;*/
-  }
-  
-  section .leapCard-Trip {
-    height: 300px;
-    width: 500px;
-    border: rebeccapurple;
-    background-color: #F7F7F7;
-    border-radius: 5px;
-    -webkit-box-shadow: 5px 5px 10px #888888;
-            box-shadow: 5px 5px 10px #888888;
-  }
-  
-  section .leapCard-ba-divTitle {
-    margin-top: 20px;
-    margin-left: 15px;
-  }
-  
-  section .leapCard-ba-spanTitle {
-    font-size: 1.5rem;
-    color: blue;
-  }
-  
-  section .leapCard-ba-divCon {
-    width: 500px;
-    height: 105px;
-    background-color: rgba(194, 231, 254, 0.3);
-    margin-top: 10px;
-  }
-  
-  section .leapCard-ba-conLogo {
-    float: left;
-    font-size: 35px;
-    margin-left: 15px;
-    margin-right: 15px;
-  }
-  
-  section .leapCard-ba-conP {
-    margin-top: 5Px;
-    margin-left: 15Px;
-    margin-right: 15Px;
-  }
-  
-  section .leapCard-AccInfo-Title {
-    border-top-left-radius: 5px;
-    border-top-right-radius: 5px;
-    font-size: 1.5rem;
-    background-color: #e6e4e4;
-    height: 30px;
-    color: blue;
-  }
-  
-  section .leapCard-AccInfo-Logo {
-    float: right;
-    margin-right: 30px;
-    margin-top: -10px;
-    font-size: 30px;
-  }
-  
-  section .leapCard-AccInfo-Con {
-    font-size: 1.5rem;
-    background-color: white;
-    height: 555px;
-    border: 10px;
-    border-bottom-left-radius: 5px;
-    border-bottom-right-radius: 5px;
-    /*border-style: none;*/
-  }
-  
-  section .fontTitle {
-    font-size: 12px;
-    font-weight: 800;
-  }
-  
-  section .leapCard-AccInfo-ConDiv {
-    margin-bottom: 15px;
-  }
-  
-  section .leapCard-AccInfo-fontValueDiv {
-    margin-left: 135px;
-    font-size: 12px;
-    font-weight: 400;
-  }
-  
-  section .leapCard-AccInfo-imag {
-    margin-top: 40px;
-    margin-left: 70px;
-    border: 0px;
-  }
-  
-  section .leapCard-Trip-Title {
-    margin-left: 15px;
-  }
-  
-  section .leapCard-Trip-logo {
-    float: right;
-    margin-right: 40px;
-    margin-top: -10px;
-    font-size: 25px;
-  }
-  
-  section .leapCard-Trip-Con {
-    margin-left: 15px;
-  }
-  
-  section .lpTripValue {
-    margin-left: 400px;
-  }
-  
-  section .leapCard-login-form {
-    position: absolute;
-    left: 40%;
-    top: 20%;
-    background: white;
-    border-radius: .5rem;
-    -webkit-box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.1);
-    box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.1);
-    width: 35rem;
-    padding: 2rem;
-  }
-  
-  section .leapCard-login-form h3 {
-    color: black;
-    text-transform: uppercase;
-    font-size: 1.5rem;
-    text-align: center;
-    margin-bottom: .7rem;
-  }
-  
-  section .leapCard-box {
-    margin: .7rem 0;
-    border: 0.1rem solid rgba(0, 0, 0, 0.1);
-    padding: 1rem 1.2rem;
-    font-size: 1.5rem;
-    color: black;
-    text-transform: none;
-    width: 100%;
-  }
-  
-  section .leapCard-btn {
-    margin: 1rem 0;
-    width: 100%;
-    text-align: center;
-  }
-  
-  html {
-    font-size: 62.5%;
-    overflow-x: hidden;
-    scroll-behavior: smooth;
-  }
-  
-  .header {
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    z-index: 1000;
-    background: #c2e7fe;
-    -webkit-box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.1);
-            box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.1);
-    display: -webkit-box;
-    display: -ms-flexbox;
-    display: flex;
-    -webkit-box-align: center;
-        -ms-flex-align: center;
-            align-items: center;
-    -webkit-box-pack: justify;
-        -ms-flex-pack: justify;
-            justify-content: space-between;
-    padding: 2rem 9%;
-  }
-  
-  .header .logo {
-    font-size: 2.5rem;
-    font-weight: bolder;
-    color: black;
-  }
-  
-  .header i {
-    color: #666;
-    padding-right: .5rem;
-  }
-  
-  .header .navbar a {
-    font-size: 1.7rem;
-    color: #666;
-    margin: 0 1rem;
-  }
-  
-  .header .navbar a:hover {
-    color: white;
-  }
-  
-  .header .icons div {
-    color: #666;
-    padding-right: 1.5rem;
-    font-size: 1.7rem;
-  }
-  
-  .header .icons div:hover {
-    color: white;
-  }
-  
-  .header .login-form {
-    position: absolute;
-    top: 115%;
-    right: 1%;
-    background: white;
-    border-radius: .5rem;
-    -webkit-box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.1);
-            box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.1);
-    width: 35rem;
-    padding: 2rem;
-  }
-  
-  /* .header .login-form.active {
-    right: 1%;
-    -webkit-transition: .4s linear;
-    transition: .4s linear;
-  } */
-  
-  .header .login-form h3 {
-    color: black;
-    text-transform: uppercase;
-    font-size: 2.2rem;
-    text-align: center;
-    margin-bottom: .7rem;
-  }
-  
-  .header .login-form .box {
-    margin: .7rem 0;
-    border: 0.1rem solid rgba(0, 0, 0, 0.1);
-    padding: 1rem 1.2rem;
-    font-size: 1.5rem;
-    color: black;
-    text-transform: none;
-    width: 100%;
-  }
-  
-  .header .login-form .remember {
-    display: -webkit-box;
-    display: -ms-flexbox;
-    display: flex;
-    -webkit-box-align: center;
-        -ms-flex-align: center;
-            align-items: center;
-    gap: 1rem;
-    margin: 1rem 0;
-  }
-  
-  .header .login-form .remember label {
-    font-size: 1.5rem;
-    color: #666;
-    cursor: pointer;
-  }
-  
-  .header .login-form .btn {
-    margin: 1rem 0;
-    width: 100%;
-    text-align: center;
-  }
-  
-  .header .login-form p {
-    color: #666;
-    padding-top: .7rem;
-    font-size: 1.4rem;
-  }
-  
-  .header .login-form p a {
-    color: #c2e7fe;
-  }
-  
-  .header .login-form p a:hover {
-    text-decoration: underline;
-  }
-  
-  #map {
-    height: 650px;
-  }
-  
-  .journey-form {
-    background: white;
-    border-radius: .5rem;
-    -webkit-box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.1);
-            box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.1);
-    padding: 2rem;
-  }
-  
-  .journey-form .box {
-    margin: .7rem 0;
-    border: 0.1rem solid rgba(0, 0, 0, 0.1);
-    padding: 1rem 1.2rem;
-    font-size: 1.5rem;
-    color: black;
-    text-transform: none;
-    width: 100%;
-  }
-  
-  .journey-form .btn {
-    margin: 1rem 0;
-    width: 100%;
-    height: 30px;
-    text-align: center;
-    font-size: 140%;
-  }
-  
-  .journey-form label {
-    font-size: 140%;
-  }
-  
-  .journey-form select {
-    font-size: 140%;
-  }
-  
-  .flex-container {
-    display: -webkit-box;
-    display: -ms-flexbox;
-    display: flex;
-    -webkit-box-orient: horizontal;
-    -webkit-box-direction: normal;
-        -ms-flex-direction: row;
-            flex-direction: row;
-    -ms-flex-wrap: wrap;
-        flex-wrap: wrap;
-  }
-  
-  .flex-container .box1 {
-    -webkit-box-flex: 3;
-        -ms-flex-positive: 3;
-            flex-grow: 3;
-    -ms-flex: 1.5;
-        flex: 1.5;
-    background: white;
-    border-radius: .5rem;
-    -webkit-box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.1);
-            box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.1);
-    padding: 2rem;
-  }
-  
-  .flex-container .box1 #panel {
-    height: 30rem;
-    overflow: scroll;
-    margin-top:2rem;
-  }
-  
-  .flex-container .box1 h1 {
-    font-size: 20px;
-  }
-  
-  .flex-container .box2 {
-    -webkit-box-flex: 4;
-        -ms-flex-positive: 4;
-            flex-grow: 4;
-    -ms-flex: 2;
-        flex: 2;
-  }
-  
-  @media (max-width: 800px) {
-    .flex-container {
-      -webkit-box-orient: vertical;
-      -webkit-box-direction: normal;
-          -ms-flex-direction: column;
-              flex-direction: column;
-    }
-  }
-  
-  #time {
-    display: -webkit-box;
-    display: -ms-flexbox;
-    display: flex;
-    -webkit-box-align: center;
-        -ms-flex-align: center;
-            align-items: center;
-    gap: 3rem;
-    margin: 2% 10%;
-  }
-  
-  #time .date {
-    font-size: 120%;
-    border: 0.2rem solid rgba(0, 0, 0, 0.1);
-    min-width: 100px;
-  }
-  
-  #time .time {
-    font-size: 120%;
-    border: 0.2rem solid rgba(0, 0, 0, 0.1);
-    min-width: 80px;
-  }
+  font-family: 'Poppins', sans-serif;
+  margin: 0;
+  padding: 0;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+  outline: none;
+  border: none;
+  text-decoration: none;
+  text-transform: capitalize;
+  -webkit-transition: .2s linear;
+  transition: .2s linear;
+}
 
-  .weather-card {
-    height: 150px;
-    position: absolute;
-    top: 115%;
-    right: 1%;
-  }
+section {
+  padding: 10rem 9%;
+}
 
-  
-  /*# sourceMappingURL=index.css.map */
+section #leapCardBox {
+  margin: auto;
+  height: 250px;
+  width: 1000px;
+}
+
+section .leapCard-Logo {
+  float: left;
+  margin-right: 5px;
+  margin-top: 4px;
+}
+
+section .leapCard-Balance {
+  float: left;
+  height: 250px;
+  width: 500px;
+  border: rebeccapurple;
+  background-color: #F7F7F7;
+  margin-top: 30px;
+  margin-bottom: 50px;
+  border-radius: 5px;
+  -webkit-box-shadow: 5px 5px 10px #888888;
+          box-shadow: 5px 5px 10px #888888;
+}
+
+section .lpBal0 {
+  height: 250px;
+  width: 500px;
+  border: #d2d2d3;
+  background-color: #F7F7F7;
+  margin-top: 30px;
+  margin-bottom: 50px;
+  border-radius: 5px;
+  -webkit-box-shadow: 5px 5px 10px #888888;
+          box-shadow: 5px 5px 10px #888888;
+}
+
+section .leapCard-AccInfo {
+  float: right;
+  height: 600px;
+  width: 430px;
+  margin-top: 30px;
+  background-color: #e6e4e4;
+  border: 10px;
+  border: #0d0c0f;
+}
+
+section .leapCard-Trip {
+  height: 300px;
+  width: 500px;
+  border: rebeccapurple;
+  background-color: #F7F7F7;
+  border-radius: 5px;
+  -webkit-box-shadow: 5px 5px 10px #888888;
+          box-shadow: 5px 5px 10px #888888;
+}
+
+section .leapCard-ba-divTitle {
+  margin-top: 20px;
+  margin-left: 15px;
+}
+
+section .leapCard-ba-spanTitle {
+  font-size: 1.5rem;
+  color: blue;
+}
+
+section .leapCard-ba-divCon {
+  width: 500px;
+  height: 105px;
+  background-color: rgba(194, 231, 254, 0.3);
+  margin-top: 10px;
+}
+
+section .leapCard-ba-conLogo {
+  float: left;
+  font-size: 35px;
+  margin-left: 15px;
+  margin-right: 15px;
+}
+
+section .leapCard-ba-conP {
+  margin-top: 5Px;
+  margin-left: 15Px;
+  margin-right: 15Px;
+}
+
+section .leapCard-AccInfo-Title {
+  border-top-left-radius: 5px;
+  border-top-right-radius: 5px;
+  font-size: 1.5rem;
+  background-color: #e6e4e4;
+  height: 30px;
+  color: blue;
+}
+
+section .leapCard-AccInfo-Logo {
+  float: right;
+  margin-right: 30px;
+  margin-top: -10px;
+  font-size: 30px;
+}
+
+section .leapCard-AccInfo-Con {
+  font-size: 1.5rem;
+  background-color: white;
+  height: 555px;
+  border: 10px;
+  border-bottom-left-radius: 5px;
+  border-bottom-right-radius: 5px;
+  /*border-style: none;*/
+}
+
+section .fontTitle {
+  font-size: 12px;
+  font-weight: 800;
+}
+
+section .leapCard-AccInfo-ConDiv {
+  margin-bottom: 15px;
+}
+
+section .leapCard-AccInfo-fontValueDiv {
+  margin-left: 135px;
+  font-size: 12px;
+  font-weight: 400;
+}
+
+section .leapCard-AccInfo-imag {
+  margin-top: 40px;
+  margin-left: 70px;
+  border: 0px;
+}
+
+section .leapCard-Trip-Title {
+  margin-left: 15px;
+}
+
+section .leapCard-Trip-logo {
+  float: right;
+  margin-right: 40px;
+  margin-top: -10px;
+  font-size: 25px;
+}
+
+section .leapCard-Trip-Con {
+  margin-left: 15px;
+}
+
+section .lpTripValue {
+  margin-left: 400px;
+}
+
+section .leapCard-login-form {
+  position: absolute;
+  left: 40%;
+  top: 20%;
+  background: white;
+  border-radius: .5rem;
+  -webkit-box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.1);
+  box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.1);
+  width: 35rem;
+  padding: 2rem;
+}
+
+section .leapCard-login-form h3 {
+  color: black;
+  text-transform: uppercase;
+  font-size: 1.5rem;
+  text-align: center;
+  margin-bottom: .7rem;
+}
+
+section .leapCard-box {
+  margin: .7rem 0;
+  border: 0.1rem solid rgba(0, 0, 0, 0.1);
+  padding: 1rem 1.2rem;
+  font-size: 1.5rem;
+  color: black;
+  text-transform: none;
+  width: 100%;
+}
+
+section .leapCard-btn {
+  margin: 1rem 0;
+  width: 100%;
+  text-align: center;
+}
+
+html {
+  font-size: 62.5%;
+  overflow-x: hidden;
+  scroll-behavior: smooth;
+}
+
+.header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 1000;
+  background: #c2e7fe;
+  -webkit-box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.1);
+          box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.1);
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  padding: 2rem 9%;
+}
+
+.header .logo {
+  font-size: 2.5rem;
+  font-weight: bolder;
+  color: black;
+}
+
+.header i {
+  color: #666;
+  padding-right: .5rem;
+}
+
+.header .navbar a {
+  font-size: 1.7rem;
+  color: #666;
+  margin: 0 1rem;
+}
+
+.header .navbar a:hover {
+  color: white;
+}
+
+.header .icons div {
+  color: #666;
+  padding-right: 1.5rem;
+  font-size: 1.7rem;
+}
+
+.header .icons div:hover {
+  color: white;
+}
+
+.header .login-form {
+  position: absolute;
+  top: 115%;
+  right: 1%;
+  background: white;
+  border-radius: .5rem;
+  -webkit-box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.1);
+          box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.1);
+  width: 35rem;
+  padding: 2rem
+}
+
+.header .login-form h3 {
+  color: black;
+  text-transform: uppercase;
+  font-size: 2.2rem;
+  text-align: center;
+  margin-bottom: .7rem;
+}
+
+.header .login-form .box {
+  margin: .7rem 0;
+  border: 0.1rem solid rgba(0, 0, 0, 0.1);
+  padding: 1rem 1.2rem;
+  font-size: 1.5rem;
+  color: black;
+  text-transform: none;
+  width: 100%;
+}
+
+.header .login-form .remember {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  gap: 1rem;
+  margin: 1rem 0;
+}
+
+.header .login-form .remember label {
+  font-size: 1.5rem;
+  color: #666;
+  cursor: pointer;
+}
+
+.header .login-form .btn {
+  margin: 1rem 0;
+  width: 100%;
+  text-align: center;
+}
+
+.header .login-form p {
+  color: #666;
+  padding-top: .7rem;
+  font-size: 1.4rem;
+}
+
+.header .login-form p a {
+  color: #c2e7fe;
+}
+
+.header .login-form p a:hover {
+  text-decoration: underline;
+}
+
+.journey-form {
+  background: white;
+  border-radius: .5rem;
+  -webkit-box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.1);
+          box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.1);
+  padding: 2rem;
+}
+
+.journey-form .box {
+  margin: .7rem 0;
+  border: 0.1rem solid rgba(0, 0, 0, 0.1);
+  padding: 1rem 1.2rem;
+  font-size: 1.5rem;
+  color: black;
+  text-transform: none;
+  width: 100%;
+}
+
+.journey-form .btn {
+  margin: 1rem 0;
+  width: 100%;
+  height: 30px;
+  text-align: center;
+  font-size: 140%;
+}
+
+.journey-form label {
+  font-size: 140%;
+}
+
+.journey-form select {
+  font-size: 140%;
+}
+
+.box1.active {
+  width:45rem;
+  left:0;
+  top:8rem;
+  bottom:2rem;
+  position:fixed;
+  background: white;
+  border-radius: .5rem;
+  -webkit-box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.1);
+          box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.1);
+  padding: 2rem;
+  z-index: 9;
+}
+
+.box1.active #panel {
+  height: 30rem;
+  overflow: scroll;
+  margin-top:2rem;
+}
+
+.box1.active h1 {
+  font-size: 20px;
+}
+
+.box1 {
+  width:45rem;
+  top:8rem;
+  bottom:2rem;
+  background: white;
+  border-radius: .5rem;
+  -webkit-box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.1);
+          box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.1);
+  padding: 2rem;
+  z-index: 11;
+  left:-420px;
+  transition: 850ms;
+}
+
+.box1 #panel{
+  height: 30rem;
+  overflow: hidden;
+  margin-top:2rem;
+}
+
+.sidebar-toggle{
+  left:43.5rem;
+  top:37rem;
+  position:fixed;
+  background: white;
+  padding: 0.3rem;
+  z-index: 10;
+  transition: 830ms;
+  border-top-right-radius: 5px;
+  border-bottom-right-radius: 5px;
+}
+
+.sidebar-toggle-off {
+  top:37rem;
+  left:-1px;
+  position:fixed;
+  background: white;
+  padding: 0.3rem;
+  z-index: 10;
+  border-top-right-radius: 5px;
+  border-bottom-right-radius: 5px;
+  transition: 50ms;
+}
+
+.box2 {
+  width:100%;
+  height:100%;
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  z-index: 8;
+}
+
+#time {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  gap: 3rem;
+  margin: 2% 10%;
+}
+
+#time .date {
+  font-size: 120%;
+  border: 0.2rem solid rgba(0, 0, 0, 0.1);
+  min-width: 100px;
+}
+#time .time {
+  font-size: 120%;
+  border: 0.2rem solid rgba(0, 0, 0, 0.1);
+  min-width: 80px;
+}
+
+.weather-card {
+  height: 150px;
+  position: absolute;
+  top: 115%;
+  right: 1%;
+}
+
+.search-results {
+  height: 30rem;
+  overflow: scroll;
+  margin-top:2rem;
+}
+
+.search-result {
+  cursor: pointer;
+  border-right: 1px solid grey;
+  border-left: 1px solid grey;
+  border-bottom: 1px solid grey;
+}
+
+.search-result:hover {
+  background-color: #c2e7fe;
+}
+
+.container{
+  display : flex;
+  flex-direction : row;
+}
+.container .link1{
+  border-top-left-radius: 25px;
+  text-align:center;
+  font-size: 120%;
+  padding: 10px;
+  width: 100%;
+  background-color: #e6f5fe;
+  /* -webkit-box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.1);
+          box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.1); */
+}
+
+.container .link2{
+  border-top-right-radius: 25px;
+  text-align:center;
+  font-size: 120%;
+  background-color: white;
+  padding:10px;
+  width: 100%;
+  border-bottom: 0px;
+  box-shadow: 12px 0px 8px -10px rgba(0, 0, 0, 0.1), -3px -7px 10px -4px  rgba(0, 0, 0, 0.1);
+}
+
+.container .link3{
+  border-top-left-radius: 25px;
+  text-align:center;
+  font-size: 120%;
+  background-color: white;
+  padding:10px;
+  width: 100%;
+  border-bottom: 0px;
+  box-shadow:  -3px -7px 10px -4px  rgba(0, 0, 0, 0.1),12px 0px 8px -10px rgba(0, 0, 0, 0.1);
+}
+.container .link4{
+  border-top-right-radius: 25px;
+  text-align:center;
+  font-size: 120%;
+  padding: 10px;
+  width: 100%;
+  background-color: #e6f5fe;
+}
+/*# sourceMappingURL=index.css.map */

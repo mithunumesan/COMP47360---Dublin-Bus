@@ -1,6 +1,8 @@
 import { useJsApiLoader, Autocomplete,DirectionsRenderer,GoogleMap,Marker ,InfoWindow} from '@react-google-maps/api';
 import { useState,useRef,useEffect } from 'react';
+import { Link } from 'react-router-dom';
 import { getmarkers} from '../components/markers';
+import * as Icons from "react-icons/hi";
 // import useSupercluster from "use-supercluster";
 
 
@@ -75,9 +77,6 @@ function JourneyPlanning() {
     west: center.lng - 0.1,
   };
 
-
-
-
     //react google map api using is refereneced from https://www.youtube.com/watch?v=iP3DnhCUIsE&list=RDCMUCr0y1P0-zH2o3cFJyBSfAKg&start_radio=1&rv=iP3DnhCUIsE&t=1614
     const [directionsResponse, setDirectionsResponse] = useState({})
     //save markers
@@ -86,8 +85,13 @@ function JourneyPlanning() {
     /**@type React.MutableRefObject<HTMLInputElement> */
     const startRef = useRef()
     /**@type React.MutableRefObject<HTMLInputElement> */
-    const destinationRef = useRef()
+    const destinationRef = useRef();
 
+    //set sidebar toggle variable
+    const [sidebar,setSidebar] = useState(true);
+    console.log(sidebar);
+    const notShowSidebar = () => setSidebar(false);
+    const showSidebar = () => setSidebar(true);
     //save select option value
     const [selected, setSelected] = useState();
     //the event for time select 
@@ -171,7 +175,7 @@ function JourneyPlanning() {
         // eslint-disable-next-line
         const geocoder = new google.maps.Geocoder();
         if((destinationRef.current.value === '')&&(startRef.current.value === '')){
-           markers.setMap(null);
+           markerSave.setMap(null);
            setMarkerSave({});
         }
         else if(startRef.current.value === '') {
@@ -210,11 +214,16 @@ function JourneyPlanning() {
         document.getElementById('panel').innerHTML="";
     }
 
-    
-
-    return  (<><div className="flex-container">
-        <div className="box1">
-            <h1>Journey Planner</h1>
+    return  (<>
+        <div className={sidebar ? 'box1 active' : 'box1'}>
+            <div className="container">
+                <div className="link3">
+                    <Link to="/" ><h1 style={{color: '#666'}}>Journey Planner</h1></Link>
+                </div>
+                <div className="link4">
+                    <Link to='/routesexploration'><h1 style={{color: '#666'}}>Route Exploration</h1></Link>
+                </div>
+            </div>
             <div className="journey-form">
                 <Autocomplete options={{
                     bounds: defaultBounds,
@@ -241,14 +250,15 @@ function JourneyPlanning() {
                 </select>
                 {/* add the html input datetime element or not */}
                 {booleanValue ? <div id="time"><input type="datetime-local" id="datetime" onChange={handleChange} value={dateTime}></input></div> : null}
-                
                 <button type="submit" className="btn" onClick={caculateRoute}>Search</button>
             </div>
             <div id="panel"></div>
         </div>
+        <div className={sidebar ? 'sidebar-toggle' : 'sidebar-toggle-off'}>
+            {sidebar ? <Icons.HiChevronDoubleLeft style={{fontSize:'22px'}} onClick={notShowSidebar} /> : <Icons.HiChevronDoubleRight style={{fontSize:'22px'}} onClick={showSidebar}/>}
+        </div>
+        
         <div className="box2">
-            <div id="map">
-            
                 <GoogleMap
                     mapContainerStyle={containerStyle}
                     center={center}
@@ -302,8 +312,6 @@ function JourneyPlanning() {
 
                     {directionsResponse && (<DirectionsRenderer directions={directionsResponse} panel={ document.getElementById('panel') } routeIndex={0}/>)}
                 </GoogleMap>
-            </div>
         </div>
-
-    </div></>);}
+   </>);}
 export default JourneyPlanning;
