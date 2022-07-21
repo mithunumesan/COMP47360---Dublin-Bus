@@ -6,7 +6,7 @@ const containerStyle = {
     height: '100%'
   };
   
-  const center = {
+const center = {
     lat: 53.3463,
     lng: -6.2631
   };
@@ -119,34 +119,36 @@ function JourneyPlanning() {
         }
         else if(startRef.current.value === '') {
             // eslint-disable-next-line
-            const marker = new google.maps.Marker({ map: map });
+            const markerStart = new google.maps.Marker({ map: map });
             const placeId = directionsResponse.geocoded_waypoints[1].place_id;
             geocoder
             .geocode({ placeId: placeId})
             .then(({ results }) => {
                 // Set the position of the marker using the place ID and location.
                 // @ts-ignore TODO This should be in @typings/googlemaps.
-                marker.setPlace({
+                markerStart.setPlace({
                   placeId: placeId,
                   location: results[0].geometry.location,
                 });
-                setMarkers(marker);
+                console.log('marker',placeId)
+                setMarkerSave(markerStart);
             });
             setDirectionsResponse(null);
         } else if(destinationRef.current.value === '') {
             // eslint-disable-next-line
-            const marker = new google.maps.Marker({ map: map });
+            const markerDes = new google.maps.Marker({ map: map });
             const placeId = directionsResponse.geocoded_waypoints[0].place_id;
             geocoder
             .geocode({ placeId: placeId})
             .then(({ results }) => {
                 // Set the position of the marker using the place ID and location.
                 // @ts-ignore TODO This should be in @typings/googlemaps.
-                marker.setPlace({
+                markerDes.setPlace({
                   placeId: placeId,
                   location: results[0].geometry.location,
                 });
-                setMarkers(marker);
+                console.log('marker',placeId)
+                setMarkerSave(markerDes);
             });
             setDirectionsResponse(null);
         } 
@@ -193,10 +195,52 @@ function JourneyPlanning() {
                     mapContainerStyle={containerStyle}
                     center={center}
                     zoom={13}
-                    onLoad={map => setMap(map)}
-                >
-                    {/* Child components, such as markers, info windows, etc. */}
-                    {/* <Marker position={center} /> */}
+                    // onLoad={map => setMap(map)}
+                    // yesIWantToUseGoogleMapApiInternals
+                    // onGoogleApiLoaded={({ map }) => {
+                    //   mapRef.current = map;
+                    // }} 
+                    // onChange={({ zoom, bounds }) => {
+                    //   setZoom(zoom);
+                    //   setBounds([
+                    //     bounds.nw.lng,
+                    //     bounds.se.lat,
+                    //     bounds.se.lng,
+                    //     bounds.nw.lat
+                    //   ]);
+                    // }}
+                    >
+                   
+                   
+                    {
+                    markers.map((marker, index) => (
+                     <Marker
+                    key={index}
+                    name={marker.name}
+                    position={{ lat:marker.latitude, lng:marker.longitude  }}
+                    icon={icon}
+                    onClick={() => {
+                        setinfowindows(marker);
+                      }}
+                     />
+
+                     
+                     ))}
+      {infowindows && (
+        <InfoWindow
+          onCloseClick={() => {
+            setinfowindows(null);
+          }}
+          position={{
+            lat: infowindows.latitude,
+            lng: infowindows.longitude
+          }}
+        >
+          <div>
+            <h2>{infowindows.stopname}</h2>
+          </div>
+        </InfoWindow>
+      )}
                     {directionsResponse && (<DirectionsRenderer directions={directionsResponse} panel={ document.getElementById('panel') } routeIndex={0}/>)}
                 </GoogleMap>
             </div>
