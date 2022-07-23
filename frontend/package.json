@@ -13,7 +13,14 @@
     "react-scripts": "^5.0.1",
     "web-vitals": "^2.1.4",
     "react-autocomplete": "1.8.1",
+<<<<<<< Updated upstream
     "react-icons":"4.4.0"
+=======
+    "react-icons":"4.4.0",
+    "supercluster": "^7.1.5",
+    "use-supercluster": "^0.4.0",
+    "react-usestateref":"1.0.8"
+>>>>>>> Stashed changes
   },
   "scripts": {
     "start": "react-scripts start",

@@ -1,15 +1,29 @@
 {
   "files": {
+<<<<<<< Updated upstream
     "main.css": "/static/css/main.c26c1cb1.css",
     "main.js": "/static/js/main.5279dd84.js",
+=======
+    "main.css": "/static/css/main.0d3f198f.css",
+    "main.js": "/static/js/main.3af221a5.js",
+>>>>>>> Stashed changes
     "static/media/cardLabel.jpeg": "/static/media/cardLabel.fdef6f065bbc221f113c.jpeg",
     "static/media/leapCard.png": "/static/media/leapCard.954b1d969a8c7c82a751.png",
     "index.html": "/index.html",
+<<<<<<< Updated upstream
     "main.c26c1cb1.css.map": "/static/css/main.c26c1cb1.css.map",
     "main.5279dd84.js.map": "/static/js/main.5279dd84.js.map"
   },
   "entrypoints": [
     "static/css/main.c26c1cb1.css",
     "static/js/main.5279dd84.js"
+=======
+    "main.0d3f198f.css.map": "/static/css/main.0d3f198f.css.map",
+    "main.3af221a5.js.map": "/static/js/main.3af221a5.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.0d3f198f.css",
+    "static/js/main.3af221a5.js"
+>>>>>>> Stashed changes
   ]
 }

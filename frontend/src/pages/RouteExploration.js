@@ -5,6 +5,7 @@ import { Link } from 'react-router-dom';
 import { getRoutes } from "../components/routes";
 import { getTrips } from "../components/trips";
 import * as Icons from "react-icons/hi";
+// import { useState } from 'react-usestateref';
 
 
 const containerStyle = {
@@ -27,6 +28,10 @@ function searchLine() {
  
 
 // reference from react autocomplete search from api https://www.youtube.com/watch?v=Q2aky3eeO40
+let shapeDdirection0 = []
+let shapeDdirection1 = []
+let shapeDirection = []
+let isDirection0 = true
 
 function RouteExploration() {
 
@@ -43,10 +48,11 @@ function RouteExploration() {
 
     let routeResult = []
 
-    const [markers,setmarkers]=useState([]);
+    const [routeInfo,setRouteInfo] = useState([]);
 
-    // const [loop, = true;
+    const [display,setDisplay] = useState(false)
 
+    
     useEffect(() => {
         const loadUsers =async() => {
             const response = await getRoutes()
@@ -68,8 +74,7 @@ function RouteExploration() {
         setSuggestions(matches)
         setText(text)
     }
-    
-    const onSuggestHandler = (text)=> {
+        const onSuggestHandler = (text)=> {
         setText(text);
         setSuggestions([])
         //cause there is no break in forEach react js
@@ -84,8 +89,9 @@ function RouteExploration() {
         let shapeList = routeResult.shapeidlist
         shapeList = shapeList.split(',')
         console.log(shapeList)
-        let shapeDdirection0 = []
-        let shapeDdirection1 = []
+        
+        shapeDdirection1=[]
+        shapeDdirection0=[]
         shapeList.forEach(shape => {
             if(shape.endsWith('O')) {
                 shapeDdirection0.push(shape) 
@@ -93,21 +99,57 @@ function RouteExploration() {
                 shapeDdirection1.push(shape)
             }
         });
-        console.log('direction0',shapeDdirection0)
+
         console.log('direction1',shapeDdirection1)
-        let response
-        const load = async() => {
-            console.log(shapeDdirection0[0])
-            const para = shapeDdirection0[0]
-            let response = await getTrips(para)
-            console.log('trips',response)
-            setmarkers(response)
-        }
-        load();
-              
-          
+        console.log('direction0',shapeDdirection0)
+        shapeDirection = shapeDdirection0
+        load(shapeDirection)
     }
 
+    async function load(shapeDirection){
+        
+        if(shapeDirection.length>0) {
+        console.log(shapeDirection[0])
+        const para = shapeDirection[0]
+        const result = await getTrips(para)
+        setRouteInfo(result)
+        console.log('trips',result)
+        
+        routeInfo.forEach(element => {
+            console.log(element.stopname)
+        });
+        setDisplay(true)
+    }
+    }
+
+    async function changeRoute(i) {
+        const para = shapeDirection[i]
+        const result = await getTrips(para)
+        setRouteInfo(result)
+        console.log('trips',result)   
+        routeInfo.forEach(element => {
+            console.log(element.stopname)
+        });
+        setDisplay(true)
+    }
+
+    async function changeDirection() {
+        
+        if(isDirection0 && shapeDdirection1.length>0) {
+            shapeDirection = shapeDdirection1
+            load(shapeDirection)
+            isDirection0 = false
+        } else if( !isDirection0 && shapeDdirection0.length>0) {
+            shapeDirection = shapeDdirection0
+            load(shapeDirection)
+            isDirection0 = true
+        }
+        const para = shapeDirection[0]
+        const result = await getTrips(para)
+        setRouteInfo(result)
+    }
+
+    
 
     const [map, setMap] = useState(/** @type google.maps.Map */ (null))
     const { isLoaded } = useJsApiLoader({
@@ -135,7 +177,19 @@ function RouteExploration() {
                         <div key={i} className="search-result" onClick={()=>onSuggestHandler(suggestion.routeshortname)}><i class="fas fa-bus"></i>&nbsp;&nbsp;{suggestion.routeshortname} &nbsp;&nbsp; {suggestion.routelongname}</div>
                     )}
                 </div>
+                {display ? <h1>{routeInfo[0].tripheadsign}</h1> : null}
+                {display ? <button onClick={changeDirection}>Change Direction</button> : null}
+                {display ? <h3>Line option - {routeInfo[routeInfo.length-1].stopsequence} stops</h3> : null}
+                {shapeDirection.map((element,i)  => {
+                    return <div key={i} className="route-option" onClick={()=>changeRoute(i)}><button>option</button></div>
+                })}
+                <div className="stop-names">
+                {routeInfo && routeInfo.map((info,i) =>
+                    <div key={i} className="stop-name">{info.stopname}</div>
+                )}
+                </div>
             </div>
+            
             <div className={sidebar ? 'sidebar-toggle' : 'sidebar-toggle-off'}>
             {sidebar ? <Icons.HiChevronDoubleLeft style={{fontSize:'22px'}} onClick={notShowSidebar} /> : <Icons.HiChevronDoubleRight style={{fontSize:'22px'}} onClick={showSidebar}/>}
         </div>
@@ -150,10 +204,9 @@ function RouteExploration() {
                     >
                     { /* Child components, such as markers, info windows, etc. */ }
                     {
-                    markers.map((marker, index) => (
+                    routeInfo.map((marker, index) => (
                      <Marker
                     key={index}
-                    
                     position={{ lat:marker.latitude, lng:marker.longitude  }}
                      />
                      ))}
