@@ -1,10 +1,10 @@
 from django.shortcuts import render
 from django.http import HttpResponse
 from requests import Response
-from .serializers import AllTripSerializer, DublinbusappSerializer, RoutesSerializer
+from .serializers import AllTripSerializer, DublinbusappSerializer, RoutesSerializer, ShapeSerializer
 from .serializers import StopsSerializer 
 from rest_framework import viewsets      
-from .models import AllTrip, Dublinbusapp, Routes
+from .models import AllTrip, Dublinbusapp, Routes, Shape
 from .models import Stops
 from rest_framework import generics
 
@@ -39,4 +39,15 @@ class AllTripListView(generics.ListAPIView):
         return queryset
 
     
+class ShapeListView(generics.ListAPIView):
+    serializer_class = ShapeSerializer
+    
 
+    def get_queryset(self):
+
+        queryset = Shape.objects.all()
+        shape_id = self.request.query_params.get('shapeid','')
+        if shape_id is not None:
+            queryset = queryset.filter(shapeid=shape_id)
+            
+        return queryset

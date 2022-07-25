@@ -16,4 +16,5 @@ urlpatterns = [
     path('',TemplateView.as_view(template_name='index.html')),
     path('api/', include(router.urls)),
     path('api/alltrip/', AllTripListView.as_view()),
+    path('api/shape/', ShapeListView.as_view()),
 ]

@@ -4,8 +4,11 @@ import { useRef,useState,useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { getRoutes } from "../components/routes";
 import { getTrips } from "../components/trips";
+import { getShape } from "../components/shape";
 import * as Icons from "react-icons/hi";
-// import { useState } from 'react-usestateref';
+import { Polyline } from '@react-google-maps/api';
+
+
 
 
 const containerStyle = {
@@ -18,12 +21,6 @@ const center = {
     lat: 53.3463,
     lng: -6.2631
   };
-
-
-
-function searchLine() {
-
-}
 
  
 
@@ -50,9 +47,23 @@ function RouteExploration() {
 
     const [routeInfo,setRouteInfo] = useState([]);
 
+    const [pathInfo,setPathInfo] = useState([]);
+
     const [display,setDisplay] = useState(false)
 
-    
+    const mapRef = useRef(null);
+
+      // Fit bounds function
+      function fitBound(map) {
+        const bounds = new window.google.maps.LatLngBounds();
+        routeInfo.map(marker => {
+          bounds.extend({ lat:marker.latitude, lng:marker.longitude });
+        });
+        mapRef.current.value =  map.fitBounds(bounds)
+      };
+
+      
+
     useEffect(() => {
         const loadUsers =async() => {
             const response = await getRoutes()
@@ -63,6 +74,7 @@ function RouteExploration() {
     },[])
 
     const onChangeHandler =(text) => {
+        setDisplay(false)
         let matches =[]
         if(text.length>0) {
              matches = finds.filter(find =>{
@@ -75,6 +87,7 @@ function RouteExploration() {
         setText(text)
     }
         const onSuggestHandler = (text)=> {
+        setDisplay(false)
         setText(text);
         setSuggestions([])
         //cause there is no break in forEach react js
@@ -102,19 +115,27 @@ function RouteExploration() {
 
         console.log('direction1',shapeDdirection1)
         console.log('direction0',shapeDdirection0)
-        shapeDirection = shapeDdirection0
+        if(shapeDdirection0.length>0) {
+            shapeDirection = shapeDdirection0
+        } else {
+            shapeDirection = shapeDdirection1
+        }
+        
         load(shapeDirection)
     }
 
     async function load(shapeDirection){
-        
+        setPathInfo([])
+        setRouteInfo([])
         if(shapeDirection.length>0) {
         console.log(shapeDirection[0])
         const para = shapeDirection[0]
         const result = await getTrips(para)
         setRouteInfo(result)
         console.log('trips',result)
-        
+        const shape = await getShape(para)
+        setPathInfo(shape)
+        console.log("path",shape)
         routeInfo.forEach(element => {
             console.log(element.stopname)
         });
@@ -123,10 +144,14 @@ function RouteExploration() {
     }
 
     async function changeRoute(i) {
+        setPathInfo([])
+        setRouteInfo([])
         const para = shapeDirection[i]
         const result = await getTrips(para)
         setRouteInfo(result)
-        console.log('trips',result)   
+        console.log('trips',result)
+        const shape = await getShape(para)
+        setPathInfo(shape)   
         routeInfo.forEach(element => {
             console.log(element.stopname)
         });
@@ -134,7 +159,8 @@ function RouteExploration() {
     }
 
     async function changeDirection() {
-        
+        setPathInfo([])
+        setRouteInfo([])
         if(isDirection0 && shapeDdirection1.length>0) {
             shapeDirection = shapeDdirection1
             load(shapeDirection)
@@ -144,9 +170,9 @@ function RouteExploration() {
             load(shapeDirection)
             isDirection0 = true
         }
-        const para = shapeDirection[0]
-        const result = await getTrips(para)
-        setRouteInfo(result)
+        // const para = shapeDirection[0]
+        // const result = await getTrips(para)
+        // setRouteInfo(result)
     }
 
     
@@ -160,6 +186,10 @@ function RouteExploration() {
         return "map is not loaded";
     }
 
+    // Fit bounds on mount, and when the markers change
+  
+    
+
     return  (<>
         <div className={sidebar ? 'box1 active' : 'box1'}>
             <div className="container">
@@ -172,22 +202,28 @@ function RouteExploration() {
             </div>
             <div className="journey-form">
                     <input type="search" placeholder="Search for a line" className="box" value={text} onChange= {e => onChangeHandler(e.target.value)}></input>
+                    
                     <div className='search-results'>
-                    {suggestions && suggestions.map((suggestion,i) =>
+                    {((!display && suggestions.length===0)) && finds.length>0 && finds.map((suggestion,i) =>
                         <div key={i} className="search-result" onClick={()=>onSuggestHandler(suggestion.routeshortname)}><i class="fas fa-bus"></i>&nbsp;&nbsp;{suggestion.routeshortname} &nbsp;&nbsp; {suggestion.routelongname}</div>
                     )}
-                </div>
-                {display ? <h1>{routeInfo[0].tripheadsign}</h1> : null}
-                {display ? <button onClick={changeDirection}>Change Direction</button> : null}
-                {display ? <h3>Line option - {routeInfo[routeInfo.length-1].stopsequence} stops</h3> : null}
-                {shapeDirection.map((element,i)  => {
-                    return <div key={i} className="route-option" onClick={()=>changeRoute(i)}><button>option</button></div>
-                })}
-                <div className="stop-names">
-                {routeInfo && routeInfo.map((info,i) =>
-                    <div key={i} className="stop-name">{info.stopname}</div>
-                )}
-                </div>
+                    {(!display && suggestions.length>0) && suggestions.map((suggestion,i) =>
+                        <div key={i} className="search-result" onClick={()=>onSuggestHandler(suggestion.routeshortname)}><i class="fas fa-bus"></i>&nbsp;&nbsp;{suggestion.routeshortname} &nbsp;&nbsp; {suggestion.routelongname}</div>
+                    )}
+                    {((!pathInfo.length>0 || !routeInfo.length>0) || (!display && suggestions.length===0 && !finds.length>0 )) && <Icons.HiSearchCircle style={{fontSize:'100px'}} />}
+                    {display && pathInfo.length>0 && routeInfo.length>0 && <h1>{routeInfo[0].tripheadsign}</h1>}
+                    {display && pathInfo.length>0 && routeInfo.length>0 && ((shapeDirection===shapeDdirection0&&shapeDdirection1.length>0) || (shapeDirection===shapeDdirection1&&shapeDdirection0.length>0)) && <button onClick={changeDirection}>Change Direction</button>}
+                    {display && pathInfo.length>0 && routeInfo.length>0 && <h3>Line option - {routeInfo[routeInfo.length-1].stopsequence} stops</h3>}
+                    {display && pathInfo.length>0 && routeInfo.length>0 && shapeDirection.map((element,i)  => {
+                        return <div key={i} className="route-option" onClick={()=>changeRoute(i)}><button>option</button></div>
+                    })}
+                    <div className="stop-names">
+                    {display && pathInfo.length>0 && routeInfo.length>0 && routeInfo.map((info,i) =>
+                        <div key={i} className="stop-name">{info.stopname}</div>
+                    )}
+                    </div>
+                    
+                    </div>
             </div>
             
             <div className={sidebar ? 'sidebar-toggle' : 'sidebar-toggle-off'}>
@@ -203,13 +239,19 @@ function RouteExploration() {
                     onLoad={map => setMap(map)}
                     >
                     { /* Child components, such as markers, info windows, etc. */ }
-                    {
-                    routeInfo.map((marker, index) => (
+                    {pathInfo.length>0 && routeInfo.length>0 && (routeInfo.map((marker, index) => (
                      <Marker
                     key={index}
                     position={{ lat:marker.latitude, lng:marker.longitude  }}
-                     />
-                     ))}
+                    icon = {{url: (require('./circle-16.png')),
+                    
+                    scaledSize:{ width: 10, height: 10}}}
+                     />)
+                     )) 
+                     } 
+                     <Polyline path={pathInfo} 
+                     options={{strokeWeight:7,strokeColor:"#B22222",strokeOpacity: 0.85}}/>
+                     
                 </GoogleMap>
         </div>
     </>);}
