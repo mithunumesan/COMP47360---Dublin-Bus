@@ -1,11 +1,13 @@
-import { Route } from "react-router-dom";
+import React from 'react'
 import { useJsApiLoader,GoogleMap,Marker } from '@react-google-maps/api';
-import { useRef,useState,useEffect } from 'react';
+import { useRef,useState,useEffect,useCallback } from 'react';
 import { Link } from 'react-router-dom';
 import { getRoutes } from "../components/routes";
 import { getTrips } from "../components/trips";
 import { getShape } from "../components/shape";
 import * as Icons from "react-icons/hi";
+import * as Iconsgo from "react-icons/go";
+import { RiRadioButtonFill } from "react-icons/ri";
 import { Polyline } from '@react-google-maps/api';
 
 
@@ -50,20 +52,7 @@ function RouteExploration() {
     const [pathInfo,setPathInfo] = useState([]);
 
     const [display,setDisplay] = useState(false)
-
-    const mapRef = useRef(null);
-
-      // Fit bounds function
-      function fitBound(map) {
-        const bounds = new window.google.maps.LatLngBounds();
-        routeInfo.map(marker => {
-          bounds.extend({ lat:marker.latitude, lng:marker.longitude });
-        });
-        mapRef.current.value =  map.fitBounds(bounds)
-      };
-
       
-
     useEffect(() => {
         const loadUsers =async() => {
             const response = await getRoutes()
@@ -86,7 +75,8 @@ function RouteExploration() {
         setSuggestions(matches)
         setText(text)
     }
-        const onSuggestHandler = (text)=> {
+
+    const onSuggestHandler = (text)=> {
         setDisplay(false)
         setText(text);
         setSuggestions([])
@@ -120,7 +110,6 @@ function RouteExploration() {
         } else {
             shapeDirection = shapeDdirection1
         }
-        
         load(shapeDirection)
     }
 
@@ -170,25 +159,42 @@ function RouteExploration() {
             load(shapeDirection)
             isDirection0 = true
         }
-        // const para = shapeDirection[0]
-        // const result = await getTrips(para)
-        // setRouteInfo(result)
     }
 
-    
-
     const [map, setMap] = useState(/** @type google.maps.Map */ (null))
+    
     const { isLoaded } = useJsApiLoader({
     googleMapsApiKey: "AIzaSyCdf-x6SluXsWzP9qpwxVGBY08pm_3TAQU",
     libraries:['places']
   })
+    
+    const onLoad = useCallback((map) => setMap(map), []);
+    useEffect(() => {
+    
+      if(map && routeInfo.length>0) {
+        const bounds = new window.google.maps.LatLngBounds();
+        routeInfo.map(marker => {
+        bounds.extend({
+          lat: marker.latitude,
+          lng: marker.longitude,
+        });
+        console.log("marker")
+      });
+      map.fitBounds(bounds);
+    }
+    }, [routeInfo,map]);
+
+    useEffect(() =>{
+        if(map) {
+        const bounds = new window.google.maps.LatLngBounds(center);
+        map.fitBounds(bounds);
+        map.setZoom(13);
+        }
+    },[map])
+
       if(!isLoaded) {
         return "map is not loaded";
     }
-
-    // Fit bounds on mount, and when the markers change
-  
-    
 
     return  (<>
         <div className={sidebar ? 'box1 active' : 'box1'}>
@@ -210,19 +216,24 @@ function RouteExploration() {
                     {(!display && suggestions.length>0) && suggestions.map((suggestion,i) =>
                         <div key={i} className="search-result" onClick={()=>onSuggestHandler(suggestion.routeshortname)}><i class="fas fa-bus"></i>&nbsp;&nbsp;{suggestion.routeshortname} &nbsp;&nbsp; {suggestion.routelongname}</div>
                     )}
-                    {((!pathInfo.length>0 || !routeInfo.length>0) || (!display && suggestions.length===0 && !finds.length>0 )) && <Icons.HiSearchCircle style={{fontSize:'100px'}} />}
-                    {display && pathInfo.length>0 && routeInfo.length>0 && <h1>{routeInfo[0].tripheadsign}</h1>}
+                    {((!pathInfo.length>0 || !routeInfo.length>0) || (!display && suggestions.length===0 && !finds.length>0 )) && <Icons.HiSearchCircle style={{fontSize:'200px',textAlign:'center'}} />}
+                    <div className={display&& pathInfo.length>0 && routeInfo.length>0 ? 'line-header-active' : 'line-header'}>
+                    {display && pathInfo.length>0 && routeInfo.length>0 && <h2>{routeInfo[0].tripheadsign}</h2>}
                     {display && pathInfo.length>0 && routeInfo.length>0 && ((shapeDirection===shapeDdirection0&&shapeDdirection1.length>0) || (shapeDirection===shapeDdirection1&&shapeDdirection0.length>0)) && <button onClick={changeDirection}>Change Direction</button>}
+                    </div>
+                    <div className="line-option">
                     {display && pathInfo.length>0 && routeInfo.length>0 && <h3>Line option - {routeInfo[routeInfo.length-1].stopsequence} stops</h3>}
+                    <div className='container'>
                     {display && pathInfo.length>0 && routeInfo.length>0 && shapeDirection.map((element,i)  => {
-                        return <div key={i} className="route-option" onClick={()=>changeRoute(i)}><button>option</button></div>
+                        return <div key={i} className="route-option" onClick={()=>changeRoute(i)}>{<Iconsgo.GoPrimitiveDot style={{color:"#c2e7fe"}}/>}</div>
                     })}
+                    </div>
+                    </div>
                     <div className="stop-names">
                     {display && pathInfo.length>0 && routeInfo.length>0 && routeInfo.map((info,i) =>
-                        <div key={i} className="stop-name">{info.stopname}</div>
+                        <div key={i} className="stop-name">{<RiRadioButtonFill />}&nbsp;&nbsp;<p>{info.stopname}</p></div>
                     )}
                     </div>
-                    
                     </div>
             </div>
             
@@ -234,9 +245,8 @@ function RouteExploration() {
         <div className="box2">
                 <GoogleMap
                     mapContainerStyle={containerStyle}
-                    center={center}
-                    zoom={13}
-                    onLoad={map => setMap(map)}
+                    zoom={10}
+                    onLoad={onLoad} 
                     >
                     { /* Child components, such as markers, info windows, etc. */ }
                     {pathInfo.length>0 && routeInfo.length>0 && (routeInfo.map((marker, index) => (
