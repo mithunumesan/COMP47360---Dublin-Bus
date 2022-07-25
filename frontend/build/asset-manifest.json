@@ -1,16 +1,30 @@
 {
   "files": {
+<<<<<<< HEAD
     "main.css": "/static/css/main.c26c1cb1.css",
     "main.js": "/static/js/main.9c57faed.js",
+=======
+    "main.css": "/static/css/main.18787d75.css",
+    "main.js": "/static/js/main.9fca4bd7.js",
+>>>>>>> wendi_react_new
     "static/media/cardLabel.jpeg": "/static/media/cardLabel.fdef6f065bbc221f113c.jpeg",
     "static/media/bus.png": "/static/media/bus.20111078a9ea676d4f21.png",
     "static/media/leapCard.png": "/static/media/leapCard.954b1d969a8c7c82a751.png",
     "index.html": "/index.html",
+<<<<<<< HEAD
     "main.c26c1cb1.css.map": "/static/css/main.c26c1cb1.css.map",
     "main.9c57faed.js.map": "/static/js/main.9c57faed.js.map"
   },
   "entrypoints": [
     "static/css/main.c26c1cb1.css",
     "static/js/main.9c57faed.js"
+=======
+    "main.18787d75.css.map": "/static/css/main.18787d75.css.map",
+    "main.9fca4bd7.js.map": "/static/js/main.9fca4bd7.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.18787d75.css",
+    "static/js/main.9fca4bd7.js"
+>>>>>>> wendi_react_new
   ]
 }
