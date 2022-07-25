@@ -64,11 +64,11 @@ class Routes(models.Model):
     routeid = models.CharField(db_column='routeId', max_length=50, blank=True,primary_key = True)  # Field name made lowercase.
     routeshortname = models.CharField(db_column='routeShortName', max_length=50, blank=True, null=True)  # Field name made lowercase.
     routelongname = models.CharField(db_column='routeLongName', max_length=50, blank=True, null=True)  # Field name made lowercase.
-    shapeidlist = models.TextField(db_column='shapeIdList', max_length=1000, blank=True, null=True)  # Field name made lowercase.
+    shapeidlist = models.TextField(db_column='shapeIdlist', max_length=1000, blank=True, null=True)  # Field name made lowercase.
 
     class Meta:
         managed = False
-        db_table = 'routeShape'
+        db_table = 'routeshape'
 
 class AllTrip(models.Model):
     routeid = models.CharField(db_column='routeId', max_length=50,primary_key = True)  # Field name made lowercase.
@@ -86,4 +86,14 @@ class AllTrip(models.Model):
     class Meta:
        
         managed = False
-        db_table = 'allTrip'
+        db_table = 'drawRoute'
+
+class Shape(models.Model):
+    shapeid = models.CharField(db_column='shapId', max_length=50,primary_key = True)  # Field name made lowercase.
+    lat = models.FloatField(db_column='shapePtLatitude',max_length=50)
+    lng = models.FloatField(db_column='shapePtLongitude',max_length=50)
+    # shapePtSequence = models.IntegerField(db_column='shapePtSequence')
+
+    class Meta:
+        managed = False
+        db_table = 'shape'

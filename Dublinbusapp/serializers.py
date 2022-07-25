@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import AllTrip, Dublinbusapp, Routes
+from .models import AllTrip, Dublinbusapp, Routes, Shape
 from .models import Stops
 
 class DublinbusappSerializer(serializers.ModelSerializer):
@@ -21,3 +21,8 @@ class AllTripSerializer(serializers.ModelSerializer):
     class Meta:
         model = AllTrip
         fields = '__all__'
+
+class ShapeSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Shape
+        fields = ('shapeid','lat','lng')

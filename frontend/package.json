@@ -15,7 +15,8 @@
     "react-autocomplete": "1.8.1",
     "react-icons":"4.4.0",
     "supercluster": "^7.1.5",
-    "use-supercluster": "^0.4.0"
+    "use-supercluster": "^0.4.0",
+    "react-usestateref":"1.0.8"
   },
   "scripts": {
     "start": "react-scripts start",
