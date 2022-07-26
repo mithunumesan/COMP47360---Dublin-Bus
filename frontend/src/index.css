@@ -339,7 +339,8 @@ html {
           box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.1);
   padding: 2rem;
   margin-bottom: 2rem;
-  max-height: 60rem;
+  max-height: 55rem;
+  
 }
 
 .journey-form .box {
@@ -369,7 +370,7 @@ html {
 }
 
 .box1.active {
-  min-height: 40rem;
+  min-height:65rem;
   width:45rem;
   left:0;
   top:8rem;
@@ -477,6 +478,7 @@ html {
 
 .search-results {
   max-height: 45rem;
+  min-height:45rem;
   overflow: scroll;
   margin-bottom:4rem;
 }
@@ -496,6 +498,8 @@ html {
 .container{
   display : flex;
   flex-direction : row;
+  align-items: center;
+  justify-content: center
 }
 .container .link1{
   border-top-left-radius: 25px;
@@ -537,4 +541,33 @@ html {
   width: 100%;
   background-color: #e6f5fe;
 }
+
+.line-header-active{
+  padding:1rem;
+  background-color: #e4e4e6;
+  font-size: 120%;
+}
+
+.line-option {
+  text-align: center;
+  font-size: 13px;
+  border-bottom: 1px solid black;
+}
+
+.line-option::after{
+  border-bottom: 1px solid black;
+  position: absolute;
+}
+
+.stop-name{
+  font-size: 12px;
+  padding:0.5rem;
+  display: flex;
+  flex-direction: row;
+}
+.stop-name p{
+  color:gray
+}
+
+
 /*# sourceMappingURL=index.css.map */

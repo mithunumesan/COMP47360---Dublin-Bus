@@ -3,6 +3,7 @@ import { useState,useRef,useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { getmarkers} from '../components/markers';
 import * as Icons from "react-icons/hi";
+import { MarkerClusterer } from '@react-google-maps/api';
 // import useSupercluster from "use-supercluster";
 
 
@@ -16,20 +17,22 @@ const center = {
     lat: 53.3463,
     lng: -6.2631
   };
+
+  const defaultBounds = {
+    north: center.lat + 0.1,
+    south: center.lat - 0.1,
+    east: center.lng + 0.1,
+    west: center.lng - 0.1,
+  };
     
-  const icon = { url: require('./bus.png') ,scaledSize:{ width: 20, height: 20}};
+const icon = { url: require('./bus.png') ,scaledSize:{ width: 20, height: 20}};
 
 function JourneyPlanning() {
     
-    // const mapRef = useRef();
     const [markers,setmarkers]=useState([]);
 
     const [infowindows,setinfowindows]=useState(null);
-    // const [zoom, setZoom] = useState(13);
-    // const [bounds, setBounds] = useState(null);
-    
-
-
+  
     useEffect(() => {
         let mounted = true;
         getmarkers()
@@ -40,43 +43,6 @@ function JourneyPlanning() {
           })
         return () => mounted = false;
       }, [])
-
-  
-
-
-
-
-//       const points = markers.map(marker => ({
-//         type: "Feature",
-//         properties: { cluster: false,name:marker.stopid},
-//         geometry: {
-//           type: "Point",
-//           coordinates: [
-//             parseFloat(marker.longitude),
-//             parseFloat(marker.latitude)
-//           ]
-//         }
-//       }));
-
-//       const { clusters, supercluster } = useSupercluster({
-//         points,
-//         bounds,
-//         zoom,
-//         options: { radius: 75, maxZoom: 20 }
-
-//       });
-
-// console.log(clusters);
-
-
-
-
-  const defaultBounds = {
-    north: center.lat + 0.1,
-    south: center.lat - 0.1,
-    east: center.lng + 0.1,
-    west: center.lng - 0.1,
-  };
 
     //react google map api using is refereneced from https://www.youtube.com/watch?v=iP3DnhCUIsE&list=RDCMUCr0y1P0-zH2o3cFJyBSfAKg&start_radio=1&rv=iP3DnhCUIsE&t=1614
     const [directionsResponse, setDirectionsResponse] = useState({})
@@ -124,6 +90,7 @@ function JourneyPlanning() {
     }
 
     async function caculateRoute(){
+       
         if(startRef.current.value === '' || destinationRef.current.value === '') {
             return;
         }
@@ -266,36 +233,12 @@ function JourneyPlanning() {
                     center={center}
                     zoom={13}
                     onLoad={map => setMap(map)}
-                    // yesIWantToUseGoogleMapApiInternals
-                    // onGoogleApiLoaded={({ map }) => {
-                    //   mapRef.current = map;
-                    // }} 
-                    // onChange={({ zoom, bounds }) => {
-                    //   setZoom(zoom);
-                    //   setBounds([
-                    //     bounds.nw.lng,
-                    //     bounds.se.lat,
-                    //     bounds.se.lng,
-                    //     bounds.nw.lat
-                    //   ]);
-                    // }}
+                    clickableIcons={false}
+                    options={{styles:{stylers: [
+                      { visibility: "off" }
+                ]}}}
                     >
-                   
-                   
-                    {
-                    markers.map((marker, index) => (
-                     <Marker
-                    key={index}
-                    name={marker.name}
-                    position={{ lat:marker.latitude, lng:marker.longitude  }}
-                    icon={icon}
-                    onClick={() => {
-                        setinfowindows(marker);
-                      }}
-                     />
-
-                     
-                     ))}
+                    
       {infowindows && (
         <InfoWindow
           onCloseClick={() => {
@@ -311,7 +254,24 @@ function JourneyPlanning() {
           </div>
         </InfoWindow>
       )}
-
+      {/* MarkerCluster refernce from https://stackoverflow.com/questions/62242497/react-googlemaps-issue-with-marker-marker-clusterer */}
+      <MarkerClusterer
+      minimumClusterSize={10}
+      gridSize={200}
+      >
+        { (clusterer) =>
+          markers.map((marker, index) => (
+          <Marker
+          key={index}
+          name={marker.name}
+          position={{ lat:marker.latitude, lng:marker.longitude  }}
+          clusterer={clusterer}
+          icon={icon}
+          onClick={() => {
+          setinfowindows(marker);
+      }}
+    /> ))
+    }</MarkerClusterer>
                     {directionsResponse && (<DirectionsRenderer directions={directionsResponse} panel={ document.getElementById('panel') } routeIndex={0}/>)}
                 </GoogleMap>
         </div>
