@@ -2,6 +2,7 @@ import { Route, Routes }  from 'react-router-dom';
 import JourneyPlanning from './pages/Journeyplanning';
 import LeapCard from './pages/Leapcard';
 import LogIn from './pages/LogIn';
+import SignUp from './pages/SignUp';
 import WeatherCard from './components/layout/WeatherCard';
 import MainNavigation from './components/layout/MainNavigation';
 import RouteExploration from './pages/RouteExploration';
@@ -10,13 +11,20 @@ import RouteExploration from './pages/RouteExploration';
 
 function App() {
     //localhost:3000/
+
+    const userLogin = (token) => {
+        console.log(token); 
+    }
+
     return (<><MainNavigation />
     <section>
         <switch>
             <Routes>
                 <Route path='/' element={<JourneyPlanning />}>
                 </Route>
-                <Route path = '/login' element={<LogIn />}>
+                <Route path = '/login' element={<LogIn userLogin={userLogin}/>}>
+                </Route>
+                <Route path='/signup' element={<SignUp />}>
                 </Route>
                 <Route path='/leapcard' element={<LeapCard />}>
                 </Route>

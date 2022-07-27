@@ -1,17 +1,16 @@
-import {useNavigate, Link} from 'react-router-dom';
+import {useNavigate} from 'react-router-dom';
 import { useState } from 'react';
-import WeatherCard from '../components/layout/WeatherCard';
 
-function LeapCardLogIn() {
-
+function SignUp() {
     const navigate = useNavigate();
     const navigateToContent = () => {
-        navigate('/signup');
+        navigate('/login');
     }
-
+    
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
-    const [tokenData, setTokenData] = useState('');
+    const [password2, setPassword2] = useState('');
+    
     
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -19,21 +18,14 @@ function LeapCardLogIn() {
 
     const logging = () => {
         console.log(username, password);
-        fetch('http://127.0.0.1:9224/auth/', {
+        fetch('http://127.0.0.1:9224/loginapi/users/', {
             method: 'POST',
             headers: {'Content-Type': 'application/json'},
             body: JSON.stringify({'username':username, 'password': password})
-        })
-        .then( data => data.json())
-        .then(
-        data => {
-            if(data.token){
-                debugger;
-                setTokenData(data.token);
-                navigate('/weather');
-            }
-        }
-        ).catch( error => console.error(error))
+        }).then(
+            response => console.log(response.json())
+            )
+            .catch( error => console.error(error))
     }
 
     return <div id="leapCardLog">
@@ -43,10 +35,11 @@ function LeapCardLogIn() {
         value={username} onChange={(e) => setUsername(e.target.value)} required></input>
         <input type="password" placeholder="enter your password" className="leapCard-box"
         value={password} onChange={(e) => setPassword(e.target.value)} required></input>
-        <input id="leapcardbtn"  type="submit" value="login now" className="leapCard-btn" onClick={logging}></input>
-        <Link to='/weather'/>
-        <button onClick={navigateToContent}> Sign Up</button>
+        <input type="password" placeholder="enter your password again" className="leapCard-box"
+        value={password2} onChange={(e) => setPassword2(e.target.value)} required></input>
+        <input id="leapcardbtn"  type="submit" value="sign up" className="leapCard-btn" onClick={logging}></input>
+        
     </form>
 </div>;
 }
-export default LeapCardLogIn;
+export default SignUp;
