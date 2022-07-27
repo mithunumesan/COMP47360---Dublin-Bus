@@ -17,6 +17,8 @@ from django.contrib import admin
 from django.urls import path, include
 from rest_framework import routers                 
 from Dublinbusapp import views
+from rest_framework.authtoken.views import obtain_auth_token
+
 
 router = routers.DefaultRouter()                   
 router.register(r'Dublinbusapps', views.DublinbusappView, 'Dublinbusapp') 
@@ -24,6 +26,7 @@ router.register(r'Dublinbusapps', views.DublinbusappView, 'Dublinbusapp')
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('Dublinbusapp.urls')),
-    path('api/', include(router.urls))
-    
+    path('api/', include(router.urls)),
+    path('loginapi/', include('api.urls')),
+    path('auth/', obtain_auth_token)
 ]

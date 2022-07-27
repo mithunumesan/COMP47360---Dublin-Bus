@@ -40,7 +40,9 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'Dublinbusapp',
     'rest_framework',
+    'rest_framework.authtoken',
     'corsheaders',
+    'api',
     
 ]
 
