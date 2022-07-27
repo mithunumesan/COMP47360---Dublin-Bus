@@ -35,7 +35,7 @@ function MainNavigation() {
 
         <nav className="navbar">
             <Link to='/' className="journeyPlanning">Journey Planner</Link>
-            <Link to='/leapcardlogin'  className="leapCard">Leap Card</Link>
+            <Link to='/login'  className="leapCard">My Account</Link>
             <Link to='/weather'  className="weather">Weather</Link>
         </nav>
 
