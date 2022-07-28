@@ -262,10 +262,18 @@ function JourneyPlanning() {
                     center={center}
                     zoom={13}
                     onLoad={map => setMap(map)}
-                    clickableIcons={false}
-                    options={{styles:{stylers: [
-                      { visibility: "off" }
-                ]}}}
+                    options={{ styles: [
+                      {  
+                      featureType: "transit", 
+                      stylers: [{ visibility: "off", }], 
+                    },
+                  
+                    {
+                      featureType: "poi",
+                      stylers: [{ visibility: "off" }],
+                    },
+                  
+                  ], }}
                     >
                     
       {infowindows && (
