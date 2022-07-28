@@ -233,7 +233,18 @@ function JourneyPlanning() {
                     center={center}
                     zoom={13}
                     onLoad={map => setMap(map)}
-                    options={{ styles: [{  featureType: "transit", stylers: [{ visibility: "off", }], }], }}
+                    options={{ styles: [
+                      {  
+                      featureType: "transit", 
+                      stylers: [{ visibility: "off", }], 
+                    },
+                  
+                    {
+                      featureType: "poi",
+                      stylers: [{ visibility: "off" }],
+                    },
+                  
+                  ], }}
                 
                     >
                     
