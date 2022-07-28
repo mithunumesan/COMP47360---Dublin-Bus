@@ -1,8 +1,7 @@
 import {useNavigate, Link} from 'react-router-dom';
 import { useState } from 'react';
-import WeatherCard from '../components/layout/WeatherCard';
 
-function LeapCardLogIn() {
+function LogIn() {
 
     const navigate = useNavigate();
     const navigateToContent = () => {
@@ -19,7 +18,7 @@ function LeapCardLogIn() {
 
     const logging = () => {
         console.log(username, password);
-        fetch('http://127.0.0.1:9224/auth/', {
+        fetch('http://127.0.0.1:8000/auth/', {
             method: 'POST',
             headers: {'Content-Type': 'application/json'},
             body: JSON.stringify({'username':username, 'password': password})
@@ -28,9 +27,10 @@ function LeapCardLogIn() {
         .then(
         data => {
             if(data.token){
-                debugger;
+                localStorage.setItem("user_token", data.token);
+                console.log(data.token);
                 setTokenData(data.token);
-                navigate('/weather');
+                navigate('/home');
             }
         }
         ).catch( error => console.error(error))
@@ -44,9 +44,9 @@ function LeapCardLogIn() {
         <input type="password" placeholder="enter your password" className="leapCard-box"
         value={password} onChange={(e) => setPassword(e.target.value)} required></input>
         <input id="leapcardbtn"  type="submit" value="login now" className="leapCard-btn" onClick={logging}></input>
-        <Link to='/weather'/>
+        
         <button onClick={navigateToContent}> Sign Up</button>
     </form>
 </div>;
 }
-export default LeapCardLogIn;
+export default LogIn;

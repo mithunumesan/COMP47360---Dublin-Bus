@@ -11,6 +11,7 @@ function SignUp() {
     const [password, setPassword] = useState('');
     const [password2, setPassword2] = useState('');
     
+    let changed = false;
     
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -18,13 +19,20 @@ function SignUp() {
 
     const logging = () => {
         console.log(username, password);
-        fetch('http://127.0.0.1:9224/loginapi/users/', {
+        fetch('http://127.0.0.1:8000/loginapi/users/', {
             method: 'POST',
             headers: {'Content-Type': 'application/json'},
             body: JSON.stringify({'username':username, 'password': password})
         }).then(
-            response => console.log(response.json())
-            )
+            response => response.json()
+            ).then( data => {if(data.username[0] === "A user with that username already exists."){
+                console.log(data.username[0]);
+                changed = true;
+            }
+            else{
+                navigateToContent();
+            }
+        })
             .catch( error => console.error(error))
     }
 
@@ -38,7 +46,7 @@ function SignUp() {
         <input type="password" placeholder="enter your password again" className="leapCard-box"
         value={password2} onChange={(e) => setPassword2(e.target.value)} required></input>
         <input id="leapcardbtn"  type="submit" value="sign up" className="leapCard-btn" onClick={logging}></input>
-        
+        {false || changed } 
     </form>
 </div>;
 }
