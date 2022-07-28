@@ -543,15 +543,18 @@ html {
 }
 
 .line-header-active{
+  color:white;
   padding:1rem;
-  background-color: #e4e4e6;
   font-size: 120%;
+  /* refernce from https://www.lonelyplanet.com/articles/getting-around-dublin */
+  background-image: url('./pages/Dublinbridge.png');
 }
 
 .line-option {
   text-align: center;
   font-size: 13px;
   border-bottom: 1px solid black;
+  /* background-color: #e4e4e6; */
 }
 
 .line-option::after{
@@ -569,5 +572,40 @@ html {
   color:gray
 }
 
+.search-icon {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  margin-right: -50%;
+  transform: translate(-50%, -50%)
+}
+
+.change-direction{
+  border-radius: 12px;
+  /* background-color: white; */
+  color:gray;
+  border: 2px solid #c2e7fe; 
+  padding:2px;
+}
+
+.change-direction:hover{
+  color:#1E90FF;
+}
+
+.stop-line-goahead{
+  padding: 8px;
+  background: #3c78d8;
+  color: #ffffff;
+  border-radius: 2px;
+  margin: 4px;
+  
+}
+
+.stop-line-dublinbus {
+  padding: 8px;
+  background: #f1c232;
+  border-radius: 5px;
+  margin: 4px;
+}
 
 /*# sourceMappingURL=index.css.map */

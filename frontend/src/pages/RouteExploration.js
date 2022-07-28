@@ -52,11 +52,13 @@ function RouteExploration() {
     const [pathInfo,setPathInfo] = useState([]);
 
     const [display,setDisplay] = useState(false)
+
+    const [searchIcon,setSearchIcon] = useState(false)
       
     useEffect(() => {
         const loadUsers =async() => {
             const response = await getRoutes()
-            console.log('finds',response)
+            // console.log('finds',response)
             setFinds(response)
         }
         loadUsers();
@@ -71,27 +73,28 @@ function RouteExploration() {
                 return find.routeshortname.match(regex)
              });
         };
-        console.log(matches)
+        // console.log(matches)
         setSuggestions(matches)
         setText(text)
     }
 
     const onSuggestHandler = (text)=> {
+        setSearchIcon(true)
         setDisplay(false)
         setText(text);
         setSuggestions([])
         //cause there is no break in forEach react js
         for(var i=0;i<finds.length;i++) {
             if(finds[i].routeshortname===text){
-                console.log('text',text)
+                // console.log('text',text)
                 routeResult = finds[i]
-                console.log('routeResult',routeResult)
+                // console.log('routeResult',routeResult)
                 break
             }
         }
         let shapeList = routeResult.shapeidlist
         shapeList = shapeList.split(',')
-        console.log(shapeList)
+        // console.log(shapeList)
         
         shapeDdirection1=[]
         shapeDdirection0=[]
@@ -103,8 +106,8 @@ function RouteExploration() {
             }
         });
 
-        console.log('direction1',shapeDdirection1)
-        console.log('direction0',shapeDdirection0)
+        // console.log('direction1',shapeDdirection1)
+        // console.log('direction0',shapeDdirection0)
         if(shapeDdirection0.length>0) {
             shapeDirection = shapeDdirection0
         } else {
@@ -117,18 +120,19 @@ function RouteExploration() {
         setPathInfo([])
         setRouteInfo([])
         if(shapeDirection.length>0) {
-        console.log(shapeDirection[0])
+        // console.log(shapeDirection[0])
         const para = shapeDirection[0]
         const result = await getTrips(para)
         setRouteInfo(result)
-        console.log('trips',result)
+        // console.log('trips',result)
         const shape = await getShape(para)
         setPathInfo(shape)
-        console.log("path",shape)
-        routeInfo.forEach(element => {
-            console.log(element.stopname)
-        });
+        // console.log("path",shape)
+        // routeInfo.forEach(element => {
+        //     console.log(element.stopname)
+        // });
         setDisplay(true)
+        setSearchIcon(false)
     }
     }
 
@@ -138,12 +142,12 @@ function RouteExploration() {
         const para = shapeDirection[i]
         const result = await getTrips(para)
         setRouteInfo(result)
-        console.log('trips',result)
+        // console.log('trips',result)
         const shape = await getShape(para)
         setPathInfo(shape)   
-        routeInfo.forEach(element => {
-            console.log(element.stopname)
-        });
+        // routeInfo.forEach(element => {
+        //     console.log(element.stopname)
+        // });
         setDisplay(true)
     }
 
@@ -178,7 +182,6 @@ function RouteExploration() {
           lat: marker.latitude,
           lng: marker.longitude,
         });
-        console.log("marker")
       });
       map.fitBounds(bounds);
     }
@@ -210,25 +213,27 @@ function RouteExploration() {
                     <input type="search" placeholder="Search for a line" className="box" value={text} onChange= {e => onChangeHandler(e.target.value)}></input>
                     
                     <div className='search-results'>
-                    {((!display && suggestions.length===0)) && finds.length>0 && finds.map((suggestion,i) =>
+                    { !display && suggestions.length===0 && finds.length>0 &&!searchIcon && finds.map((suggestion,i) =>
                         <div key={i} className="search-result" onClick={()=>onSuggestHandler(suggestion.routeshortname)}><i class="fas fa-bus"></i>&nbsp;&nbsp;{suggestion.routeshortname} &nbsp;&nbsp; {suggestion.routelongname}</div>
                     )}
-                    {(!display && suggestions.length>0) && suggestions.map((suggestion,i) =>
+                    {!display && (suggestions.length>0) &&!searchIcon && suggestions.map((suggestion,i) =>
                         <div key={i} className="search-result" onClick={()=>onSuggestHandler(suggestion.routeshortname)}><i class="fas fa-bus"></i>&nbsp;&nbsp;{suggestion.routeshortname} &nbsp;&nbsp; {suggestion.routelongname}</div>
                     )}
-                    {((!pathInfo.length>0 || !routeInfo.length>0) || (!display && suggestions.length===0 && !finds.length>0 )) && <Icons.HiSearchCircle style={{fontSize:'200px',textAlign:'center'}} />}
+                    {/* Display Search Icon */}
+                    {(((!pathInfo.length>0 || !routeInfo.length>0)&& display) || (!display && suggestions.length===0 && !finds.length>0)|| searchIcon) && <div className='search-icon'><Icons.HiSearchCircle style={{fontSize:'200px',color:"#c2e7fe"}} /></div>}
                     <div className={display&& pathInfo.length>0 && routeInfo.length>0 ? 'line-header-active' : 'line-header'}>
                     {display && pathInfo.length>0 && routeInfo.length>0 && <h2>{routeInfo[0].tripheadsign}</h2>}
-                    {display && pathInfo.length>0 && routeInfo.length>0 && ((shapeDirection===shapeDdirection0&&shapeDdirection1.length>0) || (shapeDirection===shapeDdirection1&&shapeDdirection0.length>0)) && <button onClick={changeDirection}>Change Direction</button>}
+                    {display && pathInfo.length>0 && routeInfo.length>0 && ((shapeDirection===shapeDdirection0&&shapeDdirection1.length>0) || (shapeDirection===shapeDdirection1&&shapeDdirection0.length>0)) && <button className='change-direction' onClick={changeDirection}>Change Direction</button>}
                     </div>
-                    <div className="line-option">
-                    {display && pathInfo.length>0 && routeInfo.length>0 && <h3>Line option - {routeInfo[routeInfo.length-1].stopsequence} stops</h3>}
-                    <div className='container'>
-                    {display && pathInfo.length>0 && routeInfo.length>0 && shapeDirection.map((element,i)  => {
+                    
+                    {display && pathInfo.length>0 && routeInfo.length>0 && 
+                    <div className="line-option"><h3>Line option - {routeInfo[routeInfo.length-1].stopsequence} stops</h3>
+                    <div className='container'>{shapeDirection.map((element,i)  => {
                         return <div key={i} className="route-option" onClick={()=>changeRoute(i)}>{<Iconsgo.GoPrimitiveDot style={{color:"#c2e7fe"}}/>}</div>
                     })}
                     </div>
-                    </div>
+                    </div>}
+                    
                     <div className="stop-names">
                     {display && pathInfo.length>0 && routeInfo.length>0 && routeInfo.map((info,i) =>
                         <div key={i} className="stop-name">{<RiRadioButtonFill />}&nbsp;&nbsp;<p>{info.stopname}</p></div>
@@ -253,9 +258,10 @@ function RouteExploration() {
                      <Marker
                     key={index}
                     position={{ lat:marker.latitude, lng:marker.longitude  }}
-                    icon = {{url: (require('./circle-16.png')),
-                    
-                    scaledSize:{ width: 10, height: 10}}}
+                    icon = {{url: (require('./radio-button-48.png')),
+                    scaledSize:{ width: 20, height: 20},
+                    anchor:new window.google.maps.Point(10, 10)}
+                    }
                      />)
                      )) 
                      } 

@@ -19,10 +19,6 @@ class StopsView(viewsets.ModelViewSet):
     serializer_class = StopsSerializer   
     queryset = Stops.objects.all()
 
-class StopsView(viewsets.ModelViewSet):
-    serializer_class = StopsSerializer   
-    queryset = Stops.objects.all()
-
 class RoutesView(viewsets.ModelViewSet):
     serializer_class = RoutesSerializer  
     queryset = Routes.objects.all()

@@ -10,7 +10,7 @@ class DublinbusappSerializer(serializers.ModelSerializer):
 class StopsSerializer(serializers.ModelSerializer):
     class Meta:
         model = Stops
-        fields = ('stopid' ,'stopname', 'latitude', 'longitude')
+        fields = '__all__'
 
 class RoutesSerializer(serializers.ModelSerializer):
     class Meta:

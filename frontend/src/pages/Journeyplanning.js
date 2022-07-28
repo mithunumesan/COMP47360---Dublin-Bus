@@ -1,9 +1,9 @@
-import { useJsApiLoader, Autocomplete,DirectionsRenderer,GoogleMap,Marker ,InfoWindow} from '@react-google-maps/api';
+import { useJsApiLoader, Autocomplete,DirectionsRenderer,GoogleMap,Marker,InfoWindow} from '@react-google-maps/api';
 import { useState,useRef,useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { getmarkers} from '../components/markers';
 import * as Icons from "react-icons/hi";
-import { MarkerClusterer } from '@react-google-maps/api';
+import { MarkerClusterer} from '@react-google-maps/api';
 // import useSupercluster from "use-supercluster";
 
 
@@ -27,6 +27,9 @@ const center = {
     
 const icon = { url: require('./bus.png') ,scaledSize:{ width: 20, height: 20}};
 
+let goAheadList = []
+let dublinBusList = []
+
 function JourneyPlanning() {
     
     const [markers,setmarkers]=useState([]);
@@ -43,6 +46,30 @@ function JourneyPlanning() {
           })
         return () => mounted = false;
       }, [])
+
+      const [goAhead,setGoAhead] = useState([])
+
+    const [dublinBus,setDublinBus] = useState([])
+
+    useEffect(() => {
+      if(infowindows !== null) {
+      let lineAgencyList = infowindows.agencyLineNum
+      console.log(lineAgencyList)
+      lineAgencyList = lineAgencyList.split(';')
+      goAheadList=[]
+      dublinBusList=[]
+      lineAgencyList.forEach(line => {
+        if(line.startsWith('03')) {
+          goAheadList.push(line.split(',').pop())
+        } else {
+          dublinBusList.push(line.split(',').pop())
+        }
+      })
+      setDublinBus(dublinBusList)
+      console.log(dublinBusList)
+      console.log(dublinBus)
+    }
+    }, [infowindows])
 
     //react google map api using is refereneced from https://www.youtube.com/watch?v=iP3DnhCUIsE&list=RDCMUCr0y1P0-zH2o3cFJyBSfAKg&start_radio=1&rv=iP3DnhCUIsE&t=1614
     const [directionsResponse, setDirectionsResponse] = useState({})
@@ -183,6 +210,8 @@ function JourneyPlanning() {
         document.getElementById('panel').innerHTML="";
     }
 
+    
+
     return  (<>
         <div className={sidebar ? 'box1 active' : 'box1'}>
             <div className="container">
@@ -250,7 +279,19 @@ function JourneyPlanning() {
           }}
         >
           <div>
-            <h2>{infowindows.stopname}</h2>
+          <div className="container">
+          <i class="fas fa-bus"></i> <h3>&nbsp;&nbsp;{infowindows.stopname}</h3>
+          </div>
+            <div className="container">
+            {goAheadList.length>0 && goAheadList.map((line,i) => {
+               return <div className="stop-line-goahead"><p>{line}</p></div>
+            })}
+            </div>
+            <div className="container">
+            {dublinBusList.length>0 && dublinBusList.map((line,i) => {
+               return <div className="stop-line-dublinbus"><p>{line}</p></div>
+            })}
+            </div>
           </div>
         </InfoWindow>
       )}
