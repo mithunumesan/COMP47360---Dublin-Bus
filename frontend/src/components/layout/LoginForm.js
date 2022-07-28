@@ -1,16 +1,52 @@
+import {useNavigate} from 'react-router-dom';
+import {useState} from 'react';
+
 function LoginForm() {
-return(
-<form action="" className="login-form">
-            <h3>log In</h3>
-            <input type="email" placeholder="enter your email" className="box"></input>
-            <input type="password" placeholder="enter your password" className="box"></input>
-            <div className="remember">
-                <input type="checkbox" name="" id="remember-me"></input>
-                <label for="remember-me">remember me</label>
-            </div>
-            <input type="submit" value="login now" className="btn"></input>
-            <p>don't have an account? <button>Sign Up</button></p>
-        </form>)
-}
+
+    const navigate = useNavigate();
+    const navigateToContent = () => {
+        navigate('/signup');
+    }
+
+    const [username, setUsername] = useState('');
+    const [password, setPassword] = useState('');
+    const [tokenData, setTokenData] = useState('');
+
+    const logging = () => {
+        console.log(username, password);
+        fetch('http://127.0.0.1:8000/auth/', {
+            method: 'POST',
+            headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify({'username':username, 'password': password})
+        })
+        .then( data => data.json())
+        .then(
+        data => {
+            if(data.token){
+                localStorage.setItem("user_token", data.token);
+                setTokenData(data.token);
+                navigate('/weather');
+            }
+        }
+        ).catch( error => console.error(error))
+    }
+
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+    }
+
+    return(
+    <form onSubmit={handleSubmit} action="" className="login-form">
+                <h3>log In</h3>
+                <input type="text" placeholder="enter username" className="box"></input>
+                <input type="password" placeholder="enter your password" className="box"></input>
+                <div className="remember">
+                    <input type="checkbox" name="" id="remember-me"></input>
+                    <label for="remember-me">remember me</label>
+                </div>
+                <input type="submit" value="login now" className="btn" onClick={logging}></input>
+                <p>don't have an account? <button onClick={navigateToContent}>Sign Up</button></p>
+            </form>)
+    }
 
 export default LoginForm;
