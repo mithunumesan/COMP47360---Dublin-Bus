@@ -253,7 +253,19 @@ function RouteExploration() {
                 <GoogleMap
                     mapContainerStyle={containerStyle}
                     zoom={10}
-                    onLoad={onLoad} 
+                    onLoad={onLoad}
+                    options={{ styles: [
+                        {  
+                        featureType: "transit", 
+                        stylers: [{ visibility: "off", }], 
+                      },
+                    
+                      {
+                        featureType: "poi",
+                        stylers: [{ visibility: "off" }],
+                      },
+                    
+                    ], }} 
                     >
                     { /* Child components, such as markers, info windows, etc. */ }
                     {pathInfo.length>0 && routeInfo.length>0 && (routeInfo.map((marker, index) => (
