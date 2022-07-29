@@ -71,6 +71,7 @@ class Routes(models.Model):
         managed = False
         db_table = 'routeshape'
 
+
 class AllTrip(models.Model):
     routeid = models.CharField(db_column='routeId', max_length=50,primary_key = True)  # Field name made lowercase.
     shapeid = models.CharField(db_column='shapeId', max_length=50)  # Field name made lowercase.
@@ -98,3 +99,24 @@ class Shape(models.Model):
     class Meta:
         managed = False
         db_table = 'shape'
+
+
+class TripSchedule(models.Model):
+    routeid = models.CharField(db_column='routeId', max_length=50, blank=True,primary_key = True)  # Field name made lowercase.
+    serviceid = models.CharField(db_column='serviceId', max_length=50, blank=True, null=True)
+    tripid = models.CharField(db_column='tripId', max_length=50, blank=True, null=True)
+    shapeId = models.CharField(db_column='shapeId', max_length=50, blank=True, null=True)
+    tripheadsign = models.CharField(db_column='tripHeadsign', max_length=50, blank=True, null=True)
+    directionid = models.CharField(db_column='directionId', max_length=50, blank=True, null=True)
+    arrivaltime = models.TimeField(db_column='arrivaltime',auto_now=False, auto_now_add=False)
+    stopid = models.CharField(db_column='stopid', max_length=50, blank=True, null=True)
+    stopsequence =  models.IntegerField(db_column='stopsequence')
+    shapedisttraveled = models.FloatField(db_column='shapedisttraveled', max_length=50)
+    stopname =  models.CharField(db_column='stopname', max_length=50, blank=True, null=True)
+    agencyId = models.CharField(db_column='agencyId', max_length=50, blank=True, null=True)
+    routeshortname = models.CharField(db_column='routeShortName', max_length=50, blank=True, null=True)  # Field name made lowercase.
+    routelongname = models.CharField(db_column='routeLongName', max_length=50, blank=True, null=True)  # Field name made lowercase.
+
+    class Meta:
+        managed = False
+        db_table = 'tripSchedule'

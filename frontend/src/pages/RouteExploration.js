@@ -137,6 +137,8 @@ function RouteExploration() {
     }
 
     async function changeRoute(i) {
+        // document.getElementById(i).innerHTML = '{<Iconsgo.GoPrimitiveDot style={{color:"#f1c232"}}/>}'; 
+        // e.currentTarget.style.backgroundColor="red";
         setPathInfo([])
         setRouteInfo([])
         const para = shapeDirection[i]
@@ -229,7 +231,7 @@ function RouteExploration() {
                     {display && pathInfo.length>0 && routeInfo.length>0 && 
                     <div className="line-option"><h3>Line option - {routeInfo[routeInfo.length-1].stopsequence} stops</h3>
                     <div className='container'>{shapeDirection.map((element,i)  => {
-                        return <div key={i} className="route-option" onClick={()=>changeRoute(i)}>{<Iconsgo.GoPrimitiveDot style={{color:"#c2e7fe"}}/>}</div>
+                        return <div key={i} id={i} className="route-option" onClick={()=>changeRoute(i)}>{<Iconsgo.GoPrimitiveDot style={{color:"#c2e7fe"}}/>}</div>
                     })}
                     </div>
                     </div>}

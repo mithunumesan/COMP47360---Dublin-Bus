@@ -138,6 +138,7 @@ function JourneyPlanning() {
                 departureTime: departTime,
                 },
             })
+            console.log(results)
             setDirectionsResponse(results);
         }else if( selected ==='arrive') {
             arrivalTime = new Date(dateTime);
@@ -153,6 +154,7 @@ function JourneyPlanning() {
             // routingPreference:
             },
         })
+        console.log(results)
             setDirectionsResponse(results);
         } else {
         // eslint-disable-next-line
@@ -163,6 +165,7 @@ function JourneyPlanning() {
             travelMode: google.maps.TravelMode.TRANSIT,
             provideRouteAlternatives: true,
         })
+        console.log(results)
             setDirectionsResponse(results);
         }
     }

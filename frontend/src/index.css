@@ -395,17 +395,19 @@ html {
 }
 
 .box1 {
+  min-height:65rem;
   width:45rem;
   top:8rem;
   bottom:2rem;
   background: white;
+  position:fixed;
   border-radius: .5rem;
   -webkit-box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.1);
           box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.1);
   padding: 2rem;
-  z-index: 11;
-  left:-420px;
-  transition: 850ms;
+  z-index: 9;
+  left:-50rem;
+  transition: 800ms;
 }
 
 .box1 #panel{
@@ -428,14 +430,14 @@ html {
 
 .sidebar-toggle-off {
   top:37rem;
-  left:-1px;
+  left:-4px;
   position:fixed;
   background: white;
   padding: 0.3rem;
   z-index: 10;
   border-top-right-radius: 5px;
   border-bottom-right-radius: 5px;
-  transition: 50ms;
+  transition: 618ms;
 }
 
 .box2 {
@@ -607,5 +609,3 @@ html {
   border-radius: 5px;
   margin: 4px;
 }
-
-/*# sourceMappingURL=index.css.map */
