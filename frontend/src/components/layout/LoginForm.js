@@ -1,6 +1,7 @@
 import {useNavigate} from 'react-router-dom';
 import {useState} from 'react';
 
+
 function LoginForm() {
 
     const navigate = useNavigate();
@@ -25,7 +26,7 @@ function LoginForm() {
             if(data.token){
                 localStorage.setItem("user_token", data.token);
                 setTokenData(data.token);
-                navigate('/weather');
+                navigate('/home');
             }
         }
         ).catch( error => console.error(error))
@@ -36,10 +37,15 @@ function LoginForm() {
     }
 
     return(
-    <form onSubmit={handleSubmit} action="" className="login-form">
+    
+            <form onSubmit={handleSubmit} action="" className="login-form">
                 <h3>log In</h3>
-                <input type="text" placeholder="enter username" className="box"></input>
-                <input type="password" placeholder="enter your password" className="box"></input>
+                
+                <input type="text" name ="username" placeholder="enter your account" className="box" 
+                value={username} onChange={(e) => setUsername(e.target.value)} required></input>
+                <input type="password" placeholder="enter your password" className="box"
+                value={password} onChange={(e) => setPassword(e.target.value)} required></input>
+                        
                 <div className="remember">
                     <input type="checkbox" name="" id="remember-me"></input>
                     <label for="remember-me">remember me</label>

@@ -7,9 +7,7 @@ function useUserToken() {
     const [token, setToken] = useState();
     useEffect(() => {
       const token = localStorage.getItem("user_token");
-      if (!token) {
-        navigate("/login");
-      }
+      
       setToken(token);
     }, [navigate, setToken]);
     return token;
