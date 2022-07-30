@@ -343,9 +343,9 @@ html {
   -webkit-box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.1);
           box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.1);
   padding: 2rem;
-  margin-bottom: 2rem;
-  max-height: 55rem;
-  
+  margin-bottom: 20%;
+  /* max-height: 55rem; */
+  height:90%;
 }
 
 .journey-form .box {
@@ -375,11 +375,18 @@ html {
 }
 
 .box1.active {
-  min-height:65rem;
-  width:45rem;
+  /* min-height:65rem;
+  width:45rem; */
+  min-height:600px;
+  height:80%;
+  /* width:35%; */
+  width: 450px;
+  /* min-width: 430px; */
   left:0;
-  top:8rem;
-  bottom:2rem;
+  /* top:8rem;
+  bottom:2rem; */
+  top:12%;
+  bottom:4%;
   position:fixed;
   background: white;
   border-radius: .5rem;
@@ -390,7 +397,7 @@ html {
 }
 
 .box1.active #panel {
-  height: 30rem;
+  height: 45%;
   overflow: scroll;
   margin-top:2rem;
 }
@@ -400,10 +407,11 @@ html {
 }
 
 .box1 {
-  min-height:65rem;
-  width:45rem;
-  top:8rem;
-  bottom:2rem;
+  min-height:600px;
+  height:80%;
+  width: 450px;
+  top:12%;
+  bottom:4%;
   background: white;
   position:fixed;
   border-radius: .5rem;
@@ -416,7 +424,7 @@ html {
 }
 
 .box1 #panel{
-  height: 30rem;
+  height: 30%;
   overflow: hidden;
   margin-top:2rem;
 }
@@ -484,10 +492,11 @@ html {
 }
 
 .search-results {
-  max-height: 45rem;
-  min-height:45rem;
+  min-height:430px;
+  height:70%;
   overflow: scroll;
-  margin-bottom:4rem;
+  /* top:13%;
+  bottom:10%; */
 }
 
 .search-result {
@@ -511,18 +520,14 @@ html {
 .container .link1{
   border-top-left-radius: 25px;
   text-align:center;
-  font-size: 120%;
   padding: 10px;
   width: 100%;
   background-color: #e6f5fe;
-  /* -webkit-box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.1);
-          box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.1); */
 }
 
 .container .link2{
   border-top-right-radius: 25px;
   text-align:center;
-  font-size: 120%;
   background-color: white;
   padding:10px;
   width: 100%;
@@ -533,7 +538,7 @@ html {
 .container .link3{
   border-top-left-radius: 25px;
   text-align:center;
-  font-size: 120%;
+ 
   background-color: white;
   padding:10px;
   width: 100%;
@@ -543,10 +548,32 @@ html {
 .container .link4{
   border-top-right-radius: 25px;
   text-align:center;
-  font-size: 120%;
   padding: 10px;
   width: 100%;
   background-color: #e6f5fe;
+}
+
+.input-icons i {
+  position: absolute;
+}
+
+.input-icons {
+  width: 100%;
+  font-size: 20px;
+}
+
+.input-field {
+  font-size: 20px;
+  width: 100%;
+  padding: 10px;
+  text-align: center;
+  border: 0.1rem solid rgba(0, 0, 0, 0.1);
+}
+
+.icon {
+  padding: 10px;
+  width: 100px;
+  height:100px;
 }
 
 .line-header-active{
@@ -603,14 +630,108 @@ html {
   padding: 8px;
   background: #3c78d8;
   color: #ffffff;
-  border-radius: 2px;
+  border-radius: 4px;
   margin: 4px;
-  
+  /* width:40px;
+  height:30px;
+  max-width:40px;
+  max-height: 30px; */
 }
 
 .stop-line-dublinbus {
   padding: 8px;
   background: #f1c232;
-  border-radius: 5px;
+  border-radius: 4px;
   margin: 4px;
+  /* width:40px;
+  height:30px;
+  max-width:40px;
+  max-height: 30px; */
+}
+/* reference from https://stackoverflow.com/questions/62298110/how-to-change-infowindow-style-in-react-google-maps-reactjs */
+.gm-style .gm-style-iw-c {
+  padding-right: 10px !important;
+   padding-bottom: 0px !important;
+   max-width: 300px !important;
+   max-height: 326px !important;
+   min-width: 0px !important;
+   position: absolute;
+   box-sizing: border-box;
+   overflow: hidden;
+   top: 0;
+   left: 0;
+   transform: translate(-50%,-100%);
+   border-radius: 8px;
+   box-shadow: 0 2px 7px 1px rgba(0,0,0,0.3);
+}
+
+@media screen and (max-width: 600px){
+  
+  .box1.active {
+    max-height:600px;
+    min-width: 400px;
+    width:70%;
+    height:70%;
+    left:0;
+    top:13%;
+    bottom:2%;
+  }
+
+  .box1 {
+    max-height:600px;
+    min-width: 400px;
+    width:70%;
+    height:70%;
+    top:13%;
+    bottom:2%;
+    left:-95%;
+}
+
+.box1 #panel{
+  height: 30%;
+  margin-top:2%;
+}
+
+  .sidebar-toggle{
+    left:-1%;
+    top:45%;
+    position:fixed;
+    background: white;
+    padding: 0.3%;
+    z-index: 10;
+    transition: 830ms;
+    border-top-right-radius: 5px;
+    border-bottom-right-radius: 5px;
+  }
+  
+  .sidebar-toggle-off {
+    top:45%;
+    left:-1%;
+    position:fixed;
+    background: white;
+    padding: 0.3rem;
+    z-index: 10;
+    border-top-right-radius: 5px;
+    border-bottom-right-radius: 5px;
+    transition: 618ms;
+  }
+
+  .container .link4 h1{
+    font-size: 18px;
+    padding: 1%;
+    width: 100%;
+  }
+
+  .container .link2 h1{
+    font-size: 18px;
+    padding: 1%;
+    width: 100%;
+  }
+
+}
+
+@media screen and (max-width: 751px){
+  .navbar{
+    display:none;
+  }
 }
