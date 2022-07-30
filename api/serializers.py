@@ -2,6 +2,8 @@ from rest_framework import serializers
 from django.contrib.auth.models import User
 from rest_framework.authtoken.models import Token
 
+from api.models import UserFavouriteRoute
+
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
@@ -13,3 +15,8 @@ class UserSerializer(serializers.ModelSerializer):
         token = Token.objects.create(user=user)
         print(token.key)
         return user
+
+class UserFavouriteRouteSerializer(serializers.ModelSerializer):
+      class Meta:
+        model = UserFavouriteRoute
+        fields = '__all__'
