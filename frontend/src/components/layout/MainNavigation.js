@@ -1,8 +1,10 @@
 import { Link, useNavigate } from 'react-router-dom';
-import {useState} from 'react';
+import {useState,useEffect} from 'react';
 import WeatherCard from './WeatherCard';
 import LoginForm from './LoginForm';
 import useUserToken from '../../pages/Home';
+import { RiLogoutCircleRFill } from "react-icons/ri";
+import UserProfile  from './UserProfile';
 
 
 function MainNavigation() {
@@ -10,42 +12,47 @@ function MainNavigation() {
     const navigate = useNavigate();
     
     let logOut = () => {
-        
         localStorage.removeItem("user_token");
-        navigate('/login');
+        navigate('/');
     }
     
-
-
     const token = useUserToken();
+    
     let logintest;
-    let logout;
-
-
     let userToken = localStorage.getItem("user_token");
+    let booleanValue
+    
 
-    userToken? logout = <button onClick={logOut}>Logout</button> : logout = null
-
-    userToken? logintest = <Link to='/home'  className="leapCard">Home</Link>
+    userToken ? logintest = <Link to='/home'  className="leapCard">Home</Link>
     :          logintest = <Link to='/login'  className="leapCard">My Account</Link>
-
 
     const [loginFromIsOpen, setLoginFormOpen] = useState(false);
     const [weatherCardIsOpen, setWeatherCard] = useState(false);
+    const [myProfile, setMyProfile] = useState(false);
+    
+    userToken ? booleanValue = false : booleanValue = true
 
     function openLoginForm() {
-        if(loginFromIsOpen===false || weatherCardIsOpen===true){
-            setLoginFormOpen(true);
-            setWeatherCard(false);
-        } else {
-            setLoginFormOpen(false);
+        if(booleanValue) {
+            if(loginFromIsOpen===false || weatherCardIsOpen===true){
+                setLoginFormOpen(true);
+                setWeatherCard(false);
+            } else {
+                setLoginFormOpen(false);
+            }
+        } else if(!myProfile){
+            setMyProfile(true)
+            setWeatherCard(false)
+        }else if(myProfile) {
+            setMyProfile(false)
         }
     }
 
     function openWeatherCard() {
-        if(weatherCardIsOpen===false || loginFromIsOpen===true){
+        if(weatherCardIsOpen===false || loginFromIsOpen===true || myProfile===true){
             setWeatherCard(true);
             setLoginFormOpen(false);
+            setMyProfile(false);
         } else {
             setWeatherCard(false);
         }
@@ -66,16 +73,15 @@ function MainNavigation() {
         </nav>
 
         <div className="icons">
-            <div id="menu-btn" className="fas fa-cloud-sun" onClick={openWeatherCard}></div>
-            <div id="login-btn" className="fas fa-users" onClick = {openLoginForm}>
-            <div id="weather-btn" className=""></div>     
+            <div id="menu-btn"><div className="fas fa-cloud-sun" onClick={openWeatherCard}></div></div>
+            <div id="login-btn"><div className="fas fa-users" onClick = {openLoginForm}></div></div>
+            {userToken ? <div id="logout-btn"><RiLogoutCircleRFill style={{fontSize:'20px'}} onClick={logOut} /></div>:  null}
         </div>
-        </div>
-        {logout}
-        {loginFromIsOpen ? <LoginForm /> : null}
+        
+        {(loginFromIsOpen&&booleanValue) ? <LoginForm /> : null}
+        {myProfile ? <UserProfile /> : null}
         {weatherCardIsOpen ? <div className='weather-card'><WeatherCard boolean={false} /></div> : null}
     </header>
     );
 }
-
 export default MainNavigation;

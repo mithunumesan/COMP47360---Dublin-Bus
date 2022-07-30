@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 import { getmarkers} from '../components/markers';
 import * as Icons from "react-icons/hi";
 import { MarkerClusterer} from '@react-google-maps/api';
+import useUserToken from './Home';
 // import useSupercluster from "use-supercluster";
 
 
@@ -47,7 +48,7 @@ function JourneyPlanning() {
         return () => mounted = false;
       }, [])
 
-      const [goAhead,setGoAhead] = useState([])
+    const [goAhead,setGoAhead] = useState([])
 
     const [dublinBus,setDublinBus] = useState([])
 
@@ -70,6 +71,8 @@ function JourneyPlanning() {
       console.log(dublinBus)
     }
     }, [infowindows])
+
+    const token = useUserToken();
 
     //react google map api using is refereneced from https://www.youtube.com/watch?v=iP3DnhCUIsE&list=RDCMUCr0y1P0-zH2o3cFJyBSfAKg&start_radio=1&rv=iP3DnhCUIsE&t=1614
     const [directionsResponse, setDirectionsResponse] = useState({})
@@ -212,6 +215,10 @@ function JourneyPlanning() {
         } 
         document.getElementById('panel').innerHTML="";
     }
+    
+    let isSaveAsMyFavRoute
+
+    localStorage.getItem("user_token") ? isSaveAsMyFavRoute = true : isSaveAsMyFavRoute = false
 
     function addFavoriteRoute() {
 
@@ -229,7 +236,7 @@ function JourneyPlanning() {
             </div>
             
             <div className="journey-form">
-            <button type="submit" className="btn" onClick={addFavoriteRoute}>Save as My Favorite Route</button>
+            {isSaveAsMyFavRoute ? <button type="submit" className="btn" onClick={addFavoriteRoute}>Save as My Favorite Route</button> : null}
                 <Autocomplete options={{
                     bounds: defaultBounds,
                     componentRestrictions: { country: ["IE"] },

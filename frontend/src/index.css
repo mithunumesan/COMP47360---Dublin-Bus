@@ -255,6 +255,11 @@ html {
   color: white;
 }
 
+.header .icons{
+  display : flex;
+  flex-direction : row;
+}
+
 .header .icons div {
   color: #666;
   padding-right: 1.5rem;
