@@ -213,7 +213,9 @@ function JourneyPlanning() {
         document.getElementById('panel').innerHTML="";
     }
 
-    
+    function addFavoriteRoute() {
+
+    }
 
     return  (<>
         <div className={sidebar ? 'box1 active' : 'box1'}>
@@ -225,14 +227,16 @@ function JourneyPlanning() {
                     <Link to='/routesexploration'><h1 style={{color: '#666'}}>Route Exploration</h1></Link>
                 </div>
             </div>
+            
             <div className="journey-form">
+            <button type="submit" className="btn" onClick={addFavoriteRoute}>Save as My Favorite Route</button>
                 <Autocomplete options={{
                     bounds: defaultBounds,
                     componentRestrictions: { country: ["IE"] },
                     fields: ["place_id", "geometry", "name"],
                     strictBounds: true,
                 }}>
-                    <input type="search" placeholder="Start Point" className="box" ref={startRef} onChange= {clearRoute}></input>
+                    <input type="search" placeholder="Start Point" className="box" ref={startRef} onChange = {clearRoute}></input>
                 </Autocomplete>
                 <Autocomplete options={{
                     bounds: defaultBounds,

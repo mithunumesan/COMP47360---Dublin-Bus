@@ -1,7 +1,7 @@
 import {useNavigate} from 'react-router-dom';
 import {useState, useEffect} from 'react';
 
-function useUserToken() {
+export function useUserToken() {
     const navigate = useNavigate();
     
     const [username, setUsername] = useState('');
@@ -45,7 +45,7 @@ function Home() {
       formField.append = ('user',userid)
       formField.append('start_point',startPoint)
       formField.append('destination',destination)
-    } 
+    }
 
     return (<div >
     <h1> HOME </h1>
