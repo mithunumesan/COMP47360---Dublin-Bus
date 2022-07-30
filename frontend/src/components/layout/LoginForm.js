@@ -24,6 +24,7 @@ function LoginForm() {
         .then(
         data => {
             if(data.token){
+                console.log(data.user);
                 localStorage.setItem("user_token", data.token);
                 setTokenData(data.token);
                 navigate('/home');
