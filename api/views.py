@@ -14,21 +14,13 @@ class UserViewSet(viewsets.ModelViewSet):
 
 class username(APIView):
     authentication_classes = [TokenAuthentication]
-    # permission_classes = [IsAuthenticated]
-    # token_classes = [TokenAuthentication]
+
 
     def get(self, request, format=None):
         # print(request.headers)
         content = {
+            'userid': str(request.user.id),
             'username': str(request.user.username)
         }
         return Response(content)
 
-# @api_view(['GET'])
-# @authentication_classes([SessionAuthentication, BasicAuthentication])
-# @permission_classes([IsAuthenticated])
-# def username2(request, format=None):
-#     content = {
-#         'username': str(request.user.username)
-#     }
-#     return Response(content)
