@@ -1,0 +1,25 @@
+import {useNavigate} from 'react-router-dom';
+import {useState, useEffect} from 'react';
+
+function useUserToken() {
+    const navigate = useNavigate();
+  
+    const [token, setToken] = useState();
+    useEffect(() => {
+      const token = localStorage.getItem("user_token");
+      
+      setToken(token);
+    }, [navigate, setToken]);
+    return token;
+  }
+function Home() {
+
+    const token = useUserToken();
+    
+    return (<div >
+    {/* <h1> HOME </h1> */}
+    <h1>Welcome</h1>
+    <h2> this me {token} </h2>
+</div>)
+}
+export default Home;

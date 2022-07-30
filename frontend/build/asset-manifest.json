@@ -1,15 +1,30 @@
 {
   "files": {
+<<<<<<< Updated upstream
     "main.css": "/static/css/main.18787d75.css",
     "main.js": "/static/js/main.9fca4bd7.js",
+=======
+    "main.css": "/static/css/main.405d2a2a.css",
+    "main.js": "/static/js/main.39312af7.js",
+    "static/media/Dublinbridge.png": "/static/media/Dublinbridge.6065720d889464dd7ba3.png",
+>>>>>>> Stashed changes
     "static/media/cardLabel.jpeg": "/static/media/cardLabel.fdef6f065bbc221f113c.jpeg",
     "static/media/leapCard.png": "/static/media/leapCard.954b1d969a8c7c82a751.png",
     "index.html": "/index.html",
+<<<<<<< Updated upstream
     "main.18787d75.css.map": "/static/css/main.18787d75.css.map",
     "main.9fca4bd7.js.map": "/static/js/main.9fca4bd7.js.map"
   },
   "entrypoints": [
     "static/css/main.18787d75.css",
     "static/js/main.9fca4bd7.js"
+=======
+    "main.405d2a2a.css.map": "/static/css/main.405d2a2a.css.map",
+    "main.39312af7.js.map": "/static/js/main.39312af7.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.405d2a2a.css",
+    "static/js/main.39312af7.js"
+>>>>>>> Stashed changes
   ]
 }
