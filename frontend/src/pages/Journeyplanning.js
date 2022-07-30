@@ -5,6 +5,7 @@ import { getmarkers} from '../components/markers';
 import * as Icons from "react-icons/hi";
 import { MarkerClusterer} from '@react-google-maps/api';
 // import useSupercluster from "use-supercluster";
+import useUserToken from './Home';
 
 
 const containerStyle = {
@@ -31,7 +32,10 @@ let goAheadList = []
 let dublinBusList = []
 
 function JourneyPlanning() {
-    
+
+    const token = useUserToken();
+
+    console.log("thookini" + token);
     const [markers,setmarkers]=useState([]);
 
     const [infowindows,setinfowindows]=useState(null);
@@ -234,6 +238,7 @@ function JourneyPlanning() {
                 }}>
                     <input type="search" placeholder="Start Point" className="box" ref={startRef} onChange= {clearRoute}></input>
                 </Autocomplete>
+                
                 <Autocomplete options={{
                     bounds: defaultBounds,
                     componentRestrictions: { country: ["IE"] },
@@ -252,6 +257,7 @@ function JourneyPlanning() {
                 {/* add the html input datetime element or not */}
                 {booleanValue ? <div id="time"><input type="datetime-local" id="datetime" onChange={handleChange} value={dateTime}></input></div> : null}
                 <button type="submit" className="btn" onClick={caculateRoute}>Search</button>
+                <button> Favorite</button>
             </div>
             <div id="panel"></div>
         </div>

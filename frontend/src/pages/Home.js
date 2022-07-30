@@ -31,7 +31,7 @@ function useUserToken() {
 
       setToken(token);
     }, [navigate, setToken,setUserId]);
-    console.log("losername: " +  username);
+    console.log("username: " +  username);
     return [token,username,userid];
   }
 function Home() {
