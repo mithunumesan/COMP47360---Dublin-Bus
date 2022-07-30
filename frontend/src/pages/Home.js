@@ -37,7 +37,7 @@ function Home() {
     
     return (<div >
     <h1> HOME </h1>
-    <h2> this me {username} </h2>
+    <h2> You have logged in, {username} </h2>
 </div>)
 }
 export default Home;
