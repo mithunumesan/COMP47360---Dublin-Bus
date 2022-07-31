@@ -79,6 +79,7 @@ function RouteExploration() {
     }
 
     const onSuggestHandler = (text)=> {
+        setValue(0)
         setSearchIcon(true)
         setDisplay(false)
         setText(text);
@@ -153,6 +154,7 @@ function RouteExploration() {
     }
 
     async function changeDirection() {
+        console.log("cahnge Direction")
         setPathInfo([])
         setRouteInfo([])
         if(isDirection0 && shapeDdirection1.length>0) {
@@ -210,7 +212,7 @@ function RouteExploration() {
                     <Link to='/routesexploration'><h1 style={{color: '#666'}}>Route Exploration</h1></Link>
                 </div>
             </div>
-            <div className="journey-form">
+            <div className="journey-form-route">
             <div className="input-icons">
             <i className="fas fa-bus icon"></i><input type="search" placeholder="Search for a line" class="input-field" value={text} onChange= {e => onChangeHandler(e.target.value)}></input>
             </div>        
@@ -226,11 +228,11 @@ function RouteExploration() {
                     {/* Display Search Icon */}
                     {(((!pathInfo.length>0 || !routeInfo.length>0)&& display) || (!display && suggestions.length===0 && !finds.length>0)|| searchIcon) 
                     && <div className='search-icon'><Icons.HiSearchCircle style={{fontSize:'200px',color:"#c2e7fe"}} /></div>}
+
                     <div className={display&& pathInfo.length>0 && routeInfo.length>0 ? 'line-header-active' : 'line-header'}>
                     {display && pathInfo.length>0 && routeInfo.length>0 
                     && <h2>{routeInfo[0].tripheadsign}</h2>}
-                    {display && pathInfo.length>0 && routeInfo.length>0 && ((shapeDirection===shapeDdirection0&&shapeDdirection1.length>0) || (shapeDirection===shapeDdirection1&&shapeDdirection0.length>0)) 
-                    && <button className='change-direction' onClick={changeDirection}>Change Direction</button>}
+                    {display && pathInfo.length>0 && routeInfo.length>0 && ((shapeDirection===shapeDdirection0&&shapeDdirection1.length>0) || (shapeDirection===shapeDdirection1&&shapeDdirection0.length>0)) &&  <button className='change-direction' type="button" onClick={changeDirection}>Change Direction</button>}
                     </div>
                     {display && pathInfo.length>0 && routeInfo.length>0 && 
                     <div className="line-option"><h3>Line option - {routeInfo[routeInfo.length-1].stopsequence} stops</h3>

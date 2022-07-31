@@ -71,6 +71,20 @@ function JourneyPlanning() {
       console.log(dublinBus)
     }
     }, [infowindows])
+    const [minTime,setMinTime]=useState(null)
+    useEffect(() => {
+      console.log("time value")
+        let date = new Date().toDateString();
+        let time = new Date().toTimeString();
+
+        let current = new Date()
+        // let min = current.getFullYear().toString()+'-'+(current.getMonth()+1).toString()+'-'+current.getDate().toString()+'T'+current.getHours().toString()+':'+current.getMinutes().toString();
+        let min=new Date().toISOString().slice(0,new Date().toISOString().lastIndexOf(":"));
+        console.log(min)
+        setMinTime(min)
+        // console.log(time)
+      
+    },[])
 
     const token = useUserToken();
 
@@ -224,6 +238,13 @@ function JourneyPlanning() {
 
     }
 
+    function getTimeNow() {
+      var current = new Date();
+      console.log(current)
+      return current;
+
+    }
+
     return  (<>
         <div className={sidebar ? 'box1 active' : 'box1'}>
             <div className="container">
@@ -236,7 +257,7 @@ function JourneyPlanning() {
             </div>
             
             <div className="journey-form">
-            {isSaveAsMyFavRoute ? <button type="submit" className="btn" onClick={addFavoriteRoute}>Save as My Favorite Route</button> : null}
+            {isSaveAsMyFavRoute ? <button type="submit" className="btn-save" onClick={addFavoriteRoute}>Save as My Favorite Route</button> : null}
                 <Autocomplete options={{
                     bounds: defaultBounds,
                     componentRestrictions: { country: ["IE"] },
@@ -261,7 +282,7 @@ function JourneyPlanning() {
                     <option value="lastAvaliable">Last Avaliable</option>
                 </select>
                 {/* add the html input datetime element or not */}
-                {booleanValue ? <div id="time"><input type="datetime-local" id="datetime" onChange={handleChange} value={dateTime}></input></div> : null}
+                {booleanValue ? <div id="time"><input type="datetime-local" id="datetime" min={minTime} onChange={handleChange} value={dateTime}></input></div> : null}
                 <button type="submit" className="btn" onClick={caculateRoute}>Search</button>
             </div>
             <div id="panel"></div>

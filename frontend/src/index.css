@@ -342,6 +342,20 @@ html {
   border-radius: .5rem;
   -webkit-box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.1);
           box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.1);
+  padding-top: 1rem;
+  padding-right:2rem;
+  padding-left:2rem;
+  padding-bottom: 2rem;
+  margin-bottom:0;
+  /* max-height: 55rem; */
+  max-height:90%;
+}
+
+.journey-form-route {
+  background: white;
+  border-radius: .5rem;
+  -webkit-box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.1);
+          box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.1);
   padding: 2rem;
   margin-bottom: 20%;
   /* max-height: 55rem; */
@@ -364,6 +378,26 @@ html {
   height: 30px;
   text-align: center;
   font-size: 140%;
+  border-radius: 3px;
+  color:#666;
+}
+
+.journey-form .btn-save{
+ 
+  width: 50%;
+  height: 30px;
+  text-align: center;
+  font-size: 140%;
+  border-radius: 5px;
+  color:#666;
+}
+
+.journey-form .btn-save:hover{
+  color: white;
+}
+
+.journey-form .btn:hover{
+  color: white;
 }
 
 .journey-form label {
@@ -377,7 +411,7 @@ html {
 .box1.active {
   /* min-height:65rem;
   width:45rem; */
-  min-height:600px;
+  min-height:500px;
   height:80%;
   /* width:35%; */
   width: 450px;
@@ -397,9 +431,9 @@ html {
 }
 
 .box1.active #panel {
-  height: 45%;
+  height: 40%;
   overflow: scroll;
-  margin-top:2rem;
+  /* margin-top:2rem; */
 }
 
 .box1.active h1 {
@@ -492,11 +526,13 @@ html {
 }
 
 .search-results {
-  min-height:430px;
-  height:70%;
+  min-height:350px;
+  height:90%;
   overflow: scroll;
+  padding-bottom: 4%;
+  
   /* top:13%;
-  bottom:10%; */
+  bottom:10% */
 }
 
 .search-result {
@@ -572,8 +608,8 @@ html {
 
 .icon {
   padding: 10px;
-  width: 100px;
-  height:100px;
+  /* width: 100px;
+  height:100px; */
 }
 
 .line-header-active{
@@ -614,12 +650,15 @@ html {
   transform: translate(-50%, -50%)
 }
 
-.change-direction{
+.change-direction {
   border-radius: 12px;
-  /* background-color: white; */
   color:gray;
-  border: 2px solid #c2e7fe; 
-  padding:2px;
+  border: 2px solid #c2e7fe;
+  width:50%;
+  max-height:20px;
+  /* z-index: 2000; */
+  /* font-size:12px; */
+  /* margin: 0; */
 }
 
 .change-direction:hover{
@@ -647,6 +686,14 @@ html {
   height:30px;
   max-width:40px;
   max-height: 30px; */
+}
+
+input[type="datetime-local"] {
+  width: 50%;
+  margin:auto;
+  border:#888888;
+
+  /* More styles here */
 }
 /* reference from https://stackoverflow.com/questions/62298110/how-to-change-infowindow-style-in-react-google-maps-reactjs */
 .gm-style .gm-style-iw-c {
