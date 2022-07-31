@@ -1,5 +1,6 @@
 import {useNavigate} from 'react-router-dom';
-import {useState, useEffect} from 'react';
+import {useState, useEffect, useMemo} from 'react';
+import Table from "./Table";
 
 export function useUserToken() {
     const navigate = useNavigate();
@@ -13,7 +14,7 @@ export function useUserToken() {
       
       let thooken = "Token " + token;
       
-      console.log(thooken);
+      console.log("thooken: " + thooken);
 
       fetch('http://127.0.0.1:8000/loginapi/username/', {
             method: 'GET',
@@ -34,12 +35,36 @@ export function useUserToken() {
     console.log("username: " +  username);
     return [token,username,userid];
   }
+
+
+
+
 function Home() {
     const [startPoint,setStartPoint] = useState("")
     const [destination,setDestination] = useState("")
+    const [routes,setRoutes] = useState("")
+
 
     const [token,username,userid] = useUserToken()
-    
+    let url = 'http://127.0.0.1:8000/loginapi/details/' + userid;
+    useEffect(() => {
+    const fetchData = fetch(url, {
+            method: 'GET',
+        })
+        .then( data => data.json())
+        .then(
+        data => {
+            console.log(typeof(data));
+            setRoutes(data)
+            console.log(data);
+            // console.log(data.userid)
+            // setUsername(data.username);
+            // setUserId(data.userid)
+
+            }
+        ).catch( error => console.error(error))
+        }, []);
+
     const addFavoriteRoute = async() => {
       let formField = new FormData()
       formField.append = ('user',userid)
@@ -47,14 +72,47 @@ function Home() {
       formField.append('destination',destination)
     }
 
+    const columns = useMemo(
+        () => [
+          {
+            Header: "Starting Point",
+            // First group columns
+            
+          },
+          {
+            Header: "Destination",
+            
+          }
+        ],
+        []
+      );
+
+
     return (<div >
     <h1> HOME </h1>
     <h2> You have logged in, {username} </h2>
     <h2> Your user id is, {userid} </h2>
-    <div className="container">
+    
+    <tbody id="start_end">
+                <tr>
+                    
+                    <th>Starting Point</th>
+                    <th>Destination</th>
+                </tr>
+                {routes.map((item, i) => (
+                    <tr key={i}>
+                        <td >{item.start_point}</td>
+                        <td>{item.destination}</td>
+                    </tr>
+                ))}
+    </tbody>
+    
+    <div className="container" margin-top= '50px'>
+    
     <input type="text" placeholder="Start Point" className="box" value={startPoint} onChange={(e)=>setStartPoint(e.target.value)} ></input>
     <input type="search" placeholder="Destination" className="box" value={destination} onChange={(e)=>setDestination(e.target.value)} ></input>
     <button type="submit" className="btn" onClick={addFavoriteRoute} >Add Favorite Route</button>
+    
     </div>
 </div>)
 }

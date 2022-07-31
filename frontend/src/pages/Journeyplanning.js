@@ -6,6 +6,7 @@ import * as Icons from "react-icons/hi";
 import { MarkerClusterer} from '@react-google-maps/api';
 // import useSupercluster from "use-supercluster";
 import useUserToken from './Home';
+import Table from "./Table";
 
 
 const containerStyle = {
@@ -28,14 +29,21 @@ const center = {
     
 const icon = { url: require('./bus.png') ,scaledSize:{ width: 20, height: 20}};
 
+
+
 let goAheadList = []
 let dublinBusList = []
 
 function JourneyPlanning() {
 
-    const token = useUserToken();
+    const [startPoint, setStartPoint] = useState('');
 
-    console.log("thookini" + token);
+    const [destination, setDestination] = useState('');
+
+
+    const token = useUserToken();
+    let userid = token['props']['children'][2]['props']['children'][1];
+    
     const [markers,setmarkers]=useState([]);
 
     const [infowindows,setinfowindows]=useState(null);
@@ -103,6 +111,8 @@ function JourneyPlanning() {
         }
     }
 
+    
+    
     const [booleanValue,setBooleanValue] = useState(false);
     
     const [dateTime, setDateTime] = useState(null);
@@ -218,6 +228,21 @@ function JourneyPlanning() {
     }
 
     function addFavoriteRoute() {
+        let starting = document.getElementById("start_point").value;
+        console.log("start is: " + starting);
+        let ending = document.getElementById("end_point").value;
+        console.log("end is: " + ending);
+        console.log("userid: " + userid);
+
+        fetch('http://127.0.0.1:8000/loginapi/addfavorites/', {
+            method: 'POST',
+            headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify({'user':userid, 'start_point': starting, 'destination': ending})
+        }).then(
+            response => response.json()
+            )
+            .catch( error => console.error(error))
+
 
     }
 
@@ -234,13 +259,14 @@ function JourneyPlanning() {
             
             <div className="journey-form">
             <button type="submit" className="btn" onClick={addFavoriteRoute}>Save as My Favorite Route</button>
-                <Autocomplete options={{
+                <Autocomplete onChange={e => {setStartPoint(e.target.value)}}  options={{
                     bounds: defaultBounds,
                     componentRestrictions: { country: ["IE"] },
                     fields: ["place_id", "geometry", "name"],
                     strictBounds: true,
                 }}>
-                    <input type="search" placeholder="Start Point" className="box" ref={startRef} onChange = {clearRoute}></input>
+                    <input type="search" placeholder="Start Point" className="box" ref={startRef} onChange = { e => {clearRoute(); } } id="start_point"></input>
+                    
                 </Autocomplete>
                 
                 <Autocomplete options={{
@@ -249,7 +275,7 @@ function JourneyPlanning() {
                     fields: ["place_id", "geometry", "name"],
                     strictBounds: true,
                 }}>
-                    <input type="search" placeholder="Destination" className="box" ref={destinationRef} onChange={clearRoute}></input>
+                    <input type="search" placeholder="Destination" className="box" ref={destinationRef} onChange = { e => {clearRoute(); }} id="end_point"></input>
                 </Autocomplete>
                 <label for="time">Choose a time to start the journey: </label>
                 <select id="option" value={selected} onChange={changeSelected}>
@@ -261,7 +287,7 @@ function JourneyPlanning() {
                 {/* add the html input datetime element or not */}
                 {booleanValue ? <div id="time"><input type="datetime-local" id="datetime" onChange={handleChange} value={dateTime}></input></div> : null}
                 <button type="submit" className="btn" onClick={caculateRoute}>Search</button>
-                <button> Favorite</button>
+                
             </div>
             <div id="panel"></div>
         </div>
