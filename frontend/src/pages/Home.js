@@ -42,20 +42,21 @@ function Home() {
     const [token,username,userid] = useUserToken()
     let url;
 
-    while(userid===null){
-    console.log("null");}
-    url = 'http://127.0.0.1:8000/loginapi/details/' + userid + '/';
+   useEffect(()=>{
 
-    
-    fetch(url)
-        .then( data => data.json())
-        .then(
-        data => {
-            // console.log(data);
-            setRoutes(data);
-            }
-        ).catch( error => console.error(error))
-    
+    url = 'http://127.0.0.1:8000/loginapi/details/' + userid + '/';
+        
+        fetch(url)
+            .then( data => data.json())
+            .then(
+            data => {
+                // console.log(data);
+                setRoutes(data);
+                }
+            ).catch( error => console.error(error))
+
+   },[userid])
+   
 
 
     // const addFavoriteRoute = async() => {
