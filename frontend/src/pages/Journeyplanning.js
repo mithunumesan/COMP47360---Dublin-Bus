@@ -499,9 +499,10 @@ function JourneyPlanning() {
             </div>
             
             <div className="journey-form">
-            <div style={{alignItems:center}}>
-                <div  style={{float:'left',width:'90%'}}>
+            
+                {/* <div  style={{float:'left',width:'90%'}}> */}
             {isSaveAsMyFavRoute ? <button type="submit" className="btn-save" onClick={addFavoriteRoute}>Save as My Favorite Route</button> : null}
+            <div className="container1">
                 <Autocomplete options={{
                     bounds: defaultBounds,
                     componentRestrictions: { country: ["IE"] },
@@ -510,6 +511,11 @@ function JourneyPlanning() {
                 }}>
                     <input type="search" placeholder="Start Point" className="box" ref={startRef} onChange = {clearRoute}></input>
                 </Autocomplete>
+                <div  onClick={getLocation}><i style={{fontSize:'20px',margin:'auto' }} class="fas fa-map-marker-alt"></i>
+                </div>
+                </div>
+        
+                <div className="container1">
                 <Autocomplete options={{
                     bounds: defaultBounds,
                     componentRestrictions: { country: ["IE"] },
@@ -517,13 +523,12 @@ function JourneyPlanning() {
                     strictBounds: true,
                 }}>
                     <input type="search" placeholder="Destination" className="box" ref={destinationRef} onChange={clearRoute}></input>
-                </Autocomplete>
-                </div>
-                <div style={{float:'left',marginTop:'20px',marginLeft:'20px'}} onClick={getLocation}><i style={{fontSize:'20px',margin:'auto' }} class="fas fa-map-marker-alt"></i>
-                </div>
+                </Autocomplete>  
                 <div style={{float:'left',marginTop:'35px',marginLeft:'20px'}}  onClick={changePos}><i style={{fontSize:'20px',margin:'auto' }} class="fas fa-sort"></i>
                 </div>
-            </div>
+                </div>
+
+            
             <div style={{float:'left'}}>
                 <label for="time">Choose a time to start the journey: </label>
                 <select id="option" value={selected} onChange={changeSelected}>
@@ -537,7 +542,7 @@ function JourneyPlanning() {
                 <button type="submit" className="btn" onClick={caculateRoute}>Search</button>
                 </div>
             </div>
-            <div style={{height:'320px',overflow:'auto'}}>
+            <div style={{height:'40%',overflow:'auto'}}>
                 <div id="panel" style={{height:'auto'}}></div>
                 <div id="stepInfo" style={{height:'auto'}}></div>
             </div>
