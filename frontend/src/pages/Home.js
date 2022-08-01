@@ -64,9 +64,7 @@ function Home() {
     //   formField.append('start_point',startPoint)
     //   formField.append('destination',destination)
     // }
-
     const [userinfo, setUserInfo] = useState("");
-
     var value;
     var checked;
 
@@ -79,7 +77,7 @@ function Home() {
         if(checked){
             setUserInfo(value);
         }
-        
+
     }
 
     var deleteRoute = () => {
@@ -89,10 +87,11 @@ function Home() {
         fetch(url, {
             method: 'DELETE',
             })
-
     }
 
-    return (<div >
+
+    return (
+    <div >
     <h1> HOME </h1>
     <h2> You have logged in, {username} </h2>
     <h2> Your user id is, {userid} </h2>
@@ -113,33 +112,18 @@ function Home() {
                     <tr key={i}>
                         <td >{item.start_point}</td>
                         <td>{item.destination}</td>
-                        <td><input type="radio" name="myTextEditBox" value="checked" onChange={handleChange} /></td>
-                    </tr>
-                )): null}
-    </tbody>
-    
-    <div className="container">
-
-    </div>
-
-    <tbody id="start_end">
-                <tr>
-                    
-                    <th>Starting Point</th>
-                    <th>Destination</th>
-                    <th> Select </th>
-                </tr>
-                {Array.isArray(routes)
-        ? routes.map((item, i) => (
-                    <tr key={i}>
-                        <td >{item.start_point}</td>
-                        <td>{item.destination}</td>
                         <td><input type="radio" name="myTextEditBox" value={item.id} onChange={handleChange} /></td>
                     </tr>
                 )): null}
     </tbody>
     
+
+
+
   
-</div>)
+</div>
+
+</div>
+)
 }
 export default Home;
