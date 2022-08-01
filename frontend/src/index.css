@@ -445,10 +445,6 @@ html {
   padding-top: 1.5rem;
   padding-left: 2rem;
   padding-right:2rem;
-  
-  /* padding-top:1%;
-  padding-left: 2%;
-  padding-right:2%; */
   z-index: 9;
 }
 
@@ -464,17 +460,22 @@ html {
 }
 
 .box1 {
-  min-height:600px;
-  height:80%;
+  min-height:500px;
+  height:90%;
+  max-height: 660px;
   width: 450px;
-  top:12%;
+  /* top:8rem;
+  bottom:2rem; */
+  top:10%;
   bottom:4%;
-  background: white;
   position:fixed;
+  background: white;
   border-radius: .5rem;
   -webkit-box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.1);
           box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.1);
-  padding: 2rem;
+  padding-top: 1.5rem;
+  padding-left: 2rem;
+  padding-right:2rem;
   z-index: 9;
   left:-50rem;
   transition: 800ms;
