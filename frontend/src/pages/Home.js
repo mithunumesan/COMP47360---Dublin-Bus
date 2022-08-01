@@ -12,6 +12,7 @@ export function useUserToken() {
       const token = localStorage.getItem("user_token");
       let thooken = "Token " + token;
 
+
       fetch('http://127.0.0.1:8000/loginapi/username/', {
             method: 'GET',
             headers: {'Authorization': thooken}
@@ -44,6 +45,7 @@ function Home() {
     while(userid===null){
     console.log("null");}
     url = 'http://127.0.0.1:8000/loginapi/details/' + userid + '/';
+
     
     fetch(url)
         .then( data => data.json())
@@ -54,6 +56,7 @@ function Home() {
             }
         ).catch( error => console.error(error))
     
+
 
     // const addFavoriteRoute = async() => {
     //   let formField = new FormData()
@@ -102,7 +105,6 @@ function Home() {
 
     <tbody id="start_end">
                 <tr>
-                    
                     <th>Starting Point</th>
                     <th>Destination</th>
                     <th> Select </th>
