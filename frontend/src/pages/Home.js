@@ -1,7 +1,5 @@
 import {useNavigate} from 'react-router-dom';
-import {useState, useEffect, useMemo} from 'react';
-import Table from "./Table";
-import { RiCoinsLine } from 'react-icons/ri';
+import {useState, useEffect} from 'react';
 
 export function useUserToken() {
     const navigate = useNavigate();
@@ -31,7 +29,7 @@ export function useUserToken() {
 
       setToken(token);
     }, [navigate, setToken,setUserId]);
-    // console.log("username: " +  username);
+
     return [token,username,userid];
   }
 
@@ -46,22 +44,10 @@ function Home() {
 
     const [token,username,userid] = useUserToken()
     let url;
- 
-    // useEffect(() => {
-
-    //     fetchData()
-    // }, [])
 
     while(userid===null){
     console.log("null");}
     url = 'http://127.0.0.1:8000/loginapi/details/' + userid + '/';
-    // console.log(url);
-    // useEffect(() => {
-
-    //     fetch()
-    // }, [])
-
-    // console.log(url);
     
     fetch(url)
         .then( data => data.json())
