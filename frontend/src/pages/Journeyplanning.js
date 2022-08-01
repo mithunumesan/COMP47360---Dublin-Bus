@@ -9,7 +9,6 @@ import { render} from 'react-dom'
 import useUserToken from './Home';
 // import useSupercluster from "use-supercluster";
 
-
 var routNum=0;
 const containerStyle = {
     width: '100%',
@@ -505,6 +504,13 @@ function JourneyPlanning() {
             )
             .catch( error => console.error(error))
 
+
+    }
+
+    function getTimeNow() {
+      var current = new Date();
+      console.log(current)
+      return current;
 
     }
 

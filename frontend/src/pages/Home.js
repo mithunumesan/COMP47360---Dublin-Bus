@@ -12,7 +12,6 @@ export function useUserToken() {
       const token = localStorage.getItem("user_token");
       let thooken = "Token " + token;
 
-
       fetch('http://127.0.0.1:8000/loginapi/username/', {
             method: 'GET',
             headers: {'Authorization': thooken}
@@ -27,7 +26,6 @@ export function useUserToken() {
 
       setToken(token);
     }, [navigate, setToken,setUserId]);
-
     return [token,username,userid];
   }
 
