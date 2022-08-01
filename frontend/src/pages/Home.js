@@ -37,8 +37,8 @@ export function useUserToken() {
 
 
 function Home() {
-    const [startPoint,setStartPoint] = useState("")
-    const [destination,setDestination] = useState("")
+    // const [startPoint,setStartPoint] = useState("")
+    // const [destination,setDestination] = useState("")
     const [routes,setRoutes] = useState("")
 
 
@@ -59,13 +59,23 @@ function Home() {
         ).catch( error => console.error(error))
     
 
-    const addFavoriteRoute = async() => {
-      let formField = new FormData()
-      formField.append = ('user',userid)
-      formField.append('start_point',startPoint)
-      formField.append('destination',destination)
-    }
+    // const addFavoriteRoute = async() => {
+    //   let formField = new FormData()
+    //   formField.append = ('user',userid)
+    //   formField.append('start_point',startPoint)
+    //   formField.append('destination',destination)
+    // }
 
+    const [userinfo, setUserInfo] = useState("");
+
+    let handleChange = (e) => {
+        const {value, checked } = e.target;
+        console.log(value = " is " + checked);
+
+        if(checked){
+            setUserInfo(value)
+        }
+    }
 
     return (<div >
     <h1> HOME </h1>
@@ -77,22 +87,24 @@ function Home() {
                     
                     <th>Starting Point</th>
                     <th>Destination</th>
+                    <th> Select </th>
                 </tr>
                 {Array.isArray(routes)
         ? routes.map((item, i) => (
                     <tr key={i}>
                         <td >{item.start_point}</td>
                         <td>{item.destination}</td>
+                        <td><input type="radio" name="myTextEditBox" value="checked" onChange={handleChange} /></td>
                     </tr>
                 )): null}
     </tbody>
     
     <div className="container">
-    
-    <input type="text" placeholder="Start Point" className="box" value={startPoint} onChange={(e)=>setStartPoint(e.target.value)} ></input>
+    <button>Delete Selected</button>
+    {/* <input type="text" placeholder="Start Point" className="box" value={startPoint} onChange={(e)=>setStartPoint(e.target.value)} ></input>
     <input type="search" placeholder="Destination" className="box" value={destination} onChange={(e)=>setDestination(e.target.value)} ></input>
     <button type="submit" className="btn" onClick={addFavoriteRoute} >Add Favorite Route</button>
-    
+     */}
     </div>
 </div>)
 }
