@@ -747,13 +747,13 @@ input[type="datetime-local"] {
   }
 
   .box1 {
-    max-height:600px;
+    max-height:700px;
     min-width: 400px;
     width:70%;
-    height:70%;
+    height:80%;
     top:13%;
     bottom:2%;
-    left:-95%;
+    left:-103%;
 }
 
 .box1 #panels{
