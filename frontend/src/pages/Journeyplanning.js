@@ -6,7 +6,7 @@ import * as Icons from "react-icons/hi";
 import { MarkerClusterer} from '@react-google-maps/api';
 // import useSupercluster from "use-supercluster";
 import useUserToken from './Home';
-import Table from "./Table";
+
 
 
 const containerStyle = {
