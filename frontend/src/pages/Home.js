@@ -1,6 +1,7 @@
 import {useNavigate} from 'react-router-dom';
 import {useState, useEffect, useMemo} from 'react';
 import Table from "./Table";
+import { RiCoinsLine } from 'react-icons/ri';
 
 export function useUserToken() {
     const navigate = useNavigate();
@@ -23,8 +24,6 @@ export function useUserToken() {
         .then( data => data.json())
         .then(
         data => {
-            console.log(data.username);
-            console.log(data.userid)
             setUsername(data.username);
             setUserId(data.userid)
             }
@@ -32,7 +31,7 @@ export function useUserToken() {
 
       setToken(token);
     }, [navigate, setToken,setUserId]);
-    console.log("username: " +  username);
+    // console.log("username: " +  username);
     return [token,username,userid];
   }
 
@@ -46,24 +45,33 @@ function Home() {
 
 
     const [token,username,userid] = useUserToken()
-    let url = 'http://127.0.0.1:8000/loginapi/details/' + userid;
-    useEffect(() => {
-    const fetchData = fetch(url, {
-            method: 'GET',
-        })
+    let url;
+ 
+    // useEffect(() => {
+
+    //     fetchData()
+    // }, [])
+
+    while(userid===null){
+    console.log("null");}
+    url = 'http://127.0.0.1:8000/loginapi/details/' + userid + '/';
+    // console.log(url);
+    // useEffect(() => {
+
+    //     fetch()
+    // }, [])
+
+    // console.log(url);
+    
+    fetch(url)
         .then( data => data.json())
         .then(
         data => {
-            console.log(typeof(data));
-            setRoutes(data)
-            console.log(data);
-            // console.log(data.userid)
-            // setUsername(data.username);
-            // setUserId(data.userid)
-
+            // console.log(data);
+            setRoutes(data);
             }
         ).catch( error => console.error(error))
-        }, []);
+    
 
     const addFavoriteRoute = async() => {
       let formField = new FormData()
@@ -71,21 +79,6 @@ function Home() {
       formField.append('start_point',startPoint)
       formField.append('destination',destination)
     }
-
-    const columns = useMemo(
-        () => [
-          {
-            Header: "Starting Point",
-            // First group columns
-            
-          },
-          {
-            Header: "Destination",
-            
-          }
-        ],
-        []
-      );
 
 
     return (<div >
@@ -99,15 +92,16 @@ function Home() {
                     <th>Starting Point</th>
                     <th>Destination</th>
                 </tr>
-                {routes.map((item, i) => (
+                {Array.isArray(routes)
+        ? routes.map((item, i) => (
                     <tr key={i}>
                         <td >{item.start_point}</td>
                         <td>{item.destination}</td>
                     </tr>
-                ))}
+                )): null}
     </tbody>
     
-    <div className="container" margin-top= '50px'>
+    <div className="container">
     
     <input type="text" placeholder="Start Point" className="box" value={startPoint} onChange={(e)=>setStartPoint(e.target.value)} ></input>
     <input type="search" placeholder="Destination" className="box" value={destination} onChange={(e)=>setDestination(e.target.value)} ></input>
