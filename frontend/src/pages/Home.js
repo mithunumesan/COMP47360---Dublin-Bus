@@ -10,10 +10,8 @@ export function useUserToken() {
     const [userid, setUserId] = useState('');
     useEffect(() => {
       const token = localStorage.getItem("user_token");
-      
       let thooken = "Token " + token;
-      
-      console.log("thooken: " + thooken);
+
 
       fetch('http://127.0.0.1:8000/loginapi/username/', {
             method: 'GET',
