@@ -12,7 +12,6 @@ from .models import Stops
 from rest_framework import generics
 from django.db.models import Min, Max
 import pickle
-import sklearn
 import os
 import json
 from datetime import datetime,timedelta
