@@ -31,3 +31,4 @@ class TripScheduleSerializer(serializers.ModelSerializer):
     class Meta:
         model = TripSchedule
         fields = '__all__'
+

@@ -17,6 +17,7 @@ urlpatterns = [
     path('api/', include(router.urls)),
     path('api/alltrip/', AllTripListView.as_view()),
     path('api/shape/', ShapeListView.as_view()),
-    path('api/tripschedule/', TripScheduleListView.as_view()),
-    path('api/tripfind/', TripFindListView.as_view()),
+    #path('api/tripschedule/', TripScheduleListView.as_view()),
+    #path('api/tripfind/', TripFindListView.as_view()),
+    path('api/tripschedule/', TripScheduleListView.as_view())
 ]

@@ -27,7 +27,7 @@ function LoginForm() {
                 console.log(data.user);
                 localStorage.setItem("user_token", data.token);
                 setTokenData(data.token);
-                navigate('/home');
+                navigate('/');
             }
         }
         ).catch( error => console.error(error))
