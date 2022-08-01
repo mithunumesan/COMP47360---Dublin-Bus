@@ -10,7 +10,6 @@ export function useUserToken() {
     const [userid, setUserId] = useState('');
     useEffect(() => {
       const token = localStorage.getItem("user_token");
-      
       let thooken = "Token " + token;
       
       console.log("thooken: " + thooken);
@@ -29,7 +28,6 @@ export function useUserToken() {
 
       setToken(token);
     }, [navigate, setToken,setUserId]);
-
     return [token,username,userid];
   }
 
@@ -67,14 +65,28 @@ function Home() {
     // }
 
     const [userinfo, setUserInfo] = useState("");
+    var value;
+    var checked;
 
-    let handleChange = (e) => {
-        const {value, checked } = e.target;
-        console.log(value = " is " + checked);
+    var handleChange = (e) => {
+        value  = e.target.value;
+        checked = e.target.checked;
+        console.log(e.target);
+        console.log(value + " is " + checked);
 
         if(checked){
-            setUserInfo(value)
+            setUserInfo(value);
         }
+        
+    }
+
+    var deleteRoute = () => {
+        console.log("delete route"+ userinfo);
+        let url = 'http://127.0.0.1:8000/loginapi/details/' + userinfo + '/';
+        console.log(url);
+        fetch(url, {
+            method: 'DELETE',
+            })
     }
 
     return (<div >
@@ -94,13 +106,13 @@ function Home() {
                     <tr key={i}>
                         <td >{item.start_point}</td>
                         <td>{item.destination}</td>
-                        <td><input type="radio" name="myTextEditBox" value="checked" onChange={handleChange} /></td>
+                        <td><input type="radio" name="myTextEditBox" value={item.id} onChange={handleChange} /></td>
                     </tr>
                 )): null}
     </tbody>
     
     <div className="container">
-    <button>Delete Selected</button>
+    <button onClick={deleteRoute}>Delete Selected</button>
     {/* <input type="text" placeholder="Start Point" className="box" value={startPoint} onChange={(e)=>setStartPoint(e.target.value)} ></input>
     <input type="search" placeholder="Destination" className="box" value={destination} onChange={(e)=>setDestination(e.target.value)} ></input>
     <button type="submit" className="btn" onClick={addFavoriteRoute} >Add Favorite Route</button>
