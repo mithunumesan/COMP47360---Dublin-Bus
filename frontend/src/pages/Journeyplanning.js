@@ -220,7 +220,7 @@ function JourneyPlanning() {
         const routesValue=results.routes
             //routesSteps.map()
             render(
-                <div style={{border: "1px solid #cccccc",padding:"10px" }}> <span>   Suggested route:</span>{routesValue.map((routesSteps,indexNum) => {
+                <div style={{border: "1px solid #cccccc",padding:"5px" }}> <span>   Suggested route:</span>{routesValue.map((routesSteps,indexNum) => {
 
                     let length = routesSteps.legs[0].steps.length;
                     let stepInfo = routesSteps.legs[0].steps.map((value,index) => {
@@ -250,8 +250,8 @@ function JourneyPlanning() {
                 document.getElementById('panel')
             );
             render(
-                <div style={{border: "1px solid #cccccc",padding:"10px"}}><span>   Details of the route:</span><div style={{background:"#d9d9d9",border: "1px solid #cccccc",padding:"10px"}}>{routesValue[0].legs[0].start_address}</div>{routesValue[0].legs[0].steps.map((value,index) =>{
-                    return <div style={{margin:"5px",border: "1px solid #cccccc",padding:"10px"}}><span style={{margin:"5px"}}>{value.instructions}</span><span>{value.duration.text}</span>
+                <div style={{border: "1px solid #cccccc",padding:"5px"}}><span>   Details of the route:</span><div style={{background:"#d9d9d9",border: "1px solid #cccccc",padding:"5px"}}>{routesValue[0].legs[0].start_address}</div>{routesValue[0].legs[0].steps.map((value,index) =>{
+                    return <div style={{margin:"5px",border: "1px solid #cccccc",padding:"5px"}}><span style={{margin:"5px"}}>{value.instructions}</span><span>{value.duration.text}</span>
                            {value.travel_mode == 'TRANSIT'  ?
                                 value.transit.line.agencies[0].name == 'Dublin Bus' ?<div style={{margin:"5px",padding:"10px"}}><i className='fas fa-bus'></i><span  style={{background: "#f1c232",margin:"3px"}}>{value.transit.line.short_name}</span><span>{value.transit.line.agencies[0].name}</span><br/><span>departure_stop:{value.transit.departure_stop.name}</span><br/><span>stops number:{value.transit.num_stops}</span><br/><span>arrival_stop:{value.transit.arrival_stop.name}</span></div>:
                                 value.transit.line.agencies[0].name == 'Go-Ahead' ?<div style={{margin:"5px",padding:"10px"}}><i className='fas fa-bus'></i><span  style={{background: "#3c78d8",margin:"3px"}}>{value.transit.line.short_name}</span><span>{value.transit.line.agencies[0].name}</span><br/><span>departure_stop:{value.transit.departure_stop.name}</span><br/><span>stops number:{value.transit.num_stops}</span><br/><span>arrival_stop:{value.transit.arrival_stop.name}</span></div>:
@@ -265,7 +265,7 @@ function JourneyPlanning() {
                             </div>
 
 
-                })}<div style={{background:"#d9d9d9",border: "1px solid #cccccc",padding:"10px"}}>{routesValue[0].legs[0].end_address}</div></div>,
+                })}<div style={{background:"#d9d9d9",border: "1px solid #cccccc",padding:"5px"}}>{routesValue[0].legs[0].end_address}</div></div>,
 
                 document.getElementById('stepInfo')
             );
@@ -506,12 +506,6 @@ function JourneyPlanning() {
             .catch( error => console.error(error))
 
 
-    }
-
-    function getTimeNow() {
-      var current = new Date();
-      console.log(current)
-      return current;
 
     }
 
@@ -527,8 +521,6 @@ function JourneyPlanning() {
             </div>
             
             <div className="journey-form">
-            
-                {/* <div  style={{float:'left',width:'90%'}}> */}
             {isSaveAsMyFavRoute ? <button type="submit" className="btn-save" onClick={addFavoriteRoute}>Save as My Favorite Route</button> : null}
             <div className="container1">
                 <Autocomplete onChange={e => {setStartPoint(e.target.value)}} options={{
@@ -540,7 +532,7 @@ function JourneyPlanning() {
                     <input type="search" placeholder="Start Point" className="box" ref={startRef} onChange = { e => {clearRoute(); } } id="start_point"></input>
                     
                 </Autocomplete>
-                <div  onClick={getLocation}><i style={{fontSize:'20px',margin:'auto' }} class="fas fa-map-marker-alt"></i>
+                <div className="iconGeoL" onClick={getLocation}><i style={{fontSize:'18px'}} class="fas fa-map-marker-alt"></i>
                 </div>
                 </div>
         
@@ -553,12 +545,9 @@ function JourneyPlanning() {
                 }}>
                     <input type="search" placeholder="Destination" className="box" ref={destinationRef} onChange={clearRoute} id="end_point"></input>
                 </Autocomplete>  
-                <div style={{float:'left',marginTop:'35px',marginLeft:'20px'}}  onClick={changePos}><i style={{fontSize:'20px',margin:'auto' }} class="fas fa-sort"></i>
+                <div className="iconSwitch" onClick={changePos}><i style={{fontSize:'20px'}} class="fas fa-sort"></i>
                 </div>
                 </div>
-
-            
-            <div style={{float:'left'}}>
                 <label for="time">Choose a time to start the journey: </label>
                 <select id="option" value={selected} onChange={changeSelected}>
                     <option value="now">Leave Now</option>
@@ -569,9 +558,8 @@ function JourneyPlanning() {
                 {/* add the html input datetime element or not */}
                 {booleanValue ? <div id="time"><input type="datetime-local" id="datetime" min={minTime} onChange={handleChange} value={dateTime}></input></div> : null}
                 <button type="submit" className="btn" onClick={caculateRoute}>Search</button>
-                </div>
             </div>
-            <div style={{height:'40%',overflow:'auto'}}>
+            <div id='panels'>
                 <div id="panel" style={{height:'auto'}}></div>
                 <div id="stepInfo" style={{height:'auto'}}></div>
             </div>

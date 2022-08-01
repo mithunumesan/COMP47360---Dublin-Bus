@@ -11,8 +11,7 @@ export function useUserToken() {
     useEffect(() => {
       const token = localStorage.getItem("user_token");
       let thooken = "Token " + token;
-      
-      console.log("thooken: " + thooken);
+
 
       fetch('http://127.0.0.1:8000/loginapi/username/', {
             method: 'GET',
@@ -46,6 +45,7 @@ function Home() {
     while(userid===null){
     console.log("null");}
     url = 'http://127.0.0.1:8000/loginapi/details/' + userid + '/';
+
     
     fetch(url)
         .then( data => data.json())
@@ -57,6 +57,7 @@ function Home() {
         ).catch( error => console.error(error))
     
 
+
     // const addFavoriteRoute = async() => {
     //   let formField = new FormData()
     //   formField.append = ('user',userid)
@@ -65,6 +66,7 @@ function Home() {
     // }
 
     const [userinfo, setUserInfo] = useState("");
+
     var value;
     var checked;
 
@@ -87,6 +89,7 @@ function Home() {
         fetch(url, {
             method: 'DELETE',
             })
+
     }
 
     return (<div >
@@ -94,12 +97,29 @@ function Home() {
     <h2> You have logged in, {username} </h2>
     <h2> Your user id is, {userid} </h2>
     
+
     <div className="container">
     <button onClick={deleteRoute} >Delete Selected</button>
-    {/* <input type="text" placeholder="Start Point" className="box" value={startPoint} onChange={(e)=>setStartPoint(e.target.value)} ></input>
-    <input type="search" placeholder="Destination" className="box" value={destination} onChange={(e)=>setDestination(e.target.value)} ></input>
-    <button type="submit" className="btn" onClick={addFavoriteRoute} >Add Favorite Route</button>
-     */}
+
+    <tbody id="start_end">
+                <tr>
+                    
+                    <th>Starting Point</th>
+                    <th>Destination</th>
+                    <th> Select </th>
+                </tr>
+                {Array.isArray(routes)
+        ? routes.map((item, i) => (
+                    <tr key={i}>
+                        <td >{item.start_point}</td>
+                        <td>{item.destination}</td>
+                        <td><input type="radio" name="myTextEditBox" value="checked" onChange={handleChange} /></td>
+                    </tr>
+                )): null}
+    </tbody>
+    
+    <div className="container">
+
     </div>
 
     <tbody id="start_end">

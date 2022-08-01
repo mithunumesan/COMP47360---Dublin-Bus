@@ -1,5 +1,4 @@
 
-
 * {
   font-family: 'Poppins', sans-serif;
   margin: 0;
@@ -345,11 +344,13 @@ html {
   padding-top: 1rem;
   padding-right:2rem;
   padding-left:2rem;
-  padding-bottom: 2rem;
+  padding-bottom: 1rem;
   margin-bottom:0;
   /* max-height: 55rem; */
   /* max-height:90%; */
-  height: 45%;
+  height: auto;
+  max-height: 220px;
+  min-height: 180px;
 }
 
 .journey-form-route {
@@ -366,32 +367,37 @@ html {
 .journey-form .box {
   margin: .7rem 0;
   border: 0.1rem solid rgba(0, 0, 0, 0.1);
-  padding: 1rem 1.2rem;
-  font-size: 1.5rem;
+  padding: 0.8rem 1rem;
+  font-size: 1.2rem;
   color: black;
   text-transform: none;
-  width: 100%;
+  width: 340px;
+  /* max-width: 330px; */
   height:auto;
 }
 
 .journey-form .btn {
-  margin: 1rem 0;
+  margin-bottom: 0.2rem;
+  margin-top: 0.7rem;
   width: 100%;
   height: auto;
   text-align: center;
   font-size: 140%;
   border-radius: 3px;
   color:#666;
+  padding-bottom: 0.5rem;
 }
 
 .journey-form .btn-save{
- 
   width: 50%;
-  height: 30px;
+  margin-bottom: 0.2rem;
+  margin-top: 0;
+  height: auto;
   text-align: center;
   font-size: 140%;
-  border-radius: 5px;
+  border-radius: 3px;
   color:#666;
+  padding-bottom: 0.5rem;
 }
 
 .journey-form .btn-save:hover{
@@ -404,62 +410,78 @@ html {
 
 .journey-form label {
   font-size: 140%;
+  margin-left: 10px;
 }
 
 .journey-form select {
   font-size: 140%;
 }
 
+.iconGeoL{
+  margin-top:15px;
+  margin-left:20px;
+}
+
+.iconSwitch{
+  margin-top:15px;
+  margin-left:20px;
+}
+
 .box1.active {
-  /* min-height:65rem;
-  width:45rem; */
   min-height:500px;
-  height:80%;
-  /* width:35%; */
+  height:90%;
+  max-height: 660px;
   width: 450px;
-  /* min-width: 430px; */
   left:0;
   /* top:8rem;
   bottom:2rem; */
-  top:12%;
+  top:10%;
   bottom:4%;
   position:fixed;
   background: white;
   border-radius: .5rem;
   -webkit-box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.1);
           box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.1);
-  padding: 2rem;
+  padding-top: 1.5rem;
+  padding-left: 2rem;
+  padding-right:2rem;
   z-index: 9;
 }
 
-/* .box1.active #panel {
-  height: 40%;
+.box1.active #panels {
+  margin-top:3%;
+  max-height: 350px;
+  height: 58%;
   overflow: scroll;
-
-} */
+}
 
 .box1.active h1 {
   font-size: 20px;
 }
 
 .box1 {
-  min-height:600px;
-  height:80%;
+  min-height:500px;
+  height:90%;
+  max-height: 660px;
   width: 450px;
-  top:12%;
+  /* top:8rem;
+  bottom:2rem; */
+  top:10%;
   bottom:4%;
-  background: white;
   position:fixed;
+  background: white;
   border-radius: .5rem;
   -webkit-box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.1);
           box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.1);
-  padding: 2rem;
+  padding-top: 1.5rem;
+  padding-left: 2rem;
+  padding-right:2rem;
   z-index: 9;
   left:-50rem;
   transition: 800ms;
 }
 
-/* .box1 #panel{
+/* .box1 #panels{
   height: 30%;
   overflow: hidden;
   margin-top:2rem;
@@ -506,7 +528,7 @@ html {
       -ms-flex-align: center;
           align-items: center;
   gap: 3rem;
-  margin: 2% 10%;
+  margin: 0.5% 10%;
 }
 
 #time .date {
@@ -550,8 +572,8 @@ html {
 }
 
 .container1{
-  display : flex;
-  flex-direction : row;
+  display: flex;
+  
 }
 
 .container{
@@ -678,10 +700,7 @@ html {
   color: #ffffff;
   border-radius: 4px;
   margin: 4px;
-  /* width:40px;
-  height:30px;
-  max-width:40px;
-  max-height: 30px; */
+  max-height: 30px;
 }
 
 .stop-line-dublinbus {
@@ -689,6 +708,7 @@ html {
   background: #f1c232;
   border-radius: 4px;
   margin: 4px;
+
 }
 
 #start_end {
@@ -716,6 +736,7 @@ html {
   height:30px;
   max-width:40px;
   max-height: 30px; */
+
 }
 
 input[type="datetime-local"] {
@@ -745,29 +766,29 @@ input[type="datetime-local"] {
 @media screen and (max-width: 600px){
   
   .box1.active {
-    max-height:600px;
+    max-height:700px;
     min-width: 400px;
     width:70%;
-    height:70%;
+    height:80%;
     left:0;
     top:13%;
     bottom:2%;
   }
 
   .box1 {
-    max-height:600px;
+    max-height:700px;
     min-width: 400px;
     width:70%;
-    height:70%;
+    height:80%;
     top:13%;
     bottom:2%;
-    left:-95%;
+    left:-103%;
 }
 
-/* .box1 #panel{
-  height: 30%;
-  margin-top:2%;
-} */
+.box1 #panels{
+  height: 50%;
+  overflow: scroll;
+}
 
   .sidebar-toggle{
     left:-1%;
@@ -805,6 +826,47 @@ input[type="datetime-local"] {
     width: 100%;
   }
 
+  .journey-form .box {
+    margin: .7rem 0;
+    border: 0.1rem solid rgba(0, 0, 0, 0.1);
+    padding: 0.8rem 1rem;
+    font-size: 1.2rem;
+    color: black;
+    text-transform: none;
+    width: 310px;
+    height:auto;
+  }
+
+  .iconGeoL{
+    margin-top:15px;
+    margin-left:8px;
+  }
+  
+  .iconSwitch{
+    margin-top:15px;
+    margin-left:8px;
+  }
+
+  .journey-form .btn-save{
+    width: 70%;
+    margin-bottom: 0.2rem;
+    margin-top: 0;
+    height: auto;
+    text-align: center;
+    font-size: 130%;
+    border-radius: 3px;
+    color:#666;
+    padding-bottom: 0.5rem;
+  }
+
+  .journey-form label {
+    font-size: 13px;
+    margin-left: 0;
+  }
+  
+  .journey-form #option {
+    font-size: 13px;
+  }
 }
 
 @media screen and (max-width: 751px){
