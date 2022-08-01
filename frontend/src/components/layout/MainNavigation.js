@@ -5,10 +5,20 @@ import LoginForm from './LoginForm';
 import useUserToken from '../../pages/Home';
 import { RiLogoutCircleRFill } from "react-icons/ri";
 import UserProfile  from './UserProfile';
+import {ThemeProvider} from "styled-components";
+import { GlobalStyles } from "./GlobalDarkMode.js";
+import { lightTheme, darkTheme } from "./Themes.js"
 
+import  {useDarkMode} from "./useDarkMode.js"
+import Toggle from "./Toggler.js"
 
 function MainNavigation() {
 
+
+    const [theme, themeToggler] = useDarkMode();
+
+    const themeMode = theme === 'light' ? lightTheme : darkTheme;
+    
     const navigate = useNavigate();
     
     let logOut = () => {
@@ -63,7 +73,11 @@ function MainNavigation() {
         setWeatherCard(false);
     }
 
-    return (<header className="header">
+    return (
+        <ThemeProvider theme={themeMode}>
+        <>
+        <GlobalStyles/>
+    <header className="header">
         <div class="logo"> <i class="fas fa-bus"></i> Dublin Bus </div>
 
         <nav className="navbar">
@@ -73,6 +87,7 @@ function MainNavigation() {
         </nav>
 
         <div className="icons">
+        <Toggle theme={theme} toggleTheme={themeToggler} />
             <div id="menu-btn"><div className="fas fa-cloud-sun" onClick={openWeatherCard}></div></div>
             <div id="login-btn"><div className="fas fa-users" onClick = {openLoginForm}></div></div>
             {userToken ? <div id="logout-btn"><RiLogoutCircleRFill style={{fontSize:'20px'}} onClick={logOut} /></div>:  null}
@@ -82,6 +97,9 @@ function MainNavigation() {
         {myProfile ? <UserProfile /> : null}
         {weatherCardIsOpen ? <div className='weather-card'><WeatherCard boolean={false} /></div> : null}
     </header>
+
+    </>
+    </ThemeProvider>
     );
 }
 export default MainNavigation;

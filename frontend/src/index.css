@@ -274,7 +274,7 @@ html {
   position: absolute;
   top: 115%;
   right: 1%;
-  background: white;
+  /* background: white; */
   border-radius: .5rem;
   -webkit-box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.1);
           box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.1);
@@ -338,7 +338,7 @@ html {
 }
 
 .journey-form {
-  background: white;
+  /* background: white; */
   border-radius: .5rem;
   -webkit-box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.1);
           box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.1);
@@ -353,7 +353,7 @@ html {
 }
 
 .journey-form-route {
-  background: white;
+  /* background: white; */
   border-radius: .5rem;
   -webkit-box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.1);
           box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.1);
@@ -424,7 +424,7 @@ html {
   top:12%;
   bottom:4%;
   position:fixed;
-  background: white;
+  /* background: white; */
   border-radius: .5rem;
   -webkit-box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.1);
           box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.1);
@@ -448,7 +448,7 @@ html {
   width: 450px;
   top:12%;
   bottom:4%;
-  background: white;
+  /* background: white; */
   position:fixed;
   border-radius: .5rem;
   -webkit-box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.1);
@@ -469,7 +469,7 @@ html {
   left:43.5rem;
   top:37rem;
   position:fixed;
-  background: white;
+  /* background: white; */
   padding: 0.3rem;
   z-index: 10;
   transition: 830ms;
@@ -481,7 +481,7 @@ html {
   top:37rem;
   left:-4px;
   position:fixed;
-  background: white;
+  /* background: white; */
   padding: 0.3rem;
   z-index: 10;
   border-top-right-radius: 5px;
@@ -571,7 +571,7 @@ html {
 .container .link2{
   border-top-right-radius: 25px;
   text-align:center;
-  background-color: white;
+  /* background-color: white; */
   padding:10px;
   width: 100%;
   border-bottom: 0px;
@@ -582,7 +582,7 @@ html {
   border-top-left-radius: 25px;
   text-align:center;
  
-  background-color: white;
+  /* background-color: white; */
   padding:10px;
   width: 100%;
   border-bottom: 0px;
@@ -750,7 +750,7 @@ input[type="datetime-local"] {
     left:-1%;
     top:45%;
     position:fixed;
-    background: white;
+    /* background: white; */
     padding: 0.3%;
     z-index: 10;
     transition: 830ms;
@@ -762,7 +762,7 @@ input[type="datetime-local"] {
     top:45%;
     left:-1%;
     position:fixed;
-    background: white;
+    /* background: white; */
     padding: 0.3rem;
     z-index: 10;
     border-top-right-radius: 5px;

@@ -8,7 +8,58 @@ import { MarkerClusterer} from '@react-google-maps/api';
 import { render} from 'react-dom'
 import useUserToken from './Home';
 // import useSupercluster from "use-supercluster";
+const lightmap = [
+    {  
+    featureType: "transit", 
+    stylers: [{ visibility: "off", }], 
+  
+  },
+  {
+    featureType: "poi",
+    stylers: [{ visibility: "off" }],
+  },]
+  
+  const darkmap=[
+    {  
+    featureType: "transit", 
+    stylers: [{ visibility: "off", }], 
+  },
+  { elementType: "geometry", stylers: [{ color: '#363537' }] },
+  { elementType: "labels.text.stroke", stylers: [{ color: "#242f3e" }] },
+  { elementType: "labels.text.fill", stylers: [{ color: "#746855" }] },
+  {
+    featureType: "road.highway",
+    elementType: "geometry.stroke",
+    stylers: [{ color: "#1f2835" }],
+  },
+  {
+    featureType: "road.highway",
+    elementType: "labels.text.fill",
+    stylers: [{ color: "#f3d19c" }],
+  },
+  
+  {
+    featureType: "road",
+    elementType: "geometry",
+    stylers: [{ color: "#38414e" }],
+  },
+  {
+    featureType: "road",
+    elementType: "geometry.stroke",
+    stylers: [{ color: "#212a37" }],
+  },
+  {
+    featureType: "road",
+    elementType: "labels.text.fill",
+    stylers: [{ color: "#9ca5b3" }],
+  },
 
+  {
+    featureType: "poi",
+    stylers: [{ visibility: "off" }],
+  },
+  
+  ]
 var routNum=0;
 const containerStyle = {
     width: '100%',
@@ -558,18 +609,8 @@ function JourneyPlanning() {
                     center={center}
                     zoom={13}
                     onLoad={map => setMap(map)}
-                    options={{ styles: [
-                      {  
-                      featureType: "transit", 
-                      stylers: [{ visibility: "off", }], 
-                    },
-                  
-                    {
-                      featureType: "poi",
-                      stylers: [{ visibility: "off" }],
-                    },
-                  
-                  ], }}
+                    options={{ styles :darkmap,
+                        streetViewControl: false}}
                     >
                     
       {infowindows && (
