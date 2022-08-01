@@ -96,7 +96,6 @@ function Home() {
     <h2> You have logged in, {username} </h2>
     <h2> Your user id is, {userid} </h2>
     
-
     <div className="container">
     <button onClick={deleteRoute} >Delete Selected</button>
 
