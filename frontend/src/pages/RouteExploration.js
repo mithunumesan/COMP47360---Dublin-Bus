@@ -79,6 +79,7 @@ function RouteExploration() {
     }
 
     const onSuggestHandler = (text)=> {
+        setValue(0)
         setSearchIcon(true)
         setDisplay(false)
         setText(text);
@@ -135,25 +136,25 @@ function RouteExploration() {
         setSearchIcon(false)
     }
     }
-
+    //set css class name line option active or not
+    const [value, setValue] = useState(0);
     async function changeRoute(i) {
         // document.getElementById(i).innerHTML = '{<Iconsgo.GoPrimitiveDot style={{color:"#f1c232"}}/>}'; 
         // e.currentTarget.style.backgroundColor="red";
+        setValue(i)
+        
         setPathInfo([])
         setRouteInfo([])
         const para = shapeDirection[i]
         const result = await getTrips(para)
         setRouteInfo(result)
-        // console.log('trips',result)
         const shape = await getShape(para)
         setPathInfo(shape)   
-        // routeInfo.forEach(element => {
-        //     console.log(element.stopname)
-        // });
         setDisplay(true)
     }
 
     async function changeDirection() {
+        console.log("cahnge Direction")
         setPathInfo([])
         setRouteInfo([])
         if(isDirection0 && shapeDdirection1.length>0) {
@@ -211,27 +212,32 @@ function RouteExploration() {
                     <Link to='/routesexploration'><h1 style={{color: '#666'}}>Route Exploration</h1></Link>
                 </div>
             </div>
-            <div className="journey-form">
-                    <input type="search" placeholder="Search for a line" className="box" value={text} onChange= {e => onChangeHandler(e.target.value)}></input>
-                    
+            <div className="journey-form-route">
+            <div className="input-icons">
+            <i className="fas fa-bus icon"></i><input type="search" placeholder="Search for a line" class="input-field" value={text} onChange= {e => onChangeHandler(e.target.value)}></input>
+            </div>        
                     <div className='search-results'>
                     { !display && suggestions.length===0 && finds.length>0 &&!searchIcon && finds.map((suggestion,i) =>
-                        <div key={i} className="search-result" onClick={()=>onSuggestHandler(suggestion.routeshortname)}><i class="fas fa-bus"></i>&nbsp;&nbsp;{suggestion.routeshortname} &nbsp;&nbsp; {suggestion.routelongname}</div>
+                        <div key={i} className="search-result" onClick={()=>onSuggestHandler(suggestion.routeshortname)}>
+                            <i class="fas fa-bus"></i>&nbsp;&nbsp;{suggestion.routeshortname} &nbsp;&nbsp; {suggestion.routelongname}</div>
                     )}
                     {!display && (suggestions.length>0) &&!searchIcon && suggestions.map((suggestion,i) =>
-                        <div key={i} className="search-result" onClick={()=>onSuggestHandler(suggestion.routeshortname)}><i class="fas fa-bus"></i>&nbsp;&nbsp;{suggestion.routeshortname} &nbsp;&nbsp; {suggestion.routelongname}</div>
+                        <div key={i} className="search-result" onClick={()=>onSuggestHandler(suggestion.routeshortname)}>
+                            <i class="fas fa-bus"></i>&nbsp;&nbsp;{suggestion.routeshortname} &nbsp;&nbsp; {suggestion.routelongname}</div>
                     )}
                     {/* Display Search Icon */}
-                    {(((!pathInfo.length>0 || !routeInfo.length>0)&& display) || (!display && suggestions.length===0 && !finds.length>0)|| searchIcon) && <div className='search-icon'><Icons.HiSearchCircle style={{fontSize:'200px',color:"#c2e7fe"}} /></div>}
+                    {(((!pathInfo.length>0 || !routeInfo.length>0)&& display) || (!display && suggestions.length===0 && !finds.length>0)|| searchIcon) 
+                    && <div className='search-icon'><Icons.HiSearchCircle style={{fontSize:'200px',color:"#c2e7fe"}} /></div>}
+
                     <div className={display&& pathInfo.length>0 && routeInfo.length>0 ? 'line-header-active' : 'line-header'}>
-                    {display && pathInfo.length>0 && routeInfo.length>0 && <h2>{routeInfo[0].tripheadsign}</h2>}
-                    {display && pathInfo.length>0 && routeInfo.length>0 && ((shapeDirection===shapeDdirection0&&shapeDdirection1.length>0) || (shapeDirection===shapeDdirection1&&shapeDdirection0.length>0)) && <button className='change-direction' onClick={changeDirection}>Change Direction</button>}
+                    {display && pathInfo.length>0 && routeInfo.length>0 
+                    && <h2>{routeInfo[0].tripheadsign}</h2>}
+                    {display && pathInfo.length>0 && routeInfo.length>0 && ((shapeDirection===shapeDdirection0&&shapeDdirection1.length>0) || (shapeDirection===shapeDdirection1&&shapeDdirection0.length>0)) &&  <button className='change-direction' type="button" onClick={changeDirection}>Change Direction</button>}
                     </div>
-                    
                     {display && pathInfo.length>0 && routeInfo.length>0 && 
                     <div className="line-option"><h3>Line option - {routeInfo[routeInfo.length-1].stopsequence} stops</h3>
                     <div className='container'>{shapeDirection.map((element,i)  => {
-                        return <div key={i} id={i} className="route-option" onClick={()=>changeRoute(i)}>{<Iconsgo.GoPrimitiveDot style={{color:"#c2e7fe"}}/>}</div>
+                        return <div key={i} id={i} className="route-option" onClick={()=>changeRoute(i)}>{<Iconsgo.GoPrimitiveDot style={{color: value===i ? "#80ceff": '#A9A9A9'}}/>}</div>
                     })}
                     </div>
                     </div>}

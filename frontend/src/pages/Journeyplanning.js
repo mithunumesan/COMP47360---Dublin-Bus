@@ -6,6 +6,7 @@ import { getmarkers,getMarkerAddress} from '../components/markers';
 import * as Icons from "react-icons/hi";
 import { MarkerClusterer} from '@react-google-maps/api';
 import { render} from 'react-dom'
+import useUserToken from './Home';
 // import useSupercluster from "use-supercluster";
 
 var routNum=0;
@@ -57,7 +58,7 @@ function JourneyPlanning() {
         initGeo();
     },[])
 
-      const [goAhead,setGoAhead] = useState([])
+    const [goAhead,setGoAhead] = useState([])
 
     const [dublinBus,setDublinBus] = useState([])
 
@@ -80,6 +81,22 @@ function JourneyPlanning() {
       console.log(dublinBus)
     }
     }, [infowindows])
+    const [minTime,setMinTime]=useState(null)
+    useEffect(() => {
+      console.log("time value")
+        let date = new Date().toDateString();
+        let time = new Date().toTimeString();
+
+        let current = new Date()
+        // let min = current.getFullYear().toString()+'-'+(current.getMonth()+1).toString()+'-'+current.getDate().toString()+'T'+current.getHours().toString()+':'+current.getMinutes().toString();
+        let min=new Date().toISOString().slice(0,new Date().toISOString().lastIndexOf(":"));
+        console.log(min)
+        setMinTime(min)
+        // console.log(time)
+      
+    },[])
+
+    const token = useUserToken();
 
     //react google map api using is refereneced from https://www.youtube.com/watch?v=iP3DnhCUIsE&list=RDCMUCr0y1P0-zH2o3cFJyBSfAKg&start_radio=1&rv=iP3DnhCUIsE&t=1614
     const [directionsResponse, setDirectionsResponse] = useState({})
@@ -454,6 +471,21 @@ function JourneyPlanning() {
           );
       }
   }    
+    
+    let isSaveAsMyFavRoute
+
+    localStorage.getItem("user_token") ? isSaveAsMyFavRoute = true : isSaveAsMyFavRoute = false
+
+    function addFavoriteRoute() {
+
+    }
+
+    function getTimeNow() {
+      var current = new Date();
+      console.log(current)
+      return current;
+
+    }
 
     return  (<>
         <div className={sidebar ? 'box1 active' : 'box1'}>
@@ -465,16 +497,18 @@ function JourneyPlanning() {
                     <Link to='/routesexploration'><h1 style={{color: '#666'}}>Route Exploration</h1></Link>
                 </div>
             </div>
+            
             <div className="journey-form">
             <div style={{alignItems:center}}>
                 <div  style={{float:'left',width:'90%'}}>
+            {isSaveAsMyFavRoute ? <button type="submit" className="btn-save" onClick={addFavoriteRoute}>Save as My Favorite Route</button> : null}
                 <Autocomplete options={{
                     bounds: defaultBounds,
                     componentRestrictions: { country: ["IE"] },
                     fields: ["place_id", "geometry", "name"],
                     strictBounds: true,
                 }}>
-                    <input type="search" placeholder="Start Point" className="box" ref={startRef} onChange= {clearRoute}></input>
+                    <input type="search" placeholder="Start Point" className="box" ref={startRef} onChange = {clearRoute}></input>
                 </Autocomplete>
                 <Autocomplete options={{
                     bounds: defaultBounds,
@@ -499,9 +533,7 @@ function JourneyPlanning() {
                     <option value="lastAvaliable">Last Avaliable</option>
                 </select>
                 {/* add the html input datetime element or not */}
-                {booleanValue ? <div id="time"><input type="datetime-local" id="datetime" onChange={handleChange} value={dateTime}></input></div> : null}
-                </div>
-                <div>
+                {booleanValue ? <div id="time"><input type="datetime-local" id="datetime" min={minTime} onChange={handleChange} value={dateTime}></input></div> : null}
                 <button type="submit" className="btn" onClick={caculateRoute}>Search</button>
                 </div>
             </div>
