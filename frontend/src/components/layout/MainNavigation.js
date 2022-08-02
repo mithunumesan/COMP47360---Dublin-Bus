@@ -23,7 +23,9 @@ function MainNavigation() {
     
     let logOut = () => {
         localStorage.removeItem("user_token");
-        navigate('/');
+        localStorage.removeItem("user_id");
+
+        navigate('/login');
     }
     
     const token = useUserToken();
