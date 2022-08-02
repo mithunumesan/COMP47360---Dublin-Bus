@@ -139,8 +139,12 @@ function Home() {
     {location.pathname==="/home" ? <button onClick={deleteRoute} >Delete Selected</button> : null}
     </div>
     {Array.isArray(routes) ? 
+<<<<<<< HEAD
 
     <tbody id="start_end">
+=======
+    <table id="start_end">
+>>>>>>> a670c66eb669f5583e7dd3500ae5084f62c0cc7c
                 <tr>
                     <th style={{width:'45%'}}>Starting Point</th>
                     <th style={{width:'45%'}}>Destination</th>
@@ -154,9 +158,8 @@ function Home() {
                         <td><input type="radio" name="myTextEditBox" value={item.id} onChange={handleChange} /></td>
                     </tr>
                 ))}
-    </tbody>
+    </table>
 : <div className='search-icon'><Icons.HiSearchCircle style={{fontSize:'200px',color:"#c2e7fe"}} /></div>} 
-
 </div>)
 }
 export default Home;
