@@ -7,6 +7,7 @@ import SignUp from './pages/SignUp';
 import WeatherCard from './components/layout/WeatherCard';
 import MainNavigation from './components/layout/MainNavigation';
 import RouteExploration from './pages/RouteExploration';
+import LoginForm from './components/layout/LoginForm';
 
 
 
