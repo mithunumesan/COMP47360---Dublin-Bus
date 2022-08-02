@@ -8,58 +8,10 @@ import { MarkerClusterer} from '@react-google-maps/api';
 import { render} from 'react-dom'
 import useUserToken from './Home';
 // import useSupercluster from "use-supercluster";
-const lightmap = [
-    {  
-    featureType: "transit", 
-    stylers: [{ visibility: "off", }], 
-  
-  },
-  {
-    featureType: "poi",
-    stylers: [{ visibility: "off" }],
-  },]
-  
-  const darkmap=[
-    {  
-    featureType: "transit", 
-    stylers: [{ visibility: "off", }], 
-  },
-  { elementType: "geometry", stylers: [{ color: '#363537' }] },
-  { elementType: "labels.text.stroke", stylers: [{ color: "#242f3e" }] },
-  { elementType: "labels.text.fill", stylers: [{ color: "#746855" }] },
-  {
-    featureType: "road.highway",
-    elementType: "geometry.stroke",
-    stylers: [{ color: "#1f2835" }],
-  },
-  {
-    featureType: "road.highway",
-    elementType: "labels.text.fill",
-    stylers: [{ color: "#f3d19c" }],
-  },
-  
-  {
-    featureType: "road",
-    elementType: "geometry",
-    stylers: [{ color: "#38414e" }],
-  },
-  {
-    featureType: "road",
-    elementType: "geometry.stroke",
-    stylers: [{ color: "#212a37" }],
-  },
-  {
-    featureType: "road",
-    elementType: "labels.text.fill",
-    stylers: [{ color: "#9ca5b3" }],
-  },
 
-  {
-    featureType: "poi",
-    stylers: [{ visibility: "off" }],
-  },
-  
-  ]
+
+import Themesmap from './Themesmap.js';
+
 var routNum=0;
 const containerStyle = {
     width: '100%',
@@ -86,6 +38,10 @@ let dublinBusList = []
 
 
 function JourneyPlanning() {
+ const [mapTheme, setThemes] = useState(Themesmap.lightmap);
+    
+ const updateThemes = (style = "") => setThemes(Themesmap[style] || []);
+
   const [routeNum, setRouteNum] = useState(0)
   const [pos, setPos] = useState({lat: 53.3463, lng: -6.2631})
   const [color,setColor]=useState('white')
@@ -539,14 +495,17 @@ function JourneyPlanning() {
     }
 
     return  (<>
+    
         <div className={sidebar ? 'box1 active' : 'box1'}>
             <div className="container">
+            
                 <div className="link3">
                     <Link to="/" ><h1 style={{color: '#666'}}>Journey Planner</h1></Link>
                 </div>
                 <div className="link4">
                     <Link to='/routesexploration'><h1 style={{color: '#666'}}>Route Exploration</h1></Link>
                 </div>
+                
             </div>
             
             <div className="journey-form">
@@ -577,6 +536,7 @@ function JourneyPlanning() {
                 </Autocomplete>  
                 <div style={{float:'left',marginTop:'35px',marginLeft:'20px'}}  onClick={changePos}><i style={{fontSize:'20px',margin:'auto' }} class="fas fa-sort"></i>
                 </div>
+                
                 </div>
 
             
@@ -592,6 +552,27 @@ function JourneyPlanning() {
                 {booleanValue ? <div id="time"><input type="datetime-local" id="datetime" min={minTime} onChange={handleChange} value={dateTime}></input></div> : null}
                 <button type="submit" className="btn" onClick={caculateRoute}>Search</button>
                 </div>
+                <div
+                        className="btn-group"
+                        role="group"
+                        aria-label="Basic example"
+                    >
+                        
+                        <button
+                            type="button"
+                            className="btn-darkmode"
+                            onClick={() => updateThemes("darkmap")}
+                        >
+                            Dark Mode
+                        </button>
+                        <button
+                            type="button"
+                            className="btn-lightmode"
+                            onClick={() => updateThemes("lightmap")}
+                        >
+                            Light Mode
+                        </button>
+                    </div>
             </div>
             <div style={{height:'40%',overflow:'auto'}}>
                 <div id="panel" style={{height:'auto'}}></div>
@@ -609,7 +590,7 @@ function JourneyPlanning() {
                     center={center}
                     zoom={13}
                     onLoad={map => setMap(map)}
-                    options={{ styles :darkmap,
+                    options={{styles: mapTheme,
                         streetViewControl: false}}
                     >
                     

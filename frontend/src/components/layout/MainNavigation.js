@@ -87,7 +87,7 @@ function MainNavigation() {
         </nav>
 
         <div className="icons">
-        <Toggle theme={theme} toggleTheme={themeToggler} />
+        {/* <Toggle theme={theme} toggleTheme={themeToggler} /> */}
             <div id="menu-btn"><div className="fas fa-cloud-sun" onClick={openWeatherCard}></div></div>
             <div id="login-btn"><div className="fas fa-users" onClick = {openLoginForm}></div></div>
             {userToken ? <div id="logout-btn"><RiLogoutCircleRFill style={{fontSize:'20px'}} onClick={logOut} /></div>:  null}
