@@ -39,11 +39,13 @@ export function useUserToken() {
 function Home() {
     // const [startPoint,setStartPoint] = useState("")
     // const [destination,setDestination] = useState("")
-    const [routes,setRoutes] = useState("")
+    const [routes,setRoutes] = useState("");
+
+    const [deleted,setDeleted] = useState("");
 
     let location = useLocation();
 
-    const [token,username,userid] = useUserToken()
+    const [token,username,userid] = useUserToken();
     let url;
 
    useEffect(()=>{
@@ -59,7 +61,7 @@ function Home() {
                 }
             ).catch( error => console.error(error))
 
-   },[userid])
+   },[userid, deleted])
    
 
 
@@ -93,7 +95,10 @@ function Home() {
         console.log(url);
         fetch(url, {
             method: 'DELETE',
-            })
+            }).then(
+                response => response.json()
+            ).then(response => console.log(response)
+                ).catch( error => setDeleted(error))
     }
 
 
@@ -107,7 +112,7 @@ function Home() {
     </div>: null
     }
     <div className="container">
-    {location.pathname==="/home" ?<button onClick={deleteRoute} >Delete Selected</button> : null}
+    {location.pathname==="/home" ? <button onClick={deleteRoute} >Delete Selected</button> : null}
 
     <tbody id="start_end">
                 <tr>
