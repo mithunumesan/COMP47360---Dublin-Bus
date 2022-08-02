@@ -15,11 +15,8 @@
     "react-router-dom": "^6.3.0",
     "react-script": "^2.0.5",
     "react-scripts": "^5.0.1",
-<<<<<<< HEAD
     "styled-components": "^5.3.5",
-=======
     "react-table": "^7.8.0",
->>>>>>> master
     "web-vitals": "^2.1.4"
   },
   "scripts": {
