@@ -1,6 +1,6 @@
 import {useNavigate, useLocation } from 'react-router-dom';
 import {useState, useEffect} from 'react';
-import * as Icons from "react-icons/hi";
+import { ImSpinner3 } from "react-icons/im";
 
 export function useUserToken() {
     const navigate = useNavigate();
@@ -122,22 +122,20 @@ function Home() {
     return (
 
     
-    <div >
-    {location.pathname==="/home" ?
+    <div>
+    {location.pathname==="/home" && Array.isArray(routes) ?
     <div>
     <h2> Welcome, {username} </h2>
     <h2> Your user id is, {userid} </h2>
     </div>: (
-                    <button onClick={ (e) => populateRoute(e)}>Select Your Favorite Route</button>
-
+                Array.isArray(routes) ? <button className='delete-button' onClick={ (e) => populateRoute(e)}>Use Your Favorite Route</button> :null
         )
     }
 
-    <div className="container" style={{marginTop:'2rem'}}>
-    <h2> Manage Your Favorite Routes </h2>
     
-    {location.pathname==="/home" ? <button onClick={deleteRoute} >Delete Selected</button> : null}
-    </div>
+    
+    {location.pathname==="/home" && Array.isArray(routes) ? <div><h2 style={{marginLeft:'30%',marginRight:'30%',width:'40%',padding:'0.5rem'}}> Manage Your Favorite Routes </h2><button className='delete-button' style={{maxWidth:'160px'}} onClick={deleteRoute} >Delete Selected</button></div> : null}
+    
     {Array.isArray(routes) ? 
     <table id="start_end">
                 <tr>
@@ -154,7 +152,7 @@ function Home() {
                     </tr>
                 ))}
     </table>
-: <div className='search-icon'><Icons.HiSearchCircle style={{fontSize:'200px',color:"#c2e7fe"}} /></div>} 
+: <div className='search-icon'><ImSpinner3 style={{fontSize:'100px',color:"#c2e7fe"}} /></div>} 
 </div>)
 }
 export default Home;
