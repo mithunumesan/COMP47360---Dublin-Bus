@@ -1,4 +1,4 @@
-import {useNavigate} from 'react-router-dom';
+import {useNavigate, useLocation } from 'react-router-dom';
 import {useState, useEffect} from 'react';
 
 export function useUserToken() {
@@ -22,11 +22,14 @@ export function useUserToken() {
         data => {
             setUsername(data.username);
             setUserId(data.userid)
+            localStorage.setItem("user_id", data.userid );
             }
         ).catch( error => console.error(error))
 
       setToken(token);
-    }, [navigate, setToken,setUserId]);
+     
+
+    }, []);
     return [token,username,userid];
   }
 
@@ -38,6 +41,7 @@ function Home() {
     // const [destination,setDestination] = useState("")
     const [routes,setRoutes] = useState("")
 
+    let location = useLocation();
 
     const [token,username,userid] = useUserToken()
     let url;
@@ -69,6 +73,8 @@ function Home() {
     var value;
     var checked;
 
+    
+
     var handleChange = (e) => {
         value  = e.target.value;
         checked = e.target.checked;
@@ -93,12 +99,15 @@ function Home() {
 
     return (
     <div >
-    <h1> HOME </h1>
-    <h2> You have logged in, {username} </h2>
-    <h2> Your user id is, {userid} </h2>
-    
+    {location.pathname==="/home" ?
+    <div>
+        <h1> HOME </h1>
+        <h2> You have logged in, {username} </h2>
+        <h2> Your user id is, {userid} </h2>
+    </div>: null
+    }
     <div className="container">
-    <button onClick={deleteRoute} >Delete Selected</button>
+    {location.pathname==="/home" ?<button onClick={deleteRoute} >Delete Selected</button> : null}
 
     <tbody id="start_end">
                 <tr>
