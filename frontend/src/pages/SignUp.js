@@ -38,7 +38,7 @@ function SignUp() {
 
     return <div id="leapCardLog">
     <form onSubmit={handleSubmit} action="" className="leapCard-login-form">
-        <h3>First, please login to your account</h3>
+        <h3>First, please create an account</h3>
         <input type="text" name ="username" placeholder="enter your account" className="leapCard-box" 
         value={username} onChange={(e) => setUsername(e.target.value)} required></input>
         <input type="password" placeholder="enter your password" className="leapCard-box"

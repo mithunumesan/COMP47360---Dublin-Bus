@@ -1,4 +1,3 @@
-
 * {
   font-family: 'Poppins', sans-serif;
   margin: 0;
@@ -277,8 +276,10 @@ html {
   border-radius: .5rem;
   -webkit-box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.1);
           box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.1);
-  width: 35rem;
-  padding: 2rem
+  width: 400px;
+  height:auto;
+  min-height:200px;
+  padding: 1.5rem;
 }
 
 .header .login-form h3 {
@@ -317,9 +318,23 @@ html {
 }
 
 .header .login-form .btn {
-  margin: 1rem 0;
+  padding: 0.3rem 0;
   width: 100%;
   text-align: center;
+  border-radius: 3px;
+}
+.header .login-form .btn:hover {
+  color:white;
+}
+
+.sign-up-btn{
+  padding:0.3rem 0;
+  width:30%;
+  border-radius: 3px;
+}
+
+.sign-up-btn:hover {
+  color:white;
 }
 
 .header .login-form p {
@@ -377,27 +392,27 @@ html {
 }
 
 .journey-form .btn {
-  margin-bottom: 0.2rem;
-  margin-top: 0.7rem;
+  /* margin: 0.2rem 0; */
+  /* margin-bottom: 0.2rem;
+  margin-top: 0.7rem; */
   width: 100%;
   height: auto;
   text-align: center;
   font-size: 140%;
   border-radius: 3px;
   color:#666;
-  padding-bottom: 0.5rem;
+  padding: 0.3rem 0;
 }
 
 .journey-form .btn-save{
   width: 50%;
-  margin-bottom: 0.2rem;
-  margin-top: 0;
+  margin: 0.2rem 0;
   height: auto;
   text-align: center;
   font-size: 140%;
   border-radius: 3px;
   color:#666;
-  padding-bottom: 0.5rem;
+  padding: 0.3rem 0;
 }
 
 .journey-form .btn-save:hover{
@@ -711,10 +726,15 @@ html {
 
 }
 
-#start_end {
-  font-family: Arial, Helvetica, sans-serif;
+table#start_end {
+  /* font-family: Arial, Helvetica, sans-serif; */
   border-collapse: collapse;
-  width: 100%;
+  margin-left: 10%;
+  margin-right: 10%;
+  width:80%;
+  height:auto;
+  /* margin: 0px auto; */
+  /* margin-left: 10rem; */
 }
 
 #start_end td, #start_end th {
@@ -722,7 +742,7 @@ html {
   padding: 8px;
 }
 
-#start_end tr:nth-child(even){background-color: #f2f2f2;}
+#start_end tr:nth-child(odd){background-color: #f2f2f2;}
 
 #start_end tr:hover {background-color: #ddd;}
 
@@ -730,13 +750,30 @@ html {
   padding-top: 12px;
   padding-bottom: 12px;
   text-align: left;
-  background-color: #04AA6D;
-  color: white;
+  background-color: #c2e7fe;
+  color: black;
   /* width:40px;
   height:30px;
   max-width:40px;
   max-height: 30px; */
 
+}
+
+.delete-button {
+  width: 50%;
+  height: 100%;
+  text-align: center;
+  font-size: 130%;
+  border-radius: 3px;
+  color:#666;
+  padding:0.2rem;
+  margin-left: 25%;
+  margin-right: 25%;
+  margin-bottom: 0.5rem;
+}
+
+.delete-button:hover {
+  color: white;
 }
 
 input[type="datetime-local"] {

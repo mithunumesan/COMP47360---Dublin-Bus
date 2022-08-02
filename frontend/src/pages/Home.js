@@ -1,5 +1,6 @@
-import {useNavigate} from 'react-router-dom';
+import {useNavigate, useLocation } from 'react-router-dom';
 import {useState, useEffect} from 'react';
+import { ImSpinner3 } from "react-icons/im";
 
 export function useUserToken() {
     const navigate = useNavigate();
@@ -22,40 +23,45 @@ export function useUserToken() {
         data => {
             setUsername(data.username);
             setUserId(data.userid)
+            localStorage.setItem("user_id", data.userid );
             }
         ).catch( error => console.error(error))
 
       setToken(token);
-    }, [navigate, setToken,setUserId]);
+    }, [setToken,setUserId]);
     return [token,username,userid];
   }
-
-
 
 
 function Home() {
     // const [startPoint,setStartPoint] = useState("")
     // const [destination,setDestination] = useState("")
     const [routes,setRoutes] = useState("")
+    const [display,setDisplay] = useState(false)
 
+    const [deleted,setDeleted] = useState("");
 
-    const [token,username,userid] = useUserToken()
+    let location = useLocation();
+
+    const [token,username,userid] = useUserToken();
     let url;
 
-    while(userid===null){
-    console.log("null");}
-    url = 'http://127.0.0.1:8000/loginapi/details/' + userid + '/';
+   useEffect(()=>{
 
-    
-    fetch(url)
-        .then( data => data.json())
-        .then(
-        data => {
-            // console.log(data);
-            setRoutes(data);
-            }
-        ).catch( error => console.error(error))
-    
+    url = 'http://127.0.0.1:8000/loginapi/details/' + userid + '/';
+        
+        fetch(url)
+            .then( data => data.json())
+            .then(
+            data => {
+                // console.log(data);
+                setRoutes(data);
+                setDisplay(true)
+                }
+            ).catch( error => console.error(error))
+
+   },[userid, deleted])
+   
 
 
     // const addFavoriteRoute = async() => {
@@ -68,6 +74,8 @@ function Home() {
     const [userinfo, setUserInfo] = useState("");
     var value;
     var checked;
+
+    
 
     var handleChange = (e) => {
         value  = e.target.value;
@@ -87,39 +95,64 @@ function Home() {
         console.log(url);
         fetch(url, {
             method: 'DELETE',
-            })
+            }).then(
+                response => response.json()
+            ).then(response => console.log(response)
+                ).catch( error => setDeleted(error))
     }
 
-    return (<div >
-    <h1> HOME </h1>
-    <h2> You have logged in, {username} </h2>
-    <h2> Your user id is, {userid} </h2>
-    
-    <div className="container">
-    <button onClick={deleteRoute} >Delete Selected</button>
-    {/* <input type="text" placeholder="Start Point" className="box" value={startPoint} onChange={(e)=>setStartPoint(e.target.value)} ></input>
-    <input type="search" placeholder="Destination" className="box" value={destination} onChange={(e)=>setDestination(e.target.value)} ></input>
-    <button type="submit" className="btn" onClick={addFavoriteRoute} >Add Favorite Route</button>
-     */}
-    </div>
+    var populateRoute = (e) => {
+        e.preventDefault();
+        console.log("fetch route"+ userinfo);
+        let url = 'http://127.0.0.1:8000/loginapi/routes/' + userinfo + '/';
+        console.log(url);
+        fetch(url, {
+            method: 'GET',
+            }).then(
+                response => response.json()
+            ).then(response => {
+                console.log(response[0]['start_point'])
+                document.getElementById('start_point').value = response[0]['start_point']
+                document.getElementById('end_point').value = response[0]['destination']
 
-    <tbody id="start_end">
+        }
+                ).catch( error => setDeleted(error))
+    }
+
+    return (
+
+    
+    <div>
+    {location.pathname==="/home" && Array.isArray(routes) ?
+    <div>
+    <h2> Welcome, {username} </h2>
+    <h2> Your user id is, {userid} </h2>
+    </div>: (
+                Array.isArray(routes) ? <button className='delete-button' onClick={ (e) => populateRoute(e)}>Use Your Favorite Route</button> :null
+        )
+    }
+
+    
+    
+    {location.pathname==="/home" && Array.isArray(routes) ? <div><h2 style={{marginLeft:'30%',marginRight:'30%',width:'40%',padding:'0.5rem'}}> Manage Your Favorite Routes </h2><button className='delete-button' style={{maxWidth:'160px'}} onClick={deleteRoute} >Delete Selected</button></div> : null}
+    
+    {Array.isArray(routes) ? 
+    <table id="start_end">
                 <tr>
-                    <th>Starting Point</th>
-                    <th>Destination</th>
-                    <th> Select </th>
+                    <th style={{width:'45%'}}>Starting Point</th>
+                    <th style={{width:'45%'}}>Destination</th>
+                    <th style={{width:'10%'}}> Select </th>
                 </tr>
-                {Array.isArray(routes)
-        ? routes.map((item, i) => (
+                {
+         routes.map((item, i) => (
                     <tr key={i}>
                         <td >{item.start_point}</td>
                         <td>{item.destination}</td>
                         <td><input type="radio" name="myTextEditBox" value={item.id} onChange={handleChange} /></td>
                     </tr>
-                )): null}
-    </tbody>
-    
-  
+                ))}
+    </table>
+: <div className='search-icon'><ImSpinner3 style={{fontSize:'100px',color:"#c2e7fe"}} /></div>} 
 </div>)
 }
 export default Home;

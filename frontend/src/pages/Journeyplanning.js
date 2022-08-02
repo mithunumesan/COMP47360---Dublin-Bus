@@ -43,12 +43,16 @@ function JourneyPlanning() {
 
     const [destination, setDestination] = useState('');
 
-
+    
     const token = useUserToken();
-    let userid = token['props']['children'][2]['props']['children'][1];
-  const [routeNum, setRouteNum] = useState(0)
-  const [pos, setPos] = useState({lat: 53.3463, lng: -6.2631})
-  const [color,setColor]=useState('white')
+    console.log(token);
+    
+    let userid = localStorage.getItem("user_id");
+    // let userid = token['props']['children'][2]['props']['children'][1];
+
+    const [routeNum, setRouteNum] = useState(0)
+    const [pos, setPos] = useState({lat: 53.3463, lng: -6.2631})
+    const [color,setColor]=useState('white')
     
     const [markers,setmarkers]=useState([]);
 
