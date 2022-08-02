@@ -306,7 +306,7 @@ function JourneyPlanning() {
                 for (let i = 0; i < routesSteps.legs[0].steps.length; i++) {
                     let value = routesSteps.legs[0].steps[i]
                     let div = <div style={{margin: "5px", border: "1px solid #cccccc", padding: "10px"}}><span
-                        style={{margin: "5px"}}>{value.instructions}</span><span>{value.duration.text}</span>
+                        style={{margin: "5px"}}>{value.instructions}</span>
                         {value.travel_mode == 'TRANSIT' ?
                             await getTripInfo(value.transit.line.short_name,
                               value.transit.departure_stop.name,
@@ -553,7 +553,7 @@ function JourneyPlanning() {
                     <option value="now">Leave Now</option>
                     <option value="depart">Depart At</option>
                     <option value="arrive">Arrive By</option>
-                    <option value="lastAvaliable">Last Avaliable</option>
+                    
                 </select>
                 {/* add the html input datetime element or not */}
                 {booleanValue ? <div id="time"><input type="datetime-local" id="datetime" min={minTime} onChange={handleChange} value={dateTime}></input></div> : null}
