@@ -93,3 +93,19 @@ def detail(request, pk):
         routes = UserFavouriteRoute.objects.filter(id=pk)
         routes.delete()
         return JsonResponse({'message': 'Route was deleted successfully!'}, status=status.HTTP_204_NO_CONTENT)
+
+
+
+
+@api_view(['GET', 'PUT', 'DELETE'])
+def fetch_route(request, pk):
+    
+    
+    
+    if request.method == 'GET': 
+        routes = UserFavouriteRoute.objects.filter(id=pk)
+
+        userfavouriteroute_serializer = UserFavouriteRouteSerializer(routes, many=True) 
+    #     return JsonResponse(userfavouriteroute_serializer.data) 
+
+        return Response(userfavouriteroute_serializer.data)
