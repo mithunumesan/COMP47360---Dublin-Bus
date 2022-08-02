@@ -105,7 +105,7 @@ function Home() {
      */}
     </div>
     {Array.isArray(routes) ? 
-    <tbody id="start_end">
+    <table id="start_end">
                 <tr>
                     <th style={{width:'45%'}}>Starting Point</th>
                     <th style={{width:'45%'}}>Destination</th>
@@ -119,9 +119,8 @@ function Home() {
                         <td><input type="radio" name="myTextEditBox" value={item.id} onChange={handleChange} /></td>
                     </tr>
                 ))}
-    </tbody>
+    </table>
 : <div className='search-icon'><Icons.HiSearchCircle style={{fontSize:'200px',color:"#c2e7fe"}} /></div>} 
-
 </div>)
 }
 export default Home;

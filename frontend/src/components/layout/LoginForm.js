@@ -52,7 +52,7 @@ function LoginForm() {
                     <label for="remember-me">remember me</label>
                 </div>
                 <input type="submit" value="login now" className="btn" onClick={logging}></input>
-                <p>don't have an account? <button onClick={navigateToContent}>Sign Up</button></p>
+                <p>don't have an account? <button className='sign-up-btn' onClick={navigateToContent}>Sign Up</button></p>
             </form>)
     }
 

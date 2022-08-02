@@ -44,9 +44,9 @@ function LogIn() {
         value={username} onChange={(e) => setUsername(e.target.value)} required></input>
         <input type="password" placeholder="enter your password" className="leapCard-box"
         value={password} onChange={(e) => setPassword(e.target.value)} required></input>
-        <input id="leapcardbtn"  type="submit" value="login now" className="leapCard-btn" onClick={logging}></input>
+        <input id="leapcardbtn"  type="submit" value="login now" className="sign-up-btn" onClick={logging}></input>
         
-        <button onClick={navigateToContent}> Sign Up</button>
+        <p>Don't Have An Account?<button className="sign-up-btn" onClick={navigateToContent}> Sign Up</button></p>
     </form>
 </div>;
 }
