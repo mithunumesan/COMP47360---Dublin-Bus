@@ -1,5 +1,6 @@
 import {useNavigate} from 'react-router-dom';
 import {useState, useEffect} from 'react';
+import * as Icons from "react-icons/hi";
 
 export function useUserToken() {
     const navigate = useNavigate();
@@ -26,17 +27,16 @@ export function useUserToken() {
         ).catch( error => console.error(error))
 
       setToken(token);
-    }, [navigate, setToken,setUserId]);
+    }, [setToken,setUserId]);
     return [token,username,userid];
   }
-
-
 
 
 function Home() {
     // const [startPoint,setStartPoint] = useState("")
     // const [destination,setDestination] = useState("")
     const [routes,setRoutes] = useState("")
+    const [display,setDisplay] = useState(false)
 
 
     const [token,username,userid] = useUserToken()
@@ -45,14 +45,13 @@ function Home() {
     while(userid===null){
     console.log("null");}
     url = 'http://127.0.0.1:8000/loginapi/details/' + userid + '/';
-
-    
     fetch(url)
         .then( data => data.json())
         .then(
         data => {
             // console.log(data);
             setRoutes(data);
+            setDisplay(true)
             }
         ).catch( error => console.error(error))
     
@@ -64,6 +63,7 @@ function Home() {
     //   formField.append('start_point',startPoint)
     //   formField.append('destination',destination)
     // }
+
     const [userinfo, setUserInfo] = useState("");
     var value;
     var checked;
@@ -77,7 +77,7 @@ function Home() {
         if(checked){
             setUserInfo(value);
         }
-
+        
     }
 
     var deleteRoute = () => {
@@ -89,40 +89,39 @@ function Home() {
             })
     }
 
-
     return (
-    <div >
-    <h1> HOME </h1>
-    <h2> You have logged in, {username} </h2>
-    <h2> Your user id is, {userid} </h2>
+    <div style={{paddingTop:'1rem'}}>
     
-    <div className="container">
-    <button onClick={deleteRoute} >Delete Selected</button>
-
+   
+    <h2> Welcome, {username} </h2>
+    <h2> Your user id is, {userid} </h2>
+    <div className="container" style={{marginTop:'2rem'}}>
+    <h2> Manage Your Favorite Routes </h2>
+    
+    <button className="delete-button" onClick={deleteRoute} >Delete Selected</button>
+    {/* <input type="text" placeholder="Start Point" className="box" value={startPoint} onChange={(e)=>setStartPoint(e.target.value)} ></input>
+    <input type="search" placeholder="Destination" className="box" value={destination} onChange={(e)=>setDestination(e.target.value)} ></input>
+    <button type="submit" className="btn" onClick={addFavoriteRoute} >Add Favorite Route</button>
+     */}
+    </div>
+    {Array.isArray(routes) ? 
     <tbody id="start_end">
                 <tr>
-                    
-                    <th>Starting Point</th>
-                    <th>Destination</th>
-                    <th> Select </th>
+                    <th style={{width:'45%'}}>Starting Point</th>
+                    <th style={{width:'45%'}}>Destination</th>
+                    <th style={{width:'10%'}}> Select </th>
                 </tr>
-                {Array.isArray(routes)
-        ? routes.map((item, i) => (
+                {
+         routes.map((item, i) => (
                     <tr key={i}>
                         <td >{item.start_point}</td>
                         <td>{item.destination}</td>
                         <td><input type="radio" name="myTextEditBox" value={item.id} onChange={handleChange} /></td>
                     </tr>
-                )): null}
+                ))}
     </tbody>
-    
+: <div className='search-icon'><Icons.HiSearchCircle style={{fontSize:'200px',color:"#c2e7fe"}} /></div>} 
 
-
-
-  
-</div>
-
-</div>
-)
+</div>)
 }
 export default Home;
