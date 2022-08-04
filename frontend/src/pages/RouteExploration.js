@@ -124,10 +124,12 @@ function RouteExploration() {
         // console.log(shapeDirection[0])
         const para = shapeDirection[0]
         const result = await getTrips(para)
+        result[0].jsoninfo=JSON.parse(result[0].jsoninfo)
+        result[0].shapeinfo=JSON.parse(result[0].shapeinfo)
         setRouteInfo(result)
-        // console.log('trips',result)
-        const shape = await getShape(para)
-        setPathInfo(shape)
+        console.log('trips',result)
+        setPathInfo(result[0].shapeinfo)
+    
         // console.log("path",shape)
         // routeInfo.forEach(element => {
         //     console.log(element.stopname)
@@ -147,9 +149,11 @@ function RouteExploration() {
         setRouteInfo([])
         const para = shapeDirection[i]
         const result = await getTrips(para)
+        result[0].jsoninfo=JSON.parse(result[0].jsoninfo)
+        result[0].shapeinfo=JSON.parse(result[0].shapeinfo)
         setRouteInfo(result)
-        const shape = await getShape(para)
-        setPathInfo(shape)   
+        console.log('trips',result)
+        setPathInfo(result[0].shapeinfo)   
         setDisplay(true)
     }
 
@@ -180,7 +184,7 @@ function RouteExploration() {
     
       if(map && routeInfo.length>0) {
         const bounds = new window.google.maps.LatLngBounds();
-        routeInfo.map(marker => {
+        routeInfo[0].jsoninfo.map(marker => {
         bounds.extend({
           lat: marker.latitude,
           lng: marker.longitude,
@@ -235,7 +239,7 @@ function RouteExploration() {
                     {display && pathInfo.length>0 && routeInfo.length>0 && ((shapeDirection===shapeDdirection0&&shapeDdirection1.length>0) || (shapeDirection===shapeDdirection1&&shapeDdirection0.length>0)) &&  <button className='change-direction' type="button" onClick={changeDirection}>Change Direction</button>}
                     </div>
                     {display && pathInfo.length>0 && routeInfo.length>0 && 
-                    <div className="line-option"><h3>Line option - {routeInfo[routeInfo.length-1].stopsequence} stops</h3>
+                    <div className="line-option"><h3>Line option - {routeInfo[0].jsoninfo[routeInfo[0].jsoninfo.length-1].stopsequence} stops</h3>
                     <div className='container'>{shapeDirection.map((element,i)  => {
                         return <div key={i} id={i} className="route-option" onClick={()=>changeRoute(i)}>{<Iconsgo.GoPrimitiveDot style={{color: value===i ? "#80ceff": '#A9A9A9'}}/>}</div>
                     })}
@@ -243,7 +247,7 @@ function RouteExploration() {
                     </div>}
                     
                     <div className="stop-names">
-                    {display && pathInfo.length>0 && routeInfo.length>0 && routeInfo.map((info,i) =>
+                    {display && pathInfo.length>0 && routeInfo.length>0 && routeInfo[0].jsoninfo.map((info,i) =>
                         <div key={i} className="stop-name">{<RiRadioButtonFill />}&nbsp;&nbsp;<p>{info.stopname}</p></div>
                     )}
                     </div>
@@ -274,7 +278,7 @@ function RouteExploration() {
                     ], }} 
                     >
                     { /* Child components, such as markers, info windows, etc. */ }
-                    {pathInfo.length>0 && routeInfo.length>0 && (routeInfo.map((marker, index) => (
+                    {pathInfo.length>0 && routeInfo.length>0 && (routeInfo[0].jsoninfo.map((marker, index) => (
                      <Marker
                     key={index}
                     position={{ lat:marker.latitude, lng:marker.longitude  }}

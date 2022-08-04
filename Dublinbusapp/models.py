@@ -72,23 +72,37 @@ class Routes(models.Model):
         db_table = 'routeshape'
 
 
+# class AllTrip(models.Model):
+#     routeid = models.CharField(db_column='routeId', max_length=50,primary_key = True)  # Field name made lowercase.
+#     shapeid = models.CharField(db_column='shapeId', max_length=50)  # Field name made lowercase.
+#     tripheadsign = models.CharField(db_column='tripHeadsign',max_length=50)
+#     routeshortname = models.CharField(db_column='routeShortName', max_length=50)  # Field name made lowercase.
+#     routelongname = models.CharField(db_column='routeLongName', max_length=50)  # Field name made lowercase.
+#     directionid = models.IntegerField(db_column='directionId')  # Field name made lowercase.
+#     stopid = models.CharField(db_column='stopId', max_length=50)
+#     stopsequence = models.IntegerField(db_column='stopsequence')
+#     stopname = models.CharField(db_column='stopname', max_length=50)
+#     latitude = models.FloatField(db_column='latitude',max_length=50)
+#     longitude = models.FloatField(db_column='longitude',max_length=50)
+#     jsoninfo = models.JSONField(db_column='jsonInfo')
+
+#     class Meta:
+       
+#         managed = False
+#         db_table = 'drawRoute'
+
 class AllTrip(models.Model):
     routeid = models.CharField(db_column='routeId', max_length=50,primary_key = True)  # Field name made lowercase.
     shapeid = models.CharField(db_column='shapeId', max_length=50)  # Field name made lowercase.
     tripheadsign = models.CharField(db_column='tripHeadsign',max_length=50)
     routeshortname = models.CharField(db_column='routeShortName', max_length=50)  # Field name made lowercase.
-    routelongname = models.CharField(db_column='routeLongName', max_length=50)  # Field name made lowercase.
-    directionid = models.IntegerField(db_column='directionId')  # Field name made lowercase.
-    stopid = models.CharField(db_column='stopId', max_length=50)
-    stopsequence = models.IntegerField(db_column='stopsequence')
-    stopname = models.CharField(db_column='stopname', max_length=50)
-    latitude = models.FloatField(db_column='latitude',max_length=50)
-    longitude = models.FloatField(db_column='longitude',max_length=50)
+    jsoninfo = models.TextField(db_column='jsoninfo')
+    shapeinfo = models.TextField(db_column='shapeinfo')
 
     class Meta:
        
         managed = False
-        db_table = 'drawRoute'
+        db_table = 'drawroute'
 
 class Shape(models.Model):
     shapeid = models.CharField(db_column='shapId', max_length=50,primary_key = True)  # Field name made lowercase.
