@@ -607,12 +607,12 @@ function JourneyPlanning() {
           <div className="container">
           <i class="fas fa-bus"></i> <h3>&nbsp;&nbsp;{infowindows.stopname}</h3>
           </div>
-            <div className="container">
+            <div className="container2">
             {goAheadList.length>0 && goAheadList.map((line,i) => {
                return <div className="stop-line-goahead"><p>{line}</p></div>
             })}
             </div>
-            <div className="container">
+            <div className="container2">
             {dublinBusList.length>0 && dublinBusList.map((line,i) => {
                return <div className="stop-line-dublinbus"><p>{line}</p></div>
             })}
