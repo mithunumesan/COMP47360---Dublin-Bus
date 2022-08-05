@@ -10,6 +10,10 @@ import useUserToken from './Home';
 // import useSupercluster from "use-supercluster";
 
 
+
+
+
+
 var routNum=0;
 const containerStyle = {
     width: '100%',
@@ -42,6 +46,9 @@ function JourneyPlanning() {
     const [startPoint, setStartPoint] = useState('');
 
     const [destination, setDestination] = useState('');
+
+    const [showFav, setShowFav] = useState(false);
+
 
     
     const token = useUserToken();
@@ -489,11 +496,17 @@ function JourneyPlanning() {
       }
   }    
     
-    let isSaveAsMyFavRoute
+    let isSaveAsMyFavRoute;
 
     localStorage.getItem("user_token") ? isSaveAsMyFavRoute = true : isSaveAsMyFavRoute = false
 
+    
+
     function addFavoriteRoute() {
+        
+        
+        setShowFav(true);
+
         let starting = document.getElementById("start_point").value;
         console.log("start is: " + starting);
         let ending = document.getElementById("end_point").value;
@@ -505,11 +518,12 @@ function JourneyPlanning() {
             headers: {'Content-Type': 'application/json'},
             body: JSON.stringify({'user':userid, 'start_point': starting, 'destination': ending})
         }).then(
-            response => response.json()
+            response => {response.json();
+        }
             )
             .catch( error => console.error(error))
-
-
+        
+        
 
     }
 
@@ -525,7 +539,11 @@ function JourneyPlanning() {
             </div>
             
             <div className="journey-form">
-            {isSaveAsMyFavRoute ? <button type="submit" className="btn-save" onClick={addFavoriteRoute}>Save as My Favorite Route</button> : null}
+            {isSaveAsMyFavRoute ? (<div>
+            <button type="submit" className="btn-save" onClick={addFavoriteRoute}>Save as My Favorite Route</button>
+            {showFav && <h4 style={{paddingLeft:2, paddingTop:3}}>Favorite has been added</h4>}
+            </div>
+            ): null}
             <div className="container1">
                 <Autocomplete onChange={e => {setStartPoint(e.target.value)}} options={{
                     bounds: defaultBounds,
