@@ -505,7 +505,7 @@ function JourneyPlanning() {
     function addFavoriteRoute() {
         
         
-        setShowFav(true);
+        setShowFav(false);
 
         let starting = document.getElementById("start_point").value;
         console.log("start is: " + starting);
@@ -519,6 +519,8 @@ function JourneyPlanning() {
             body: JSON.stringify({'user':userid, 'start_point': starting, 'destination': ending})
         }).then(
             response => {response.json();
+            setShowFav(true);
+
         }
             )
             .catch( error => console.error(error))
