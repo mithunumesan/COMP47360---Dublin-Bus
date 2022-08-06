@@ -170,15 +170,16 @@ section .lpTripValue {
 }
 
 section .leapCard-login-form {
-  position: absolute;
-  left: 40%;
-  top: 20%;
   background: white;
   border-radius: .5rem;
   -webkit-box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.1);
   box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.1);
   width: 35rem;
   padding: 2rem;
+  position: fixed;
+  left: 50%;
+  top: 40%;
+  transform: translate(-50%, -50%);
 }
 
 section .leapCard-login-form h3 {
@@ -276,7 +277,7 @@ html {
   border-radius: .5rem;
   -webkit-box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.1);
           box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.1);
-  width: 400px;
+  width: 365px;
   height:auto;
   min-height:200px;
   padding: 1.5rem;
@@ -918,5 +919,8 @@ input[type="datetime-local"] {
 @media screen and (max-width: 751px){
   .navbar{
     display:none;
+  }
+  .header{
+    width:100%;
   }
 }
