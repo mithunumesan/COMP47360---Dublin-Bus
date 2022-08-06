@@ -816,7 +816,7 @@ input[type="datetime-local"] {
     max-height:700px;
     min-width: 400px;
     width:70%;
-    height:80%;
+    height: 85%;
     left:0;
     top:13%;
     bottom:2%;
@@ -826,7 +826,7 @@ input[type="datetime-local"] {
     max-height:700px;
     min-width: 400px;
     width:70%;
-    height:80%;
+    height: 85%;
     top:13%;
     bottom:2%;
     left:-103%;

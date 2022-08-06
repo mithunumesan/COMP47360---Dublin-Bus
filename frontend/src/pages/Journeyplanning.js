@@ -168,6 +168,7 @@ function JourneyPlanning() {
     }
 
     async function caculateRoute(){
+        setShowFav(false);
        
         if(startRef.current.value === '' || destinationRef.current.value === '') {
             return;
@@ -513,7 +514,7 @@ function JourneyPlanning() {
         console.log("end is: " + ending);
         console.log("userid: " + userid);
 
-        fetch('http://127.0.0.1:8000/loginapi/addfavorites/', {
+        fetch('http://localhost:8000/loginapi/addfavorites/', {
             method: 'POST',
             headers: {'Content-Type': 'application/json'},
             body: JSON.stringify({'user':userid, 'start_point': starting, 'destination': ending})
@@ -524,9 +525,6 @@ function JourneyPlanning() {
         }
             )
             .catch( error => console.error(error))
-        
-        
-
     }
 
     return  (<>
