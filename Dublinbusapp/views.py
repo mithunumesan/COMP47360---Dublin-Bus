@@ -124,7 +124,7 @@ class TripScheduleListView(View):
         endTime=""
         
         if route_short_name is not None and stop_name is not None and arrival_time is not None:
-            queryset = queryset.filter(routeshortname=route_short_name,stopname__startswith=stop_name,arrivaltime__gte=arrival_time).order_by('arrivaltime')[:1] 
+            queryset = queryset.filter(routeshortname=route_short_name,stopname__startswith=stop_name,arrivaltime__gte=arrival_time).order_by('arrivaltime')[:1]
         if(queryset.exists()):
             direction=queryset[0].directionid
             startTripId=queryset[0].tripid

@@ -323,7 +323,7 @@ function JourneyPlanning() {
                               preTime
 
                             )
-                            : <span>{value.duration.text}</span>
+                            : <span></span>
                         }
                         {value.travel_mode == 'TRANSIT' ?
                             value.transit.line.agencies[0].name == 'Dublin Bus' ?
