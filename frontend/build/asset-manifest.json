@@ -1,17 +1,17 @@
 {
   "files": {
-    "main.css": "/static/css/main.138faac7.css",
-    "main.js": "/static/js/main.fbd16d01.js",
+    "main.css": "/static/css/main.318c7bf9.css",
+    "main.js": "/static/js/main.e65e6e0f.js",
     "static/media/Dublinbridge.png": "/static/media/Dublinbridge.6065720d889464dd7ba3.png",
     "static/media/cardLabel.jpeg": "/static/media/cardLabel.fdef6f065bbc221f113c.jpeg",
     "static/media/bus.png": "/static/media/bus.20111078a9ea676d4f21.png",
     "static/media/leapCard.png": "/static/media/leapCard.954b1d969a8c7c82a751.png",
     "index.html": "/index.html",
-    "main.138faac7.css.map": "/static/css/main.138faac7.css.map",
-    "main.fbd16d01.js.map": "/static/js/main.fbd16d01.js.map"
+    "main.318c7bf9.css.map": "/static/css/main.318c7bf9.css.map",
+    "main.e65e6e0f.js.map": "/static/js/main.e65e6e0f.js.map"
   },
   "entrypoints": [
-    "static/css/main.138faac7.css",
-    "static/js/main.fbd16d01.js"
+    "static/css/main.318c7bf9.css",
+    "static/js/main.e65e6e0f.js"
   ]
 }

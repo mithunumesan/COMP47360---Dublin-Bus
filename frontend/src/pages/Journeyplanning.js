@@ -10,6 +10,10 @@ import useUserToken from './Home';
 // import useSupercluster from "use-supercluster";
 
 
+
+
+
+
 var routNum=0;
 const containerStyle = {
     width: '100%',
@@ -42,6 +46,9 @@ function JourneyPlanning() {
     const [startPoint, setStartPoint] = useState('');
 
     const [destination, setDestination] = useState('');
+
+    const [showFav, setShowFav] = useState(false);
+
 
     
     const token = useUserToken();
@@ -161,6 +168,7 @@ function JourneyPlanning() {
     }
 
     async function caculateRoute(){
+        setShowFav(false);
        
         if(startRef.current.value === '' || destinationRef.current.value === '') {
             return;
@@ -489,28 +497,34 @@ function JourneyPlanning() {
       }
   }    
     
-    let isSaveAsMyFavRoute
+    let isSaveAsMyFavRoute;
 
     localStorage.getItem("user_token") ? isSaveAsMyFavRoute = true : isSaveAsMyFavRoute = false
 
+    
+
     function addFavoriteRoute() {
+        
+        
+        setShowFav(false);
+
         let starting = document.getElementById("start_point").value;
         console.log("start is: " + starting);
         let ending = document.getElementById("end_point").value;
         console.log("end is: " + ending);
         console.log("userid: " + userid);
 
-        fetch('http://127.0.0.1:8000/loginapi/addfavorites/', {
+        fetch('http://localhost:8000/loginapi/addfavorites/', {
             method: 'POST',
             headers: {'Content-Type': 'application/json'},
             body: JSON.stringify({'user':userid, 'start_point': starting, 'destination': ending})
         }).then(
-            response => response.json()
+            response => {response.json();
+            setShowFav(true);
+
+        }
             )
             .catch( error => console.error(error))
-
-
-
     }
 
     return  (<>
@@ -525,7 +539,11 @@ function JourneyPlanning() {
             </div>
             
             <div className="journey-form">
-            {isSaveAsMyFavRoute ? <button type="submit" className="btn-save" onClick={addFavoriteRoute}>Save as My Favorite Route</button> : null}
+            {isSaveAsMyFavRoute ? (<div>
+            <button type="submit" className="btn-save" onClick={addFavoriteRoute}>Save as My Favorite Route</button>
+            {showFav && <h4 style={{paddingLeft:2, paddingTop:3}}>Favorite has been added</h4>}
+            </div>
+            ): null}
             <div className="container1">
                 <Autocomplete onChange={e => {setStartPoint(e.target.value)}} options={{
                     bounds: defaultBounds,
@@ -607,12 +625,12 @@ function JourneyPlanning() {
           <div className="container">
           <i class="fas fa-bus"></i> <h3>&nbsp;&nbsp;{infowindows.stopname}</h3>
           </div>
-            <div className="container">
+            <div className="container2">
             {goAheadList.length>0 && goAheadList.map((line,i) => {
                return <div className="stop-line-goahead"><p>{line}</p></div>
             })}
             </div>
-            <div className="container">
+            <div className="container2">
             {dublinBusList.length>0 && dublinBusList.map((line,i) => {
                return <div className="stop-line-dublinbus"><p>{line}</p></div>
             })}
