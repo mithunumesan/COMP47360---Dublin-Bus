@@ -9,7 +9,7 @@ import * as Icons from "react-icons/hi";
 import * as Iconsgo from "react-icons/go";
 import { RiRadioButtonFill } from "react-icons/ri";
 import { Polyline } from '@react-google-maps/api';
-import Themesmap from './Themesmap.js';
+import Themesmap from './Themesmap';
 
 
 
