@@ -34,6 +34,14 @@ let isDirection0 = true
 
 function RouteExploration() {
     const [mapTheme, setThemes] = useState(Themesmap.lightmap);
+
+
+    const [showbutton, setShowbutton] = useState(true);
+
+    function changeState() {
+      setShowbutton(!showbutton);
+    }
+  
     
     const updateThemes = (style = "") => setThemes(Themesmap[style] || []);
 
@@ -261,26 +269,28 @@ function RouteExploration() {
         
         <div className="box2">
               
-        <div
-                        className="btn-group-map"
-                        role="group"
-                        aria-label="Basic example"
+        <div className="btn-group-map"
+            role="group"
+            aria-label="Basic example"
                     >
-                        
-                        <button
-                            type="button"
-                            className="btn-darkmode"
-                            onClick={() => updateThemes("darkmap")}
-                        >
-                            ☾
-                        </button>
-                        <button
-                            type="button"
-                            className="btn-lightmode"
-                            onClick={() => updateThemes("lightmap")}
-                        >
-                           ☼
-                        </button>
+                        {showbutton ? (
+        <button
+        type="button"
+        className="btn-darkmode"
+        onClick={() => {updateThemes("darkmap");changeState();}}
+    >
+        ☾
+    </button>
+      ) : (
+        <button
+        type="button"
+        className="btn-lightmode"
+        onClick={() => {updateThemes("lightmap");changeState();}}
+    >
+       ☼
+    </button>
+      )}
+                       
                     </div>
                 <GoogleMap
                     mapContainerStyle={containerStyle}
