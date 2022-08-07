@@ -18,6 +18,7 @@ from django.urls import path, include
 from rest_framework import routers                 
 from Dublinbusapp import views
 from rest_framework.authtoken.views import obtain_auth_token
+from frontend import urls
 
 
 router = routers.DefaultRouter()                   
@@ -28,5 +29,6 @@ urlpatterns = [
     path('', include('Dublinbusapp.urls')),
     path('api/', include(router.urls)),
     path('loginapi/', include('api.urls')),
-    path('auth/', obtain_auth_token)
+    path('auth/', obtain_auth_token),
+    # path('', include('frontend.urls'))
 ]

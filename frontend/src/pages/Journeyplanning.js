@@ -184,6 +184,7 @@ function JourneyPlanning() {
     }
 
     async function caculateRoute(){
+        setMarkerSave({});
         setShowFav(false);
        
         if(startRef.current.value === '' || destinationRef.current.value === '') {

@@ -134,7 +134,7 @@ function Home() {
 
     
     
-    {location.pathname==="/home" && Array.isArray(routes) ? <div><h2 style={{marginLeft:'30%',marginRight:'30%',width:'40%',padding:'0.5rem'}}> Manage Your Favorite Routes </h2><button className='delete-button' style={{maxWidth:'160px'}} onClick={deleteRoute} >Delete Selected</button></div> : null}
+    {location.pathname==="/home" && Array.isArray(routes) ? <><div className='title'><h2 className='manageFav'> Manage Your Favorite Routes </h2></div><div className='title'><button className='delete-button' style={{ maxWidth: '160px' }} onClick={deleteRoute}>Delete Selected</button></div></> : null}
     
     {Array.isArray(routes) ? 
     <table id="start_end">

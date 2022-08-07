@@ -209,9 +209,7 @@ section .leapCard-btn {
   z-index:10000;
   position:absolute;
   margin-top: 75px;
-  margin-left: 80%;
-  
-
+  margin-left: 92%;
 }
 .btn-darkmode{
   background-color:#0d0c0f;
@@ -699,7 +697,8 @@ html {
   padding:1rem;
   font-size: 120%;
   /* refernce from https://www.lonelyplanet.com/articles/getting-around-dublin */
-  background-image: url('./pages/Dublinbridge.png');
+  background: rgb(67,206,162);
+  background: linear-gradient(90deg, rgba(67,206,162,1) 0%, rgba(24,90,157,1) 100%);
 }
 
 .line-option {
@@ -803,17 +802,25 @@ table#start_end {
 
 }
 
+.title{
+  display:flex;  
+  align-items: center;
+  justify-content: center;
+}
+
+.manageFav{
+  text-align: center;
+}
+
 .delete-button {
   width: 50%;
   height: 100%;
-  text-align: center;
   font-size: 130%;
   border-radius: 3px;
   color:#666;
   padding:0.2rem;
-  margin-left: 25%;
-  margin-right: 25%;
   margin-bottom: 0.5rem;
+  text-align: center;
 }
 
 .delete-button:hover {
