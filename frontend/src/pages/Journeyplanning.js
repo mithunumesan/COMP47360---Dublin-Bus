@@ -7,7 +7,10 @@ import * as Icons from "react-icons/hi";
 import { MarkerClusterer} from '@react-google-maps/api';
 import { render} from 'react-dom'
 import useUserToken from './Home';
-// import useSupercluster from "use-supercluster";
+import Themesmap from './Themesmap.js';
+
+
+
 
 
 
@@ -42,16 +45,29 @@ let dublinBusList = []
 
 
 function JourneyPlanning() {
+ const [mapTheme, setThemes] = useState(Themesmap.lightmap);
+    
+ const updateThemes = (style = "") => setThemes(Themesmap[style] || []);
 
     const [startPoint, setStartPoint] = useState('');
 
     const [destination, setDestination] = useState('');
+       
+    const [showbutton, setShowbutton] = useState(true);
+
 
     const [showFav, setShowFav] = useState(false);
 
 
+
+    function changeState() {
+      setShowbutton(!showbutton);
+    }
+  
+
     
-    const token = useUserToken();
+  
+  const token = useUserToken();
     console.log(token);
     
     let userid = localStorage.getItem("user_id");
@@ -528,14 +544,17 @@ function JourneyPlanning() {
     }
 
     return  (<>
+    
         <div className={sidebar ? 'box1 active' : 'box1'}>
             <div className="container">
+            
                 <div className="link3">
                     <Link to="/" ><h1 style={{color: '#666'}}>Journey Planner</h1></Link>
                 </div>
                 <div className="link4">
                     <Link to='/routesexploration'><h1 style={{color: '#666'}}>Route Exploration</h1></Link>
                 </div>
+                
             </div>
             
             <div className="journey-form">
@@ -569,6 +588,7 @@ function JourneyPlanning() {
                 </Autocomplete>  
                 <div className="iconSwitch" onClick={changePos}><i style={{fontSize:'20px'}} class="fas fa-sort"></i>
                 </div>
+                
                 </div>
                 <label for="time">Choose a time to start the journey: </label>
                 <select id="option" value={selected} onChange={changeSelected}>
@@ -580,7 +600,9 @@ function JourneyPlanning() {
                 {/* add the html input datetime element or not */}
                 {booleanValue ? <div id="time"><input type="datetime-local" id="datetime" min={minTime} onChange={handleChange} value={dateTime}></input></div> : null}
                 <button type="submit" className="btn" onClick={caculateRoute}>Search</button>
-            </div>
+                </div>
+               
+         
             <div id='panels'>
                 <div id="panel" style={{height:'auto'}}></div>
                 <div id="stepInfo" style={{height:'auto'}}></div>
@@ -592,23 +614,38 @@ function JourneyPlanning() {
         </div>
         
         <div className="box2">
+          
+        <div className="btn-group-map"
+            role="group"
+            aria-label="Basic example"
+                    >
+                        {showbutton ? (
+        <button
+        type="button"
+        className="btn-darkmode"
+        onClick={() => {updateThemes("darkmap");changeState();}}
+    >
+        ☾
+    </button>
+      ) : (
+        <button
+        type="button"
+        className="btn-lightmode"
+        onClick={() => {updateThemes("lightmap");changeState();}}
+    >
+       ☼
+    </button>
+      )}
+                       
+                    </div>
                 <GoogleMap
                     mapContainerStyle={containerStyle}
                     center={center}
                     zoom={13}
                     onLoad={map => setMap(map)}
-                    options={{ styles: [
-                      {  
-                      featureType: "transit", 
-                      stylers: [{ visibility: "off", }], 
-                    },
-                  
-                    {
-                      featureType: "poi",
-                      stylers: [{ visibility: "off" }],
-                    },
-                  
-                  ], }}
+                    options={{styles: mapTheme,
+                        streetViewControl: false}}
+                   
                     >
                     
       {infowindows && (
@@ -657,7 +694,12 @@ function JourneyPlanning() {
     /> ))
     }</MarkerClusterer>
                     {directionsResponse && (<DirectionsRenderer directions={directionsResponse}  routeIndex={routeNum}/>)}
+                
+                    
+        
+                
                 </GoogleMap>
+             
         </div>
    </>);}
 export default JourneyPlanning;

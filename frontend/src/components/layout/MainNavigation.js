@@ -6,9 +6,10 @@ import useUserToken from '../../pages/Home';
 import { RiLogoutCircleRFill } from "react-icons/ri";
 import UserProfile  from './UserProfile';
 
-
 function MainNavigation() {
 
+
+    
     const navigate = useNavigate();
     
     let logOut = () => {
@@ -65,7 +66,9 @@ function MainNavigation() {
         setWeatherCard(false);
     }
 
-    return (<header className="header">
+    return (
+
+    <header className="header">
         <div class="logo"> <i class="fas fa-bus"></i> Dublin Bus </div>
 
         <nav className="navbar">
@@ -75,6 +78,7 @@ function MainNavigation() {
         </nav>
 
         <div className="icons">
+        {/* <Toggle theme={theme} toggleTheme={themeToggler} /> */}
             <div id="menu-btn"><div className="fas fa-cloud-sun" onClick={openWeatherCard}></div></div>
             <div id="login-btn"><div className="fas fa-users" onClick = {openLoginForm}></div></div>
             {userToken ? <div id="logout-btn"><RiLogoutCircleRFill style={{fontSize:'20px'}} onClick={logOut} /></div>:  null}
@@ -84,6 +88,8 @@ function MainNavigation() {
         {myProfile ? <UserProfile /> : null}
         {weatherCardIsOpen ? <div className='weather-card'><WeatherCard boolean={false} /></div> : null}
     </header>
+
+
     );
 }
 export default MainNavigation;
