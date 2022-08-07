@@ -251,8 +251,18 @@ function RouteExploration() {
                     )}
                     </div>
                     </div>
-                    <div
-                        className="btn-group"
+                  
+            </div>
+            
+            <div className={sidebar ? 'sidebar-toggle' : 'sidebar-toggle-off'}>
+            {sidebar ? <Icons.HiChevronDoubleLeft style={{fontSize:'22px'}} onClick={notShowSidebar} /> : <Icons.HiChevronDoubleRight style={{fontSize:'22px'}} onClick={showSidebar}/>}
+        </div>
+        </div>
+        
+        <div className="box2">
+              
+        <div
+                        className="btn-group-map"
                         role="group"
                         aria-label="Basic example"
                     >
@@ -262,24 +272,16 @@ function RouteExploration() {
                             className="btn-darkmode"
                             onClick={() => updateThemes("darkmap")}
                         >
-                            Dark Mode
+                            ☾
                         </button>
                         <button
                             type="button"
                             className="btn-lightmode"
                             onClick={() => updateThemes("lightmap")}
                         >
-                            Light Mode
+                           ☼
                         </button>
                     </div>
-            </div>
-            
-            <div className={sidebar ? 'sidebar-toggle' : 'sidebar-toggle-off'}>
-            {sidebar ? <Icons.HiChevronDoubleLeft style={{fontSize:'22px'}} onClick={notShowSidebar} /> : <Icons.HiChevronDoubleRight style={{fontSize:'22px'}} onClick={showSidebar}/>}
-        </div>
-        </div>
-        
-        <div className="box2">
                 <GoogleMap
                     mapContainerStyle={containerStyle}
                     zoom={10}

@@ -5,19 +5,10 @@ import LoginForm from './LoginForm';
 import useUserToken from '../../pages/Home';
 import { RiLogoutCircleRFill } from "react-icons/ri";
 import UserProfile  from './UserProfile';
-import {ThemeProvider} from "styled-components";
-import { GlobalStyles } from "./GlobalDarkMode.js";
-import { lightTheme, darkTheme } from "./Themes.js"
-
-import  {useDarkMode} from "./useDarkMode.js"
-import Toggle from "./Toggler.js"
 
 function MainNavigation() {
 
 
-    const [theme, themeToggler] = useDarkMode();
-
-    const themeMode = theme === 'light' ? lightTheme : darkTheme;
     
     const navigate = useNavigate();
     
@@ -76,9 +67,7 @@ function MainNavigation() {
     }
 
     return (
-        <ThemeProvider theme={themeMode}>
-        <>
-        <GlobalStyles/>
+
     <header className="header">
         <div class="logo"> <i class="fas fa-bus"></i> Dublin Bus </div>
 
@@ -100,8 +89,7 @@ function MainNavigation() {
         {weatherCardIsOpen ? <div className='weather-card'><WeatherCard boolean={false} /></div> : null}
     </header>
 
-    </>
-    </ThemeProvider>
+
     );
 }
 export default MainNavigation;

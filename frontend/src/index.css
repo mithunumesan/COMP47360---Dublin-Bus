@@ -204,21 +204,32 @@ section .leapCard-btn {
   width: 100%;
   text-align: center;
 }
+.btn-group-map{
+  z-index:10000;
+  position:absolute;
+  margin-top: 75px;
+  margin-left: 80%;
+  
+
+}
 .btn-darkmode{
   background-color:#0d0c0f;
   color: #ffffff;
-  padding: 5px;
-  width:50%;
   border-radius: 5px;
+  height:25px;
+  width: 25px;
+  
 }
 
 .btn-lightmode{
   color:#0d0c0f;
   background-color: #ffffff;
-  padding: 5px;
-  width:50%;
   border-radius: 5px;
+  height:25px;
+  width: 25px;
+  margin-left: 5px;
 }
+
 html {
   font-size: 62.5%;
   overflow-x: hidden;

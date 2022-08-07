@@ -7,11 +7,9 @@ import * as Icons from "react-icons/hi";
 import { MarkerClusterer} from '@react-google-maps/api';
 import { render} from 'react-dom'
 import useUserToken from './Home';
-// import useSupercluster from "use-supercluster";
-
-
-
 import Themesmap from './Themesmap.js';
+
+
 
 
 
@@ -50,9 +48,15 @@ function JourneyPlanning() {
     const [startPoint, setStartPoint] = useState('');
 
     const [destination, setDestination] = useState('');
+       
 
+
+
+
+  
     
-    const token = useUserToken();
+  
+  const token = useUserToken();
     console.log(token);
     
     let userid = localStorage.getItem("user_id");
@@ -575,27 +579,7 @@ function JourneyPlanning() {
                 {booleanValue ? <div id="time"><input type="datetime-local" id="datetime" min={minTime} onChange={handleChange} value={dateTime}></input></div> : null}
                 <button type="submit" className="btn" onClick={caculateRoute}>Search</button>
                 </div>
-                <div
-                        className="btn-group"
-                        role="group"
-                        aria-label="Basic example"
-                    >
-                        
-                        <button
-                            type="button"
-                            className="btn-darkmode"
-                            onClick={() => updateThemes("darkmap")}
-                        >
-                            Dark Mode
-                        </button>
-                        <button
-                            type="button"
-                            className="btn-lightmode"
-                            onClick={() => updateThemes("lightmap")}
-                        >
-                            Light Mode
-                        </button>
-                    </div>
+               
          
             <div id='panels'>
                 <div id="panel" style={{height:'auto'}}></div>
@@ -608,6 +592,28 @@ function JourneyPlanning() {
         </div>
         
         <div className="box2">
+          
+        <div
+                        className="btn-group-map"
+                        role="group"
+                        aria-label="Basic example"
+                    >
+                        
+                        <button
+                            type="button"
+                            className="btn-darkmode"
+                            onClick={() => updateThemes("darkmap")}
+                        >
+                            ☾
+                        </button>
+                        <button
+                            type="button"
+                            className="btn-lightmode"
+                            onClick={() => updateThemes("lightmap")}
+                        >
+                           ☼
+                        </button>
+                    </div>
                 <GoogleMap
                     mapContainerStyle={containerStyle}
                     center={center}
@@ -615,6 +621,7 @@ function JourneyPlanning() {
                     onLoad={map => setMap(map)}
                     options={{styles: mapTheme,
                         streetViewControl: false}}
+                   
                     >
                     
       {infowindows && (
@@ -663,7 +670,12 @@ function JourneyPlanning() {
     /> ))
     }</MarkerClusterer>
                     {directionsResponse && (<DirectionsRenderer directions={directionsResponse}  routeIndex={routeNum}/>)}
+                
+                    
+        
+                
                 </GoogleMap>
+             
         </div>
    </>);}
 export default JourneyPlanning;
