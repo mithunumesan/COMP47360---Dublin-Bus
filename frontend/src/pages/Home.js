@@ -128,7 +128,7 @@ function Home() {
     <h2> Welcome, {username} </h2>
     <h2> Your user id is, {userid} </h2>
     </div>: (
-                Array.isArray(routes) ? <button className='delete-button' onClick={ (e) => populateRoute(e)}>Use Your Favorite Route</button> :null
+                Array.isArray(routes) ? <div className='title'><button className='delete-button' onClick={ (e) => populateRoute(e)}>Use Your Favorite Route</button></div> :null
         )
     }
 

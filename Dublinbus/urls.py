@@ -13,16 +13,19 @@ Including another URLconf
     1. Import the include() function: from django.urls import include, path
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
+from posixpath import relpath
 from django.contrib import admin
 from django.urls import path, include
 from rest_framework import routers                 
 from Dublinbusapp import views
 from rest_framework.authtoken.views import obtain_auth_token
-from frontend import urls
+from django.conf import settings
+from django.views.generic import TemplateView
 
 
 router = routers.DefaultRouter()                   
 router.register(r'Dublinbusapps', views.DublinbusappView, 'Dublinbusapp') 
+routes = getattr(settings, 'REACT_ROUTES', [])
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -30,5 +33,9 @@ urlpatterns = [
     path('api/', include(router.urls)),
     path('loginapi/', include('api.urls')),
     path('auth/', obtain_auth_token),
-    # path('', include('frontend.urls'))
 ]
+
+for route in routes:
+    urlpatterns += [
+        path('{}'.format(route), TemplateView.as_view(template_name='index.html'))
+    ]

@@ -1,6 +1,0 @@
-# #...
-# from django.urls import re_path
-# #...
-# urlpatterns = [
-#     re_path(r".*", 'build/index.html') # RegExpr: any character is correct
-# ]
