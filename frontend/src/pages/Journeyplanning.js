@@ -321,7 +321,7 @@ function JourneyPlanning() {
                 async function getTripInfo(a,b,c,d,e,duText,ggdeTime,ggArTime,selectedDate) {
                   console.log(selectedDate)
                   console.log('*********************')
-                  const res = await fetch(`https://localhost:8000/api/tripschedule/?routeshortname=`+a+`&stopname=`+b+`&arrivaltime=`+ggdeTime+`&stopNum=`+d+`&selectedValue=`+e+`&selectedDate=`+selectedDate)
+                  const res = await fetch(`https://137.43.49.30:443/api/tripschedule/?routeshortname=`+a+`&stopname=`+b+`&arrivaltime=`+ggdeTime+`&stopNum=`+d+`&selectedValue=`+e+`&selectedDate=`+selectedDate)
                   const tripInfo = await res.json();
                   let gtfsState = tripInfo.gtfsState;
                   let durTime = tripInfo.durTime;
@@ -536,7 +536,7 @@ function JourneyPlanning() {
         }
 
         else{
-            fetch('https://localhost:8000/loginapi/addfavorites/', {
+            fetch('https://137.43.49.30:443/loginapi/addfavorites/', {
                 method: 'POST',
                 headers: {'Content-Type': 'application/json'},
                 body: JSON.stringify({'user':userid, 'start_point': starting, 'destination': ending})
