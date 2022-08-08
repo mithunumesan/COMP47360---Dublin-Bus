@@ -47,9 +47,10 @@ function Home() {
     let url;
 
    useEffect(()=>{
-
-    url = 'http://127.0.0.1:8000/loginapi/details/' + userid + '/';
-        
+    try{
+        url = 'http://127.0.0.1:8000/loginapi/details/' + userid + '/';
+    
+       
         fetch(url)
             .then( data => data.json())
             .then(
@@ -59,7 +60,10 @@ function Home() {
                 setDisplay(true)
                 }
             ).catch( error => console.error(error))
-
+    }
+    catch{
+        console.log("Userid not found");
+    } 
    },[userid, deleted])
    
 

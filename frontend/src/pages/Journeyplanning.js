@@ -531,17 +531,22 @@ function JourneyPlanning() {
         console.log("end is: " + ending);
         console.log("userid: " + userid);
 
-        fetch('http://localhost:8000/loginapi/addfavorites/', {
-            method: 'POST',
-            headers: {'Content-Type': 'application/json'},
-            body: JSON.stringify({'user':userid, 'start_point': starting, 'destination': ending})
-        }).then(
-            response => {response.json();
-            setShowFav(true);
-
+        if(starting ==='' || ending ===''){
+            console.log("Not filled yet");
         }
+
+        else{
+            fetch('http://localhost:8000/loginapi/addfavorites/', {
+                method: 'POST',
+                headers: {'Content-Type': 'application/json'},
+                body: JSON.stringify({'user':userid, 'start_point': starting, 'destination': ending})
+            }).then(
+                response => {response.json();
+                setShowFav(true);
+            }
             )
             .catch( error => console.error(error))
+        }
     }
 
     return  (<>
