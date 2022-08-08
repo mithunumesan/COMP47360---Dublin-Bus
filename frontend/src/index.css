@@ -170,15 +170,16 @@ section .lpTripValue {
 }
 
 section .leapCard-login-form {
-  position: absolute;
-  left: 40%;
-  top: 20%;
   background: white;
   border-radius: .5rem;
   -webkit-box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.1);
   box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.1);
   width: 35rem;
   padding: 2rem;
+  position: fixed;
+  left: 50%;
+  top: 40%;
+  transform: translate(-50%, -50%);
 }
 
 section .leapCard-login-form h3 {
@@ -208,9 +209,7 @@ section .leapCard-btn {
   z-index:10000;
   position:absolute;
   margin-top: 75px;
-  margin-left: 80%;
-  
-
+  margin-left: 92%;
 }
 .btn-darkmode{
   background-color:#0d0c0f;
@@ -301,7 +300,7 @@ html {
   border-radius: .5rem;
   -webkit-box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.1);
           box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.1);
-  width: 400px;
+  width: 365px;
   height:auto;
   min-height:200px;
   padding: 1.5rem;
@@ -619,7 +618,6 @@ html {
 
 .container1{
   display: flex;
-  
 }
 
 .container{
@@ -628,6 +626,13 @@ html {
   align-items: center;
   justify-content: center
 }
+
+.container2{
+  display: flex;
+  flex-direction : row;
+  align-items: center;
+}
+
 .container .link1{
   border-top-left-radius: 25px;
   text-align:center;
@@ -692,7 +697,8 @@ html {
   padding:1rem;
   font-size: 120%;
   /* refernce from https://www.lonelyplanet.com/articles/getting-around-dublin */
-  background-image: url('./pages/Dublinbridge.png');
+  background: rgb(67,206,162);
+  background: linear-gradient(90deg, rgba(67,206,162,1) 0%, rgba(24,90,157,1) 100%);
 }
 
 .line-option {
@@ -746,7 +752,12 @@ html {
   color: #ffffff;
   border-radius: 4px;
   margin: 4px;
-  max-height: 30px;
+  width:auto;
+  height:30px;
+}
+.stop-line-goahead p{
+  height:20px;
+  width:auto;
 }
 
 .stop-line-dublinbus {
@@ -754,7 +765,8 @@ html {
   background: #f1c232;
   border-radius: 4px;
   margin: 4px;
-
+  width:auto;
+  height:30px;
 }
 
 table#start_end {
@@ -790,17 +802,25 @@ table#start_end {
 
 }
 
+.title{
+  display:flex;  
+  align-items: center;
+  justify-content: center;
+}
+
+.manageFav{
+  text-align: center;
+}
+
 .delete-button {
   width: 50%;
   height: 100%;
-  text-align: center;
   font-size: 130%;
   border-radius: 3px;
   color:#666;
   padding:0.2rem;
-  margin-left: 25%;
-  margin-right: 25%;
   margin-bottom: 0.5rem;
+  text-align: center;
 }
 
 .delete-button:hover {
@@ -816,19 +836,16 @@ input[type="datetime-local"] {
 }
 /* reference from https://stackoverflow.com/questions/62298110/how-to-change-infowindow-style-in-react-google-maps-reactjs */
 .gm-style .gm-style-iw-c {
-  padding-right: 10px !important;
-   padding-bottom: 0px !important;
-   max-width: 300px !important;
-   max-height: 326px !important;
-   min-width: 0px !important;
-   position: absolute;
-   box-sizing: border-box;
-   overflow: hidden;
-   top: 0;
-   left: 0;
-   transform: translate(-50%,-100%);
-   border-radius: 8px;
-   box-shadow: 0 2px 7px 1px rgba(0,0,0,0.3);
+  /* padding-right: 10px !important;
+  padding-bottom: 0px !important; */
+  max-width: 320px !important;
+  max-height: 336px !important;
+  overflow: auto;
+  top: 0;
+  left: 0;
+  /* transform: translate(-50%,-100%); */
+  border-radius: 5px;
+  box-shadow: 0 2px 7px 1px rgba(0,0,0,0.3);
 }
 
 @media screen and (max-width: 600px){
@@ -837,7 +854,7 @@ input[type="datetime-local"] {
     max-height:700px;
     min-width: 400px;
     width:70%;
-    height:80%;
+    height: 85%;
     left:0;
     top:13%;
     bottom:2%;
@@ -847,7 +864,7 @@ input[type="datetime-local"] {
     max-height:700px;
     min-width: 400px;
     width:70%;
-    height:80%;
+    height: 85%;
     top:13%;
     bottom:2%;
     left:-103%;
@@ -940,5 +957,8 @@ input[type="datetime-local"] {
 @media screen and (max-width: 751px){
   .navbar{
     display:none;
+  }
+  .header{
+    width:100%;
   }
 }

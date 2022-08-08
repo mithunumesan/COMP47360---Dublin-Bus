@@ -10,30 +10,49 @@ function SignUp() {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
     const [password2, setPassword2] = useState('');
+    const [changed, setChanged] = useState(false);
+    const [invalid, setInvalid] = useState('');
     
-    let changed = false;
     
     const handleSubmit = async (e) => {
         e.preventDefault();
     }
 
+    let invalidSignup;
+
     const logging = () => {
-        console.log(username, password);
-        fetch('http://127.0.0.1:8000/loginapi/users/', {
-            method: 'POST',
-            headers: {'Content-Type': 'application/json'},
-            body: JSON.stringify({'username':username, 'password': password})
-        }).then(
-            response => response.json()
-            ).then( data => {if(data.username[0] === "A user with that username already exists."){
-                console.log(data.username[0]);
-                changed = true;
-            }
-            else{
-                navigateToContent();
-            }
-        })
-            .catch( error => console.error(error))
+
+        if(password===password2){
+            console.log("yeah equal");
+            console.log(username, password);
+            fetch('http://127.0.0.1:8000/loginapi/users/', {
+                method: 'POST',
+                headers: {'Content-Type': 'application/json'},
+                body: JSON.stringify({'username':username, 'password': password})
+            }).then(
+                response => response.json()
+                ).then( data => {if(data.username[0] === "A user with that username already exists."){
+                    setInvalid(data.username[0]);
+                    console.log(data.username[0]);
+                    setChanged(true);
+                }
+                else{
+                    navigateToContent();
+                }
+            })
+                .catch( 
+                    error => console.error(error),
+                    setChanged(true),
+                   )
+        }
+ 
+        else{
+            invalidSignup = "Re-entered password is not the same as password";
+            setInvalid(invalidSignup);
+            console.log("not equal");
+            setChanged(true);
+
+        }
     }
 
     return <div id="leapCardLog">
@@ -47,7 +66,12 @@ function SignUp() {
         value={password2} onChange={(e) => setPassword2(e.target.value)} required></input>
         <input id="leapcardbtn"  type="submit" value="sign up" className="leapCard-btn" onClick={logging}></input>
         {false || changed } 
+
+        {changed && <h4 style={{color:"red"}}>{invalid}</h4>}
     </form>
+    
+    {invalidSignup}
+
 </div>;
 }
 export default SignUp;

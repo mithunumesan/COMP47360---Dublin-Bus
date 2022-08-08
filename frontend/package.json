@@ -45,5 +45,6 @@
   },
   "devDependencies": {
     "react-open-weather": "^1.2.1"
-  }
+  },
+  "home":"http://127.0.0.1/8000"
 }

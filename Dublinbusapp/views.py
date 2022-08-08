@@ -124,7 +124,7 @@ class TripScheduleListView(View):
         endTime=""
         
         if route_short_name is not None and stop_name is not None and arrival_time is not None:
-            queryset = queryset.filter(routeshortname=route_short_name,stopname__startswith=stop_name,arrivaltime__gte=arrival_time).order_by('arrivaltime')[:1] 
+            queryset = queryset.filter(routeshortname=route_short_name,stopname__startswith=stop_name,arrivaltime__gte=arrival_time).order_by('arrivaltime')[:1]
         if(queryset.exists()):
             direction=queryset[0].directionid
             startTripId=queryset[0].tripid
@@ -254,13 +254,13 @@ def get_models_array(direction,LinedId):
 def convert24(str1):
     print(str1)
     print("带pm的时间")
-    if(int(str1.split(":")[0])<12):
+    if(int(str1.split(":")[0])<10):
         str1='0'+str1
-    if str1[-2:] == "AM" and str1[:2] == "12":
+    if str1[-2:] == "am" and str1[:2] == "12":
         return "00" + str1[2:-2]
-    elif str1[-2:] == "AM" :
+    elif str1[-2:] == "am" :
         return str1[:-2]
-    elif str1[-2:] == "PM" and str1[:2] == "12":
+    elif str1[-2:] == "pm" and str1[:2] == "12":
         return str1[:-2]
     else:
         return str(int(str1[:2]) + 12) + str1[2:-2]

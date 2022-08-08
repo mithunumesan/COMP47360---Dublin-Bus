@@ -11,6 +11,9 @@ function LogIn() {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
     const [tokenData, setTokenData] = useState('');
+    const [invalid, setInvalid] = useState('');
+    const [changed, setChanged] = useState(false);
+
     
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -26,6 +29,7 @@ function LogIn() {
         .then( data => data.json())
         .then(
         data => {
+            
             if(data.token){
                 console.log(data);
                 localStorage.setItem("user_token", data.token);
@@ -33,8 +37,18 @@ function LogIn() {
                 setTokenData(data.token);
                 navigate('/home');
             }
+            else{
+                setChanged(true);
+                setInvalid(data['non_field_errors'][0]);
+                console.log("ammachipamb");
+                // console.log();
+            }
         }
-        ).catch( error => console.error(error))
+        ).catch( 
+            
+            error => {console.error(error);
+            }
+            )
     }
 
     return <div id="leapCardLog">
@@ -44,9 +58,12 @@ function LogIn() {
         value={username} onChange={(e) => setUsername(e.target.value)} required></input>
         <input type="password" placeholder="enter your password" className="leapCard-box"
         value={password} onChange={(e) => setPassword(e.target.value)} required></input>
+
+        {changed && <h4 style={{color:"red", paddingTop:7, paddingBottom:10, paddingLeft:3}}>{invalid}</h4>}
+
         <input id="leapcardbtn"  type="submit" value="login now" className="sign-up-btn" onClick={logging}></input>
         
-        <p>Don't Have An Account?<button className="sign-up-btn" onClick={navigateToContent}> Sign Up</button></p>
+        <div style={{paddingTop:5}}>Don't Have An Account? <button className="sign-up-btn" onClick={navigateToContent}> Sign Up</button></div>
     </form>
 </div>;
 }
