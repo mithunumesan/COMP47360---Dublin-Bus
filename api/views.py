@@ -81,12 +81,19 @@ def detail(request, pk):
     
     
     if request.method == 'GET': 
-        routes = UserFavouriteRoute.objects.filter(user=pk)
+        try:
+            routes = UserFavouriteRoute.objects.filter(user=pk)
 
-        userfavouriteroute_serializer = UserFavouriteRouteSerializer(routes, many=True) 
-    #     return JsonResponse(userfavouriteroute_serializer.data) 
+            userfavouriteroute_serializer = UserFavouriteRouteSerializer(routes, many=True) 
+        #     return JsonResponse(userfavouriteroute_serializer.data) 
 
-        return Response(userfavouriteroute_serializer.data)
+            return Response(userfavouriteroute_serializer.data)
+        
+        except:
+            print("ID not there yet")
+
+            return Response("ID not there yet")
+
 
     elif request.method == 'DELETE':
         

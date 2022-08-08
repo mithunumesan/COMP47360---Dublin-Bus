@@ -11,9 +11,10 @@ export function useUserToken() {
     const [userid, setUserId] = useState('');
     useEffect(() => {
       const token = localStorage.getItem("user_token");
+      if(token){
       let thooken = "Token " + token;
 
-
+        
       fetch('http://127.0.0.1:8000/loginapi/username/', {
             method: 'GET',
             headers: {'Authorization': thooken}
@@ -28,7 +29,7 @@ export function useUserToken() {
         ).catch( error => console.error(error))
 
       setToken(token);
-    }, [setToken,setUserId]);
+    }}, [setToken,setUserId]);
     return [token,username,userid];
   }
 
@@ -47,7 +48,7 @@ function Home() {
     let url;
 
    useEffect(()=>{
-    try{
+    if(userid){
         url = 'http://127.0.0.1:8000/loginapi/details/' + userid + '/';
     
        
@@ -61,9 +62,7 @@ function Home() {
                 }
             ).catch( error => console.error(error))
     }
-    catch{
-        console.log("Userid not found");
-    } 
+    
    },[userid, deleted])
    
 
