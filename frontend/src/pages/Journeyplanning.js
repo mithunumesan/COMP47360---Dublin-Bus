@@ -536,13 +536,14 @@ function JourneyPlanning() {
         }
 
         else{
-            fetch('https://localhost:8000/loginapi/addfavorites/', {
+            setShowFav(true);
+            fetch('http://localhost:8000/loginapi/addfavorites/', {
                 method: 'POST',
                 headers: {'Content-Type': 'application/json'},
                 body: JSON.stringify({'user':userid, 'start_point': starting, 'destination': ending})
             }).then(
                 response => {response.json();
-                setShowFav(true);
+                
             }
             )
             .catch( error => console.error(error))
@@ -566,7 +567,7 @@ function JourneyPlanning() {
             <div className="journey-form">
             {isSaveAsMyFavRoute ? (<div>
             <button type="submit" className="btn-save" onClick={addFavoriteRoute}>Save as My Favorite Route</button>
-            {showFav ? <h4 style={{paddingLeft:2, paddingTop:3}}>Favorite has been added</h4> : <h4 style={{paddingLeft:2, paddingTop:3}}>You have not entered starting and end point </h4>}
+            {showFav ? <h4 style={{paddingLeft:2, paddingTop:3}}>Favorite has been added</h4> : <h4 style={{paddingLeft:2, paddingTop:3}}>Please enter both starting and end point </h4>}
             </div>
             ): null}
             <div className="container1">
