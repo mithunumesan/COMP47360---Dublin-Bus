@@ -11,10 +11,11 @@ export function useUserToken() {
     const [userid, setUserId] = useState('');
     useEffect(() => {
       const token = localStorage.getItem("user_token");
+      if(token){
       let thooken = "Token " + token;
 
-
-      fetch('http://127.0.0.1:8000/loginapi/username/', {
+        
+      fetch('https://127.0.0.1:8000/loginapi/username/', {
             method: 'GET',
             headers: {'Authorization': thooken}
         })
@@ -28,7 +29,7 @@ export function useUserToken() {
         ).catch( error => console.error(error))
 
       setToken(token);
-    }, [setToken,setUserId]);
+    }}, [setToken,setUserId]);
     return [token,username,userid];
   }
 
@@ -47,9 +48,10 @@ function Home() {
     let url;
 
    useEffect(()=>{
-
-    url = 'http://127.0.0.1:8000/loginapi/details/' + userid + '/';
-        
+    if(userid){
+        url = 'https://127.0.0.1:8000/loginapi/details/' + userid + '/';
+    
+       
         fetch(url)
             .then( data => data.json())
             .then(
@@ -59,7 +61,8 @@ function Home() {
                 setDisplay(true)
                 }
             ).catch( error => console.error(error))
-
+    }
+    
    },[userid, deleted])
    
 
@@ -91,7 +94,7 @@ function Home() {
 
     var deleteRoute = () => {
         console.log("delete route"+ userinfo);
-        let url = 'http://127.0.0.1:8000/loginapi/details/' + userinfo + '/';
+        let url = 'https://127.0.0.1:8000/loginapi/details/' + userinfo + '/';
         console.log(url);
         fetch(url, {
             method: 'DELETE',
@@ -104,7 +107,7 @@ function Home() {
     var populateRoute = (e) => {
         e.preventDefault();
         console.log("fetch route"+ userinfo);
-        let url = 'http://127.0.0.1:8000/loginapi/routes/' + userinfo + '/';
+        let url = 'https://127.0.0.1:8000/loginapi/routes/' + userinfo + '/';
         console.log(url);
         fetch(url, {
             method: 'GET',

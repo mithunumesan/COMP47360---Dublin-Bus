@@ -21,7 +21,7 @@ function LogIn() {
 
     const logging = () => {
         console.log(username, password);
-        fetch('http://127.0.0.1:8000/auth/', {
+        fetch('https://127.0.0.1:8000/auth/', {
             method: 'POST',
             headers: {'Content-Type': 'application/json'},
             body: JSON.stringify({'username':username, 'password': password})

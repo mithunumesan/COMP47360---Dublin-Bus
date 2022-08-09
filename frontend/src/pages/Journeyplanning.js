@@ -321,7 +321,7 @@ function JourneyPlanning() {
                 async function getTripInfo(a,b,c,d,e,duText,ggdeTime,ggArTime,selectedDate) {
                   console.log(selectedDate)
                   console.log('*********************')
-                  const res = await fetch(`http://localhost:8000/api/tripschedule/?routeshortname=`+a+`&stopname=`+b+`&arrivaltime=`+ggdeTime+`&stopNum=`+d+`&selectedValue=`+e+`&selectedDate=`+selectedDate)
+                  const res = await fetch(`https://localhost:8000/api/tripschedule/?routeshortname=`+a+`&stopname=`+b+`&arrivaltime=`+ggdeTime+`&stopNum=`+d+`&selectedValue=`+e+`&selectedDate=`+selectedDate)
                   const tripInfo = await res.json();
                   let gtfsState = tripInfo.gtfsState;
                   let durTime = tripInfo.durTime;
@@ -531,17 +531,22 @@ function JourneyPlanning() {
         console.log("end is: " + ending);
         console.log("userid: " + userid);
 
-        fetch('http://localhost:8000/loginapi/addfavorites/', {
-            method: 'POST',
-            headers: {'Content-Type': 'application/json'},
-            body: JSON.stringify({'user':userid, 'start_point': starting, 'destination': ending})
-        }).then(
-            response => {response.json();
-            setShowFav(true);
-
+        if(starting ==='' || ending ===''){
+            console.log("Not filled yet");
         }
+
+        else{
+            fetch('https://localhost:8000/loginapi/addfavorites/', {
+                method: 'POST',
+                headers: {'Content-Type': 'application/json'},
+                body: JSON.stringify({'user':userid, 'start_point': starting, 'destination': ending})
+            }).then(
+                response => {response.json();
+                setShowFav(true);
+            }
             )
             .catch( error => console.error(error))
+        }
     }
 
     return  (<>

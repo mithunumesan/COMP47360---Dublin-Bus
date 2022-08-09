@@ -43,6 +43,8 @@ INSTALLED_APPS = [
     'rest_framework.authtoken',
     'corsheaders',
     'api',
+    # other apps
+    "django_extensions",
     
 ]
 
@@ -163,3 +165,4 @@ REACT_ROUTES = [
     'weather',
     'routesexploration',
 ]
+

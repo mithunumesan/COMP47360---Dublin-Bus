@@ -25,7 +25,7 @@ function SignUp() {
         if(password===password2){
             console.log("yeah equal");
             console.log(username, password);
-            fetch('http://127.0.0.1:8000/loginapi/users/', {
+            fetch('https://127.0.0.1:8000/loginapi/users/', {
                 method: 'POST',
                 headers: {'Content-Type': 'application/json'},
                 body: JSON.stringify({'username':username, 'password': password})
