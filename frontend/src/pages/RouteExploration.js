@@ -9,7 +9,7 @@ import * as Icons from "react-icons/hi";
 import * as Iconsgo from "react-icons/go";
 import { RiRadioButtonFill } from "react-icons/ri";
 import { Polyline } from '@react-google-maps/api';
-
+import Themesmap from './Themesmap';
 
 
 
@@ -33,6 +33,17 @@ let shapeDirection = []
 let isDirection0 = true
 
 function RouteExploration() {
+    const [mapTheme, setThemes] = useState(Themesmap.lightmap);
+
+
+    const [showbutton, setShowbutton] = useState(true);
+
+    function changeState() {
+      setShowbutton(!showbutton);
+    }
+  
+    
+    const updateThemes = (style = "") => setThemes(Themesmap[style] || []);
 
     //set sidebar toggle variable
     const [sidebar,setSidebar] = useState(true)
@@ -252,6 +263,7 @@ function RouteExploration() {
                     )}
                     </div>
                     </div>
+                  
             </div>
             
             <div className={sidebar ? 'sidebar-toggle' : 'sidebar-toggle-off'}>
@@ -260,22 +272,35 @@ function RouteExploration() {
         </div>
         
         <div className="box2">
+              
+        <div className="btn-group-map"
+            role="group"
+            aria-label="Basic example"
+                    >
+                        {showbutton ? (
+        <button
+        type="button"
+        className="btn-darkmode"
+        onClick={() => {updateThemes("darkmap");changeState();}}
+    >
+        ☾
+    </button>
+      ) : (
+        <button
+        type="button"
+        className="btn-lightmode"
+        onClick={() => {updateThemes("lightmap");changeState();}}
+    >
+       ☼
+    </button>
+      )}
+                       
+                    </div>
                 <GoogleMap
                     mapContainerStyle={containerStyle}
                     zoom={10}
                     onLoad={onLoad}
-                    options={{ styles: [
-                        {  
-                        featureType: "transit", 
-                        stylers: [{ visibility: "off", }], 
-                      },
-                    
-                      {
-                        featureType: "poi",
-                        stylers: [{ visibility: "off" }],
-                      },
-                    
-                    ], }} 
+                    options={{ styles: mapTheme,streetViewControl: false}} 
                     >
                     { /* Child components, such as markers, info windows, etc. */ }
                     {pathInfo.length>0 && routeInfo.length>0 && (routeInfo[0].jsoninfo.map((marker, index) => (
