@@ -566,7 +566,7 @@ function JourneyPlanning() {
             <div className="journey-form">
             {isSaveAsMyFavRoute ? (<div>
             <button type="submit" className="btn-save" onClick={addFavoriteRoute}>Save as My Favorite Route</button>
-            {showFav && <h4 style={{paddingLeft:2, paddingTop:3}}>Favorite has been added</h4>}
+            {showFav ? <h4 style={{paddingLeft:2, paddingTop:3}}>Favorite has been added</h4> : <h4 style={{paddingLeft:2, paddingTop:3}}>You have not entered starting and end point </h4>}
             </div>
             ): null}
             <div className="container1">
