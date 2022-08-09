@@ -58,7 +58,7 @@ function JourneyPlanning() {
 
     const [showFav, setShowFav] = useState(false);
 
-
+    const [message, setMessage] = useState('');
 
     function changeState() {
       setShowbutton(!showbutton);
@@ -533,11 +533,17 @@ function JourneyPlanning() {
         console.log("userid: " + userid);
 
         if(starting ==='' || ending ===''){
+            setShowFav(true);
+            setMessage("Please enter both starting and ending point");
+
             console.log("Not filled yet");
         }
 
         else{
             setShowFav(true);
+
+            setMessage("Favorite Added");
+
             fetch('http://localhost:8000/loginapi/addfavorites/', {
                 method: 'POST',
                 headers: {'Content-Type': 'application/json'},
@@ -568,7 +574,7 @@ function JourneyPlanning() {
             <div className="journey-form">
             {isSaveAsMyFavRoute ? (<div>
             <button type="submit" className="btn-save" onClick={addFavoriteRoute}>Save as My Favorite Route</button>
-            {showFav ? <h4 style={{paddingLeft:2, paddingTop:3}}>Favorite has been added</h4> : <h4 style={{paddingLeft:2, paddingTop:3}}>Please enter both starting and end point </h4>}
+            {showFav ? <h4 style={{paddingLeft:2, paddingTop:3}}>{message}</h4> : null}
             </div>
             ): null}
             <div className="container1">
