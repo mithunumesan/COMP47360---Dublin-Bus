@@ -530,7 +530,7 @@ function JourneyPlanning() {
         }
 
         else{
-            fetch('https://localhost:8000/loginapi/addfavorites/', {
+            fetch('http://localhost:8000/loginapi/addfavorites/', {
                 method: 'POST',
                 headers: {'Content-Type': 'application/json'},
                 body: JSON.stringify({'user':userid, 'start_point': starting, 'destination': ending})
