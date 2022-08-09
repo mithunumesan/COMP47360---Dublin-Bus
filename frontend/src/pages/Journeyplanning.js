@@ -139,7 +139,9 @@ function JourneyPlanning() {
     //react google map api using is refereneced from https://www.youtube.com/watch?v=iP3DnhCUIsE&list=RDCMUCr0y1P0-zH2o3cFJyBSfAKg&start_radio=1&rv=iP3DnhCUIsE&t=1614
     const [directionsResponse, setDirectionsResponse] = useState({})
     //save markers
-    const [markerSave,setMarkerSave]=useState({})
+    const [markerSave,setMarkerSave]=useState(null)
+
+  
    
     /**@type React.MutableRefObject<HTMLInputElement> */
     const startRef = useRef()
@@ -184,7 +186,11 @@ function JourneyPlanning() {
     }
 
     async function caculateRoute(){
-        setMarkerSave({});
+        
+        if(markerSave!==null) {
+        markerSave.setMap(null);
+        setMarkerSave(null);
+        }
         setShowFav(false);
         
         if(startRef.current.value === '' || destinationRef.current.value === '') {
@@ -411,11 +417,12 @@ function JourneyPlanning() {
     }
 
     async function clearRoute() {
+        setShowFav(false)
         // eslint-disable-next-line
         const geocoder = new google.maps.Geocoder();
         if((destinationRef.current.value === '')&&(startRef.current.value === '')){
            markerSave.setMap(null);
-           setMarkerSave({});
+           setMarkerSave(null);
         }
         else if(startRef.current.value === '') {
             // eslint-disable-next-line
@@ -530,10 +537,7 @@ function JourneyPlanning() {
         }
 
         else{
-<<<<<<< HEAD
             setShowFav(true);
-=======
->>>>>>> 7425f359168b9cceb83124777d442ce3c0821a1f
             fetch('http://localhost:8000/loginapi/addfavorites/', {
                 method: 'POST',
                 headers: {'Content-Type': 'application/json'},
