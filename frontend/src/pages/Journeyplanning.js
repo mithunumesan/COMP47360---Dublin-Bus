@@ -5,7 +5,7 @@ import { getmarkers,getMarkerAddress} from '../components/markers';
 //import { getTripSchedule} from '../components/tripfind';
 import * as Icons from "react-icons/hi";
 import { MarkerClusterer} from '@react-google-maps/api';
-import { render} from 'react-dom'
+import { render,unmountComponentAtNode} from 'react-dom'
 import useUserToken from './Home';
 import Themesmap from './Themesmap.js';
 
@@ -186,7 +186,7 @@ function JourneyPlanning() {
     async function caculateRoute(){
         setMarkerSave({});
         setShowFav(false);
-       
+        
         if(startRef.current.value === '' || destinationRef.current.value === '') {
             return;
         }
@@ -214,6 +214,7 @@ function JourneyPlanning() {
             })
             console.log(results)
             setDirectionsResponse(results);
+            
         }else if( selected ==='arrive') {
             arrivalTime = new Date(dateTime);
             preTime=dateTime;
@@ -230,9 +231,10 @@ function JourneyPlanning() {
             // routingPreference:
             },
         })
-        console.log(results)
+        
             setDirectionsResponse(results);
         } else {
+            
           selectValue='now'
         // eslint-disable-next-line
             results = await directionsService.route({
@@ -242,10 +244,8 @@ function JourneyPlanning() {
             travelMode: google.maps.TravelMode.TRANSIT,
             provideRouteAlternatives: true,
         })
-        console.log(results)
             setDirectionsResponse(results);
         }
-        console.log(results)
         const routesValue=results.routes
             //routesSteps.map()
             render(
@@ -282,12 +282,12 @@ function JourneyPlanning() {
                 <div style={{border: "1px solid #cccccc",padding:"5px"}}><span>   Details of the route:</span><div style={{background:"#d9d9d9",border: "1px solid #cccccc",padding:"5px"}}>{routesValue[0].legs[0].start_address}</div>{routesValue[0].legs[0].steps.map((value,index) =>{
                     return <div style={{margin:"5px",border: "1px solid #cccccc",padding:"5px"}}><span style={{margin:"5px"}}>{value.instructions}</span><span>{value.duration.text}</span>
                            {value.travel_mode == 'TRANSIT'  ?
-                                value.transit.line.agencies[0].name == 'Dublin Bus' ?<div style={{margin:"5px",padding:"10px"}}><i className='fas fa-bus'></i><span  style={{background: "#f1c232",margin:"3px"}}>{value.transit.line.short_name}</span><span>{value.transit.line.agencies[0].name}</span><br/><span>departure_stop:{value.transit.departure_stop.name}</span><br/><span>stops number:{value.transit.num_stops}</span><br/><span>arrival_stop:{value.transit.arrival_stop.name}</span></div>:
-                                value.transit.line.agencies[0].name == 'Go-Ahead' ?<div style={{margin:"5px",padding:"10px"}}><i className='fas fa-bus'></i><span  style={{background: "#3c78d8",margin:"3px"}}>{value.transit.line.short_name}</span><span>{value.transit.line.agencies[0].name}</span><br/><span>departure_stop:{value.transit.departure_stop.name}</span><br/><span>stops number:{value.transit.num_stops}</span><br/><span>arrival_stop:{value.transit.arrival_stop.name}</span></div>:
-                                value.transit.line.agencies[0].name == 'Green Line' ?<div style={{margin:"5px",padding:"10px"}}><i className='fas fa-train'></i><span  style={{background: "#93c47d",margin:"3px"}}>{value.transit.line.short_name}</span><br/><span>departure_stop:{value.transit.departure_stop.name}</span><br/><span>stops number:{value.transit.num_stops}</span><br/><span>arrival_stop:{value.transit.arrival_stop.name}</span></div>:
-                                value.transit.line.short_name  == 'Green Line' ?<div style={{margin:"5px",padding:"10px"}}><i className='fas fa-train'></i><span  style={{background: "#93c47d",margin:"3px"}}>{value.transit.line.short_name}</span><br/><span>departure_stop:{value.transit.departure_stop.name}</span><br/><span>stops number:{value.transit.num_stops}</span><br/><span>arrival_stop:{value.transit.arrival_stop.name}</span></div>:
-                                value.transit.line.agencies[0].name  == 'Dublin Express' ?<div style={{margin:"5px",padding:"10px"}}><span  style={{background: "#073763",color:"#ffffff",margin:"3px"}}>{value.transit.line.short_name}</span><br/><span>departure_stop:{value.transit.departure_stop.name}</span><br/><span>stops number:{value.transit.num_stops}</span><br/><span>arrival_stop:{value.transit.arrival_stop.name}</span><br/></div>:
-                                value.transit.line.agencies[0].name  == 'Aircoach' ?<div style={{margin:"5px",padding:"10px"}}><span  style={{margin:"3px"}}><i className='fas fa-bus'></i></span><span>{value.transit.line.agencies[0].name}</span><br/><span>departure_stop:{value.transit.departure_stop.name}</span><br/><span>stops number:{value.transit.num_stops}</span><br/><span>arrival_stop:{value.transit.arrival_stop.name}</span></div>:
+                                value.transit.line.agencies[0].name == 'Dublin Bus' ?<div style={{margin:"5px",padding:"10px"}}><span>{value.transit.departure_time.text}-{value.transit.arrival_time.text}</span><br/><i className='fas fa-bus'></i><span  style={{background: "#f1c232",margin:"3px"}}>{value.transit.line.short_name}</span><span>{value.transit.line.agencies[0].name}</span><br/><span>departure_stop:{value.transit.departure_stop.name}</span><br/><span>stops number:{value.transit.num_stops}</span><br/><span>arrival_stop:{value.transit.arrival_stop.name}</span></div>:
+                                value.transit.line.agencies[0].name == 'Go-Ahead' ?<div style={{margin:"5px",padding:"10px"}}><span>{value.transit.departure_time.text}-{value.transit.arrival_time.text}</span><br/><i className='fas fa-bus'></i><span  style={{background: "#3c78d8",margin:"3px"}}>{value.transit.line.short_name}</span><span>{value.transit.line.agencies[0].name}</span><br/><span>departure_stop:{value.transit.departure_stop.name}</span><br/><span>stops number:{value.transit.num_stops}</span><br/><span>arrival_stop:{value.transit.arrival_stop.name}</span></div>:
+                                value.transit.line.agencies[0].name == 'Green Line' ?<div style={{margin:"5px",padding:"10px"}}><span>{value.transit.departure_time.text}-{value.transit.arrival_time.text}</span><br/><i className='fas fa-train'></i><span  style={{background: "#93c47d",margin:"3px"}}>{value.transit.line.short_name}</span><br/><span>departure_stop:{value.transit.departure_stop.name}</span><br/><span>stops number:{value.transit.num_stops}</span><br/><span>arrival_stop:{value.transit.arrival_stop.name}</span></div>:
+                                value.transit.line.short_name  == 'Green Line' ?<div style={{margin:"5px",padding:"10px"}}><span>{value.transit.departure_time.text}-{value.transit.arrival_time.text}</span><br/><i className='fas fa-train'></i><span  style={{background: "#93c47d",margin:"3px"}}>{value.transit.line.short_name}</span><br/><span>departure_stop:{value.transit.departure_stop.name}</span><br/><span>stops number:{value.transit.num_stops}</span><br/><span>arrival_stop:{value.transit.arrival_stop.name}</span></div>:
+                                value.transit.line.agencies[0].name  == 'Dublin Express' ?<div style={{margin:"5px",padding:"10px"}}><span>{value.transit.departure_time.text}-{value.transit.arrival_time.text}</span><br/><span  style={{background: "#073763",color:"#ffffff",margin:"3px"}}>{value.transit.line.short_name}</span><br/><span>departure_stop:{value.transit.departure_stop.name}</span><br/><span>stops number:{value.transit.num_stops}</span><br/><span>arrival_stop:{value.transit.arrival_stop.name}</span><br/></div>:
+                                value.transit.line.agencies[0].name  == 'Aircoach' ?<div style={{margin:"5px",padding:"10px"}}><span>{value.transit.departure_time.text}-{value.transit.arrival_time.text}</span><br/><span  style={{margin:"3px"}}><i className='fas fa-bus'></i></span><span>{value.transit.line.agencies[0].name}</span><br/><span>departure_stop:{value.transit.departure_stop.name}</span><br/><span>stops number:{value.transit.num_stops}</span><br/><span>arrival_stop:{value.transit.arrival_stop.name}</span></div>:
                                 <div></div>
                            :<div></div>}
 
@@ -300,41 +300,33 @@ function JourneyPlanning() {
             );
 
             const getInfo=async (routesSteps,indexNum,e)=>{
-                // var routeInfo=document.getElementById("routeInfo")
-                // for(var i=0;i<routeInfo.children.length;i++){
-                //     alert(i)
-                //     alert(routeInfo.children[i])
-                //     routeInfo.children[i].style.background="green"
-                // }
-
-                //setColor('red')
+               
                 
-                console.log(e.currentTarget.parentElement.children.length)
+                
                 let children = e.currentTarget.parentElement.children;
                 for(let i=0;i<children.length;i++){
                     children[i].style.backgroundColor='White'
                 }
-                //e.currentTarget.parentElement.children[2].style.backgroundColor='red'
+                
                 e.currentTarget.style.backgroundColor='#CAC9CF'
-                console.log(routesSteps)
                 setRouteNum(indexNum)
                 async function getTripInfo(a,b,c,d,e,duText,ggdeTime,ggArTime,selectedDate) {
-                  console.log(selectedDate)
-                  console.log('*********************')
-                  const res = await fetch(`https://localhost:8000/api/tripschedule/?routeshortname=`+a+`&stopname=`+b+`&arrivaltime=`+ggdeTime+`&stopNum=`+d+`&selectedValue=`+e+`&selectedDate=`+selectedDate)
+                  
+                  const res = await fetch(`http://localhost:8000/api/tripschedule/?routeshortname=`+a+`&stopname=`+b+`&arrivaltime=`+ggdeTime+`&stopNum=`+d+`&selectedValue=`+e+`&selectedDate=`+selectedDate)
+
                   const tripInfo = await res.json();
                   let gtfsState = tripInfo.gtfsState;
                   let durTime = tripInfo.durTime;
                   let startTime=tripInfo.startTime;
                   let endTime=tripInfo.endTime;
                   
-                  return <div style={{margin: "5px", padding: "5px"}}>{gtfsState=='0' ? <span>about {durTime} Minutes<br/>{startTime}-{endTime}</span>:<span>about {duText}<br/>{ggdeTime}-{ggArTime}</span>}</div>;
+                  return <span>{gtfsState=='0' ? <span>{durTime} Mins<br/>&nbsp; {startTime}-{endTime}</span>:<span> {duText}<br/>&nbsp;{ggdeTime}-{ggArTime}</span>}</span>;
               }
               async function GetTripSchedule(routesSteps) {
                 let r = []
                 for (let i = 0; i < routesSteps.legs[0].steps.length; i++) {
                     let value = routesSteps.legs[0].steps[i]
-                    let div = <div style={{margin: "5px", border: "1px solid #cccccc", padding: "10px"}}><span
+                    let div = <div style={{margin: "5px", border: "1px solid #cccccc", padding: "5px"}}><span
                         style={{margin: "5px"}}>{value.instructions}</span>
                         {value.travel_mode == 'TRANSIT' ?
                             await getTripInfo(value.transit.line.short_name,
@@ -348,46 +340,46 @@ function JourneyPlanning() {
                               preTime
 
                             )
-                            : <span></span>
+                            : <span>{value.duration.text}</span>
                         }
                         {value.travel_mode == 'TRANSIT' ?
                             value.transit.line.agencies[0].name == 'Dublin Bus' ?
-                                <div style={{margin: "5px", padding: "10px"}}><i className='fas fa-bus'></i><span
+                                <div style={{margin: "5px", padding: "5px"}}><i className='fas fa-bus'></i><span
                                     style={{
                                         background: "#f1c232",
                                         margin: "3px"
                                     }}>{value.transit.line.short_name}</span><span>{value.transit.line.agencies[0].name}</span><br/><span>departure_stop:{value.transit.departure_stop.name}</span><br/><span>stops number:{value.transit.num_stops}</span><br/><span>arrival_stop:{value.transit.arrival_stop.name}</span>
                                 </div> :
                                 value.transit.line.agencies[0].name == 'Go-Ahead' ?
-                                    <div style={{margin: "5px", padding: "10px"}}><i className='fas fa-bus'></i><span
+                                    <div style={{margin: "5px", padding: "5px"}}><i className='fas fa-bus'></i><span
                                         style={{
                                             background: "#3c78d8",
                                             margin: "3px"
                                         }}>{value.transit.line.short_name}</span><span>{value.transit.line.agencies[0].name}</span><br/><span>departure_stop:{value.transit.departure_stop.name}</span><br/><span>stops number:{value.transit.num_stops}</span><br/><span>arrival_stop:{value.transit.arrival_stop.name}</span><br/>
                                     </div> :
                                     value.transit.line.agencies[0].name == 'Green Line' ?
-                                        <div style={{margin: "5px", padding: "10px"}}><i
+                                        <div style={{margin: "5px", padding: "5px"}}><i
                                             className='fas fa-train'></i><span style={{
                                             background: "#93c47d",
                                             margin: "3px"
                                         }}>{value.transit.line.short_name}</span><br/><span>departure_stop:{value.transit.departure_stop.name}</span><br/><span>stops number:{value.transit.num_stops}</span><br/><span>arrival_stop:{value.transit.arrival_stop.name}</span>
                                         </div> :
                                         value.transit.line.short_name == 'Green Line' ?
-                                            <div style={{margin: "5px", padding: "10px"}}><i
+                                            <div style={{margin: "5px", padding: "5px"}}><i
                                                 className='fas fa-train'></i><span style={{
                                                 background: "#93c47d",
                                                 margin: "3px"
                                             }}>{value.transit.line.short_name}</span><br/><span>departure_stop:{value.transit.departure_stop.name}</span><br/><span>stops number:{value.transit.num_stops}</span><br/><span>arrival_stop:{value.transit.arrival_stop.name}</span>
                                             </div> :
                                             value.transit.line.agencies[0].name == 'Dublin Express' ?
-                                                <div style={{margin: "5px", padding: "10px"}}><span style={{
+                                                <div style={{margin: "5px", padding: "5px"}}><span style={{
                                                     background: "#073763",
                                                     color: "#ffffff",
                                                     margin: "3px"
                                                 }}>{value.transit.line.short_name}</span><br/><span>departure_stop:{value.transit.departure_stop.name}</span><br/><span>stops number:{value.transit.num_stops}</span><br/><span>arrival_stop:{value.transit.arrival_stop.name}</span>
                                                 </div> :
                                                 value.transit.line.agencies[0].name == 'Aircoach' ?
-                                                    <div style={{margin: "5px", padding: "10px"}}><span
+                                                    <div style={{margin: "5px", padding: "5px"}}><span
                                                         style={{margin: "3px"}}><i
                                                         className='fas fa-bus'></i></span><span>{value.transit.line.agencies[0].name}</span><br/><span>departure_stop:{value.transit.departure_stop.name}</span><br/><span>stops number:{value.transit.num_stops}</span><br/><span>arrival_stop:{value.transit.arrival_stop.name}</span>
                                                     </div> :
@@ -458,7 +450,9 @@ function JourneyPlanning() {
             });
             setDirectionsResponse(null);
         } 
-        document.getElementById('panel').innerHTML="";
+        unmountComponentAtNode(document.getElementById('panel'))
+        unmountComponentAtNode(document.getElementById('stepInfo'))
+        
     }
 
     async function changePos() {
@@ -536,7 +530,10 @@ function JourneyPlanning() {
         }
 
         else{
+<<<<<<< HEAD
             setShowFav(true);
+=======
+>>>>>>> 7425f359168b9cceb83124777d442ce3c0821a1f
             fetch('http://localhost:8000/loginapi/addfavorites/', {
                 method: 'POST',
                 headers: {'Content-Type': 'application/json'},

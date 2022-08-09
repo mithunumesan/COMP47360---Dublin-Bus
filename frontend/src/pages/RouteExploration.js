@@ -169,6 +169,7 @@ function RouteExploration() {
     }
 
     async function changeDirection() {
+        setValue(0)
         console.log("cahnge Direction")
         setPathInfo([])
         setRouteInfo([])

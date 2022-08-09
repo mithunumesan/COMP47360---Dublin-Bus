@@ -1,16 +1,28 @@
 {
   "files": {
     "main.css": "/static/css/main.9f4634a0.css",
+<<<<<<< HEAD
     "main.js": "/static/js/main.fc2335d0.js",
+=======
+    "main.js": "/static/js/main.5a03b920.js",
+>>>>>>> 7425f359168b9cceb83124777d442ce3c0821a1f
     "static/media/cardLabel.jpeg": "/static/media/cardLabel.fdef6f065bbc221f113c.jpeg",
     "static/media/bus.png": "/static/media/bus.20111078a9ea676d4f21.png",
     "static/media/leapCard.png": "/static/media/leapCard.954b1d969a8c7c82a751.png",
     "index.html": "/index.html",
     "main.9f4634a0.css.map": "/static/css/main.9f4634a0.css.map",
+<<<<<<< HEAD
     "main.fc2335d0.js.map": "/static/js/main.fc2335d0.js.map"
   },
   "entrypoints": [
     "static/css/main.9f4634a0.css",
     "static/js/main.fc2335d0.js"
+=======
+    "main.5a03b920.js.map": "/static/js/main.5a03b920.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.9f4634a0.css",
+    "static/js/main.5a03b920.js"
+>>>>>>> 7425f359168b9cceb83124777d442ce3c0821a1f
   ]
 }

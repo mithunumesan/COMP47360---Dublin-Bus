@@ -74,27 +74,11 @@ class TripScheduleListView(View):
         durStopNum = request.GET.get('stopNum','')
         selectedValue = request.GET.get('selectedValue','')
         selectDate = request.GET.get('selectedDate','')
-        print(arrival_time)
-        print('有页面传过来的时间')
-        print(selectDate)
-        print("页面传过来的选择日期")
+        endData=datetime.now()
 
         stop_name=stop_name.split(",")[0]
         if(selectedValue=='now'):
-        #     hourStr=''
-        #     minStr=''
-        #     if(datetime.now().hour+1<10):
-        #         hourStr='0'+str(datetime.now().hour+1)
-        #     else:
-        #         if(datetime.now().hour+1==24):
-        #             hourStr='00'
-        #         else:
-        #             hourStr=str(datetime.now().hour+1)
-        #     if(datetime.now().minute<10):
-        #         minStr='0'+str(datetime.now().minute)
-        #     else:
-        #         minStr=str(datetime.now().minute)
-            #arrival_time=hourStr+':'+minStr
+
             now=datetime.now()
             selectDate=now.strftime('%Y-%m-%d')
 
@@ -105,12 +89,9 @@ class TripScheduleListView(View):
         
        
         print(arrival_time)
-        print('传过来的时间')
         arrival_time=convert24(arrival_time)
         print(arrival_time)
-        print('查询的时间')
         print(selectDate)
-        print('选择日期')
         
        
         direction='1'
@@ -122,18 +103,23 @@ class TripScheduleListView(View):
         startTime=""
         durTime=0
         endTime=""
+
+        
         
         if route_short_name is not None and stop_name is not None and arrival_time is not None:
             queryset = queryset.filter(routeshortname=route_short_name,stopname__startswith=stop_name,arrivaltime__gte=arrival_time).order_by('arrivaltime')[:1]
+
         if(queryset.exists()):
-            direction=queryset[0].directionid
-            startTripId=queryset[0].tripid
-            #传过去
-            stopNum=queryset[0].stopsequence-1
+            resultData=queryset[0]
+           
+            direction=resultData.directionid
+            startTripId=resultData.tripid
+            stopNum=resultData.stopsequence-1
             #now_hour = datetime.strftime(arrival_time,"%H:%M")
             arrTime=str(arrival_time)
             pre_hour=int(arrTime.split(":")[0])
             x_list=[]
+            
             models=get_models_array(direction,route_short_name)  
             hourList=[4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26]
             pre_hourList=[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
@@ -143,7 +129,7 @@ class TripScheduleListView(View):
 
             for j in pre_hourList:
                 x_list.append(j)
-            
+            print(selectDate)
             weekDay = datetime.strptime(selectDate, "%Y-%m-%d").weekday()
             weekdayList=[0,1,2,3,4,5,6]
             pre_weekday=[0,0,0,0,0,0,0]
@@ -159,36 +145,32 @@ class TripScheduleListView(View):
            
             for k in pre_rushHourList:
                 x_list.append(k)
-
+            
+          
             if(len(models)>0):
+                
                 prediction = models[0].predict([x_list])
-                print("pklfine pklfine pklfine pklfine pklfine pklfine pklfine pklfine pklfine pklfine pklfine pklfine pklfine pklfine pklfine pklfine")
+               
             
                 predict_list = prediction.tolist()
-                #传过去
+
                 journryTime = str(predict_list[0])
 
 
                 queryset = TripSchedule.objects.all()
                 queryset = queryset.filter(tripid=startTripId,stopsequence=1)
-                #传过去
+
                 statArrTime=str(queryset[0].arrivaltime)
-                print(statArrTime)
-                print("首站的时间")
-                print(stopNum)
-                print("从首站到当前站有多少站")
+
                 startDurTime=int(int(float(journryTime)*int(stopNum))/60)
                 arriDateStrF=selectDate+" "+statArrTime
+
                 arriDateTime=datetime.strptime(arriDateStrF, "%Y-%m-%d %H:%M:%S")
-                print(journryTime)
-                print("平均每站时长")
-                print(startDurTime)
-                print("首站到当前站所用时长")
+
                 
                 arriDateTimeAdd=arriDateTime+timedelta(minutes=startDurTime)
                 startTime=str(arriDateTimeAdd.hour)+":"+str(arriDateTimeAdd.minute)
-                print(startTime)
-                print("车出发时间")
+
 
                 durTime=int(int(float(journryTime)*int(durStopNum))/60)
             
@@ -196,26 +178,11 @@ class TripScheduleListView(View):
                 endTime=str(endTimeDate.hour)+":"+str(endTimeDate.minute)
             else:
                  gtfsState='1'   
-
-            
-            
-            
-            
-            #startTime=statArrTime+float(journryTime)*int(stopNum)
-            
-            #endTime=startTime+durTime
-            
-            
             
         else:
             gtfsState='1'       
         
-            
-            
-            # min = queryset.annotate(Min('arrivaltime'))
-            # queryset = queryset.filter(routeshortname=route_short_name,stopname__startswith=stop_name,arrivaltime=min)
-            
-            # queryset = queryset.filter(routeshortname=route_short_name,stopname__startswith=stop_name)
+
 
        
         queryset={
@@ -238,6 +205,7 @@ def get_models_array(direction,LinedId):
             if model_name==modelPath:
                 flag=True
         if(flag):
+
             print('FOUND A  MODEL')
             with open('./Dublinbusapp/static/pkls/model_{}_{}.pkl'.format(LinedId,direction), 'rb') as handle:
                 model = pickle.load(handle)
@@ -253,7 +221,6 @@ def get_models_array(direction,LinedId):
 
 def convert24(str1):
     print(str1)
-    print("带pm的时间")
     if(int(str1.split(":")[0])<10):
         str1='0'+str1
     if str1[-2:] == "am" and str1[:2] == "12":
@@ -266,23 +233,3 @@ def convert24(str1):
         return str(int(str1[:2]) + 12) + str1[2:-2]
 
 
-
-# class TripFindListView(generics.ListAPIView):
-#     serializer_class = TripScheduleSerializer
-    
-
-#     def get_queryset(self):
-
-#         queryset = TripSchedule.objects.all()
-#         trip_id = self.request.query_params.get('tripid','')
-        
-
-#         if trip_id is not None:
-#             queryset = queryset.filter(tripid=trip_id,stopsequence=1)
-#             # min = queryset.annotate(Min('arrivaltime'))
-#             # queryset = queryset.filter(routeshortname=route_short_name,stopname__startswith=stop_name,arrivaltime=min)
-            
-#             # queryset = queryset.filter(routeshortname=route_short_name,stopname__startswith=stop_name)
-            
-            
-#         return queryset
