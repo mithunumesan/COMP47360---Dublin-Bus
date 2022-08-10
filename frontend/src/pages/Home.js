@@ -15,7 +15,7 @@ export function useUserToken() {
       let thooken = "Token " + token;
 
         
-      fetch('https://127.0.0.1:8000/loginapi/username/', {
+      fetch('http://127.0.0.1:8000/loginapi/username/', {
             method: 'GET',
             headers: {'Authorization': thooken}
         })
@@ -49,7 +49,7 @@ function Home() {
 
    useEffect(()=>{
     if(userid){
-        url = 'https://127.0.0.1:8000/loginapi/details/' + userid + '/';
+        url = 'http://127.0.0.1:8000/loginapi/details/' + userid + '/';
     
        
         fetch(url)
@@ -94,7 +94,7 @@ function Home() {
 
     var deleteRoute = () => {
         console.log("delete route"+ userinfo);
-        let url = 'https://127.0.0.1:8000/loginapi/details/' + userinfo + '/';
+        let url = 'http://127.0.0.1:8000/loginapi/details/' + userinfo + '/';
         console.log(url);
         fetch(url, {
             method: 'DELETE',
@@ -107,7 +107,7 @@ function Home() {
     var populateRoute = (e) => {
         e.preventDefault();
         console.log("fetch route"+ userinfo);
-        let url = 'https://127.0.0.1:8000/loginapi/routes/' + userinfo + '/';
+        let url = 'http://127.0.0.1:8000/loginapi/routes/' + userinfo + '/';
         console.log(url);
         fetch(url, {
             method: 'GET',
