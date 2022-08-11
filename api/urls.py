@@ -3,7 +3,7 @@ from django.urls import path, include
 from requests import request
 from . import views
 from rest_framework import routers
-from .views import UserViewSet, username, UserFavouriteRouteDataListView, add_favorite, detail, fetch_route, api_key
+from .views import UserViewSet, username, UserFavouriteRouteDataListView, add_favorite, detail, fetch_route, weather_key, maps_key
 
 router = routers.DefaultRouter()
 router.register(r'users', UserViewSet, "users")
@@ -15,5 +15,6 @@ urlpatterns = [
     path('addfavorites/', views.add_favorite),
     path('details/<str:pk>/', views.detail),
     path('routes/<str:pk>/', views.fetch_route),
-    path('weatherkey/', views.api_key),
+    path('weatherkey/', views.weather_key),
+    path('mapskey/', views.maps_key),
 ]

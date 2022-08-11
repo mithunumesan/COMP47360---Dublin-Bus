@@ -45,14 +45,31 @@ let dublinBusList = []
 
 
 function JourneyPlanning() {
- const [mapTheme, setThemes] = useState(Themesmap.lightmap);
+
+    useEffect(()=>{
+
+        fetch('http://127.0.0.1:8000/loginapi/mapskey')
+            .then( data => data.json())
+            .then(
+            data => {
+       
+                console.log(data);
+                localStorage.setItem("mapsKey",data[0])
     
- const updateThemes = (style = "") => setThemes(Themesmap[style] || []);
+                }
+            ).catch( error => console.error(error))
+      
+    },[])
+
+    
+    const [mapTheme, setThemes] = useState(Themesmap.lightmap);
+
+    const updateThemes = (style = "") => setThemes(Themesmap[style] || []);
 
     const [startPoint, setStartPoint] = useState('');
 
     const [destination, setDestination] = useState('');
-       
+        
     const [showbutton, setShowbutton] = useState(true);
 
 
@@ -61,17 +78,17 @@ function JourneyPlanning() {
     const [message, setMessage] = useState('');
 
     function changeState() {
-      setShowbutton(!showbutton);
+        setShowbutton(!showbutton);
     }
-  
 
-    
-  
-  const token = useUserToken();
+
+
+
+    const token = useUserToken();
     console.log(token);
-    
+
     let userid = localStorage.getItem("user_id");
-    // let userid = token['props']['children'][2]['props']['children'][1];
+// let userid = token['props']['children'][2]['props']['children'][1];
 
     const [routeNum, setRouteNum] = useState(0)
     const [pos, setPos] = useState({lat: 53.3463, lng: -6.2631})
@@ -178,7 +195,8 @@ function JourneyPlanning() {
 
     const [map, setMap] = useState(/** @type google.maps.Map */ (null))
     const { isLoaded } = useJsApiLoader({
-    googleMapsApiKey: "AIzaSyCdf-x6SluXsWzP9qpwxVGBY08pm_3TAQU",
+    googleMapsApiKey: localStorage.getItem("mapsKey"), 
+    // "AIzaSyCdf-x6SluXsWzP9qpwxVGBY08pm_3TAQU",
     libraries:['places']
   })
       if(!isLoaded) {
