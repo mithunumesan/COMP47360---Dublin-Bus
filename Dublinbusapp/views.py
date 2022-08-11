@@ -86,11 +86,9 @@ class TripScheduleListView(View):
             #arrival_time=arrival_time.split("T")[1]
         
         
-       
-        print(arrival_time)
-        arrival_time=convert24(arrival_time)
-        print(arrival_time)
-        print(selectDate)
+        if(('am' in arrival_time)or ('pm' in arrival_time) or ('AM' in arrival_time)or ('PM' in arrival_time)):
+            arrival_time=convert24(arrival_time)
+
         
        
         direction='1'
@@ -168,13 +166,23 @@ class TripScheduleListView(View):
 
                 
                 arriDateTimeAdd=arriDateTime+timedelta(minutes=startDurTime)
-                startTime=str(arriDateTimeAdd.hour)+":"+str(arriDateTimeAdd.minute)
+                startTimeMin=''
+                if(arriDateTimeAdd.minute<10):
+                    startTimeMin='0'+str(arriDateTimeAdd.minute)
+                else:
+                    startTimeMin=str(arriDateTimeAdd.minute)
+                startTime=str(arriDateTimeAdd.hour)+":"+startTimeMin
 
 
                 durTime=int(int(float(journryTime)*int(durStopNum))/60)
             
                 endTimeDate=arriDateTimeAdd+timedelta(minutes=durTime)
-                endTime=str(endTimeDate.hour)+":"+str(endTimeDate.minute)
+                endTimeMin=''
+                if(endTimeDate.minute<10):
+                    endTimeMin='0'+str(endTimeDate.minute)
+                else:
+                    endTimeMin=str(endTimeDate.minute)
+                endTime=str(endTimeDate.hour)+":"+endTimeMin
             else:
                  gtfsState='1'   
             

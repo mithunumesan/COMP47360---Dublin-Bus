@@ -186,6 +186,16 @@ function JourneyPlanning() {
     }
 
     async function caculateRoute(){
+        let panelDiv=document.getElementById("panel")
+        let children = panelDiv.children;
+
+        for(let i=0;i<children.length;i++){
+            let chilDiv=children[0].children;
+            for(let j=0;j<chilDiv.length;j++){
+                chilDiv[j].style.backgroundColor='White'
+            }
+            
+        }
         
         if(markerSave!==null) {
         markerSave.setMap(null);
@@ -278,7 +288,9 @@ function JourneyPlanning() {
                                                     style={{margin:"5px"}}><i className='fas fa-angle-double-right'></i></span></div>:
                                                         value.transit.line.agencies[0].name == 'Aircoach' ? index == length-1 ? <div><i className='fas fa-bus'></i><span style={{margin:"5px"}}></span></div>
                                                         :<div><i className='fas fa-bus'></i><span
-                                                        style={{margin:"5px"}}><i className='fas fa-angle-double-right'></i></span></div>:<div></div>;
+                                                        style={{margin:"5px"}}><i className='fas fa-angle-double-right'></i></span></div>:
+                                                            index == length-1?<div><i class="fas fa-subway"></i></div>:<div><i class="fas fa-subway"></i><span
+                                                            style={{margin:"5px"}}><i className='fas fa-angle-double-right'></i></span></div>;
                         })
                     return <div id="routeInfo" style={{display:"flex",margin:"10px",backgroundColor:color,position: "relative"}} onClick={(e)=>getInfo(routesSteps,indexNum,e)}>{stepInfo}<div style={{position:"absolute",right:"0px"}}><span >about   {routesSteps.legs[0].duration.text}</span></div></div>
                 })}</div>,
@@ -294,7 +306,7 @@ function JourneyPlanning() {
                                 value.transit.line.short_name  == 'Green Line' ?<div style={{margin:"5px",padding:"10px"}}><span>{value.transit.departure_time.text}-{value.transit.arrival_time.text}</span><br/><i className='fas fa-train'></i><span  style={{background: "#93c47d",margin:"3px"}}>{value.transit.line.short_name}</span><br/><span>departure_stop:{value.transit.departure_stop.name}</span><br/><span>stops number:{value.transit.num_stops}</span><br/><span>arrival_stop:{value.transit.arrival_stop.name}</span></div>:
                                 value.transit.line.agencies[0].name  == 'Dublin Express' ?<div style={{margin:"5px",padding:"10px"}}><span>{value.transit.departure_time.text}-{value.transit.arrival_time.text}</span><br/><span  style={{background: "#073763",color:"#ffffff",margin:"3px"}}>{value.transit.line.short_name}</span><br/><span>departure_stop:{value.transit.departure_stop.name}</span><br/><span>stops number:{value.transit.num_stops}</span><br/><span>arrival_stop:{value.transit.arrival_stop.name}</span><br/></div>:
                                 value.transit.line.agencies[0].name  == 'Aircoach' ?<div style={{margin:"5px",padding:"10px"}}><span>{value.transit.departure_time.text}-{value.transit.arrival_time.text}</span><br/><span  style={{margin:"3px"}}><i className='fas fa-bus'></i></span><span>{value.transit.line.agencies[0].name}</span><br/><span>departure_stop:{value.transit.departure_stop.name}</span><br/><span>stops number:{value.transit.num_stops}</span><br/><span>arrival_stop:{value.transit.arrival_stop.name}</span></div>:
-                                <div></div>
+                                <div style={{margin:"5px",padding:"10px"}}><span>{value.transit.departure_time.text}-{value.transit.arrival_time.text}</span><br/><span  style={{margin:"3px"}}><i class="fas fa-subway"></i></span><span>{value.transit.line.agencies[0].name}</span><br/><span>departure_stop:{value.transit.departure_stop.name}</span><br/><span>stops number:{value.transit.num_stops}</span><br/><span>arrival_stop:{value.transit.arrival_stop.name}</span></div>
                            :<div></div>}
 
                             </div>
@@ -304,7 +316,7 @@ function JourneyPlanning() {
 
                 document.getElementById('stepInfo')
             );
-
+            
             const getInfo=async (routesSteps,indexNum,e)=>{
                
                 
@@ -389,7 +401,9 @@ function JourneyPlanning() {
                                                         style={{margin: "3px"}}><i
                                                         className='fas fa-bus'></i></span><span>{value.transit.line.agencies[0].name}</span><br/><span>departure_stop:{value.transit.departure_stop.name}</span><br/><span>stops number:{value.transit.num_stops}</span><br/><span>arrival_stop:{value.transit.arrival_stop.name}</span>
                                                     </div> :
-                                                    <div></div>
+                                                <div style={{margin: "5px", padding: "5px"}}><span
+                                                style={{margin: "3px"}}><i class="fas fa-subway"></i></span><span>{value.transit.line.agencies[0].name}</span><br/><span>departure_stop:{value.transit.departure_stop.name}</span><br/><span>stops number:{value.transit.num_stops}</span><br/><span>arrival_stop:{value.transit.arrival_stop.name}</span>
+                                            </div> 
                             : <div></div>}
 
                     </div>
