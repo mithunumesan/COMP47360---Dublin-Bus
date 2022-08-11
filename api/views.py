@@ -116,3 +116,10 @@ def fetch_route(request, pk):
     #     return JsonResponse(userfavouriteroute_serializer.data) 
 
         return Response(userfavouriteroute_serializer.data)
+
+@api_view(['GET', 'PUT', 'DELETE'])
+def api_key(request):
+    with open('weather_key.txt') as f:
+        lines = f.readlines()
+
+    return Response(lines)
