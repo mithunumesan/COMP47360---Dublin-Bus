@@ -185,13 +185,19 @@ function JourneyPlanning() {
         return "map is not loaded";
     }
 
+    // const [valueIndex,setValueIndex]=useState(0)
+
     async function caculateRoute(){
+        setDirectionsResponse(null);
+        
         let panelDiv=document.getElementById("panel")
         let children = panelDiv.children;
 
         for(let i=0;i<children.length;i++){
             let chilDiv=children[0].children;
-            for(let j=0;j<chilDiv.length;j++){
+            // chilDiv[j].style.backgroundColor='White'
+            chilDiv[1].style.backgroundColor='#CAC9CF';
+            for(let j=2;j<chilDiv.length;j++){
                 chilDiv[j].style.backgroundColor='White'
             }
             
@@ -262,6 +268,7 @@ function JourneyPlanning() {
         })
             setDirectionsResponse(results);
         }
+
         const routesValue=results.routes
             //routesSteps.map()
             render(
@@ -292,7 +299,7 @@ function JourneyPlanning() {
                                                             index == length-1?<div><i class="fas fa-subway"></i></div>:<div><i class="fas fa-subway"></i><span
                                                             style={{margin:"5px"}}><i className='fas fa-angle-double-right'></i></span></div>;
                         })
-                    return <div id="routeInfo" style={{display:"flex",margin:"10px",backgroundColor:color,position: "relative"}} onClick={(e)=>getInfo(routesSteps,indexNum,e)}>{stepInfo}<div style={{position:"absolute",right:"0px"}}><span >about   {routesSteps.legs[0].duration.text}</span></div></div>
+                    return <div id="routeInfo" style={{display:"flex",margin:"10px",backgroundColor:indexNum===0?'#CAC9CF':'White',position: "relative"}} onClick={(e)=>getInfo(routesSteps,indexNum,e)}>{stepInfo}<div style={{position:"absolute",right:"0px"}}><span >about   {routesSteps.legs[0].duration.text}</span></div></div>
                 })}</div>,
                 document.getElementById('panel')
             );
@@ -319,7 +326,7 @@ function JourneyPlanning() {
             
             const getInfo=async (routesSteps,indexNum,e)=>{
                
-                
+                console.log("indexNum",indexNum)
                 
                 let children = e.currentTarget.parentElement.children;
                 for(let i=0;i<children.length;i++){
@@ -432,6 +439,7 @@ function JourneyPlanning() {
 
     async function clearRoute() {
         setShowFav(false)
+
         // eslint-disable-next-line
         const geocoder = new google.maps.Geocoder();
         if((destinationRef.current.value === '')&&(startRef.current.value === '')){
