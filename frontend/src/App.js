@@ -8,15 +8,49 @@ import WeatherCard from './components/layout/WeatherCard';
 import MainNavigation from './components/layout/MainNavigation';
 import RouteExploration from './pages/RouteExploration';
 import LoginForm from './components/layout/LoginForm';
-
+import { useEffect,useState } from 'react';
 
 
 function App() {
     //localhost:3000/
+    const [dataMap,setDataMap]=useState('');
+
+    useEffect(()=>{
+
+        fetch('http://127.0.0.1:8000/loginapi/mapskey')
+            .then( data => data.json())
+            .then(
+            data => {
+       
+                console.log(data);
+                localStorage.setItem("mapsKey",data[0])
+                setDataMap(localStorage.getItem("mapsKey")
+                )
+                }
+            ).catch( error => console.error(error))
+      
+    },[])
+
+    useEffect(()=>{
+
+        fetch('http://127.0.0.1:8000/loginapi/weatherkey')
+            .then( data => data.json())
+            .then(
+            data => {
+       
+                console.log(data);
+                localStorage.setItem("weatherKey",data[0])
+    
+                }
+            ).catch( error => console.error(error))
+      
+      },[])
+
 
     return (<><MainNavigation />
     <section>
         <switch>
+            {dataMap?
             <Routes>
                 <Route path='/' element={<JourneyPlanning />}>
                 </Route>
@@ -32,7 +66,7 @@ function App() {
                 </Route>
                 <Route path='/routesexploration' element={<RouteExploration />}>
                 </Route>
-            </Routes>
+            </Routes>:null}
         </switch>
     </section></>);
 

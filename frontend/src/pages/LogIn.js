@@ -1,7 +1,9 @@
 import {useNavigate, Link} from 'react-router-dom';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 
 function LogIn() {
+
+
 
     const navigate = useNavigate();
     const navigateToContent = () => {

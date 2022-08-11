@@ -1,4 +1,5 @@
 weather_key.txt
+maps_key.txt
 __pycache__/
 env
 node_modules

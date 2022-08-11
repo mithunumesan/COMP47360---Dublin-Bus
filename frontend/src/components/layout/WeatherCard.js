@@ -1,4 +1,7 @@
 import ReactWeather, { useOpenWeather } from 'react-open-weather';
+import { useState, useEffect } from 'react';
+
+
 
 const customStyles = {
 	fontFamily:  'Helvetica, sans-serif',
@@ -15,15 +18,46 @@ const customStyles = {
 
 };
 
+
+
+
+
+
 function WeatherCard(props) {
+
+
+  useEffect(()=>{
+
+    fetch('http://127.0.0.1:8000/loginapi/weatherkey')
+        .then( data => data.json())
+        .then(
+        data => {
+   
+            console.log(data);
+            localStorage.setItem("weatherKey",data[0])
+
+            }
+        ).catch( error => console.error(error))
+  
+  },[])
+
+ //console.log("weather key is2" + weatherKey);
+
   const { data,isLoading, errorMessage } = useOpenWeather({
-    key: 'f775d12211646f76b3f266a5076c78a9',
+    key: localStorage.getItem("weatherKey"),
     lat: '53.344',
     lon: '-6.2672',
     lang: 'en',
     unit: 'metric', // values are (metric, standard, imperial)
   });
+ 
+
+
+
+
   
+  // 'f775d12211646f76b3f266a5076c78a9'
+
 {return (
     <ReactWeather
       isLoading={isLoading}
