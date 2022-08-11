@@ -75,7 +75,6 @@ class TripScheduleListView(View):
         selectedValue = request.GET.get('selectedValue','')
         selectDate = request.GET.get('selectedDate','')
         endData=datetime.now()
-
         stop_name=stop_name.split(",")[0]
         if(selectedValue=='now'):
 
