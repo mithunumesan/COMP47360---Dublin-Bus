@@ -28,7 +28,7 @@ function WeatherCard(props) {
 
   useEffect(()=>{
 
-    fetch('http://127.0.0.1:8000/loginapi/weatherkey')
+    fetch('http://137.43.49.30:80/loginapi/weatherkey')
         .then( data => data.json())
         .then(
         data => {

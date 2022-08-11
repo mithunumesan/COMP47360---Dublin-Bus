@@ -48,7 +48,7 @@ function JourneyPlanning() {
 
     useEffect(()=>{
 
-        fetch('http://127.0.0.1:8000/loginapi/mapskey')
+        fetch('http://137.43.49.30:80/loginapi/mapskey')
             .then( data => data.json())
             .then(
             data => {
@@ -355,7 +355,7 @@ function JourneyPlanning() {
                 setRouteNum(indexNum)
                 async function getTripInfo(a,b,c,d,e,duText,ggdeTime,ggArTime,selectedDate) {
                   
-                  const res = await fetch(`http://localhost:8000/api/tripschedule/?routeshortname=`+a+`&stopname=`+b+`&arrivaltime=`+ggdeTime+`&stopNum=`+d+`&selectedValue=`+e+`&selectedDate=`+selectedDate)
+                  const res = await fetch(`http://137.43.49.30:80/api/tripschedule/?routeshortname=`+a+`&stopname=`+b+`&arrivaltime=`+ggdeTime+`&stopNum=`+d+`&selectedValue=`+e+`&selectedDate=`+selectedDate)
 
                   const tripInfo = await res.json();
                   let gtfsState = tripInfo.gtfsState;
@@ -584,7 +584,7 @@ function JourneyPlanning() {
 
             setMessage("Favorite Added");
 
-            fetch('http://localhost:8000/loginapi/addfavorites/', {
+            fetch('http://137.43.49.30:80/loginapi/addfavorites/', {
                 method: 'POST',
                 headers: {'Content-Type': 'application/json'},
                 body: JSON.stringify({'user':userid, 'start_point': starting, 'destination': ending})

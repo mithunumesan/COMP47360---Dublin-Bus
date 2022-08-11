@@ -1,5 +1,5 @@
 export function getmarkers() {
-    return fetch('http://localhost:8000/api/Stops/')
+    return fetch('http://137.43.49.30:80/api/Stops/')
       .then(data => data.json())
   }
   export function getMarkerAddress(pos) {
