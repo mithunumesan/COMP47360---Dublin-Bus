@@ -58,7 +58,7 @@ function JourneyPlanning() {
 
     const [showFav, setShowFav] = useState(false);
 
-
+    const [message, setMessage] = useState('');
 
     function changeState() {
       setShowbutton(!showbutton);
@@ -139,7 +139,9 @@ function JourneyPlanning() {
     //react google map api using is refereneced from https://www.youtube.com/watch?v=iP3DnhCUIsE&list=RDCMUCr0y1P0-zH2o3cFJyBSfAKg&start_radio=1&rv=iP3DnhCUIsE&t=1614
     const [directionsResponse, setDirectionsResponse] = useState({})
     //save markers
-    const [markerSave,setMarkerSave]=useState({})
+    const [markerSave,setMarkerSave]=useState(null)
+
+  
    
     /**@type React.MutableRefObject<HTMLInputElement> */
     const startRef = useRef()
@@ -184,7 +186,11 @@ function JourneyPlanning() {
     }
 
     async function caculateRoute(){
-        setMarkerSave({});
+        
+        if(markerSave!==null) {
+        markerSave.setMap(null);
+        setMarkerSave(null);
+        }
         setShowFav(false);
         
         if(startRef.current.value === '' || destinationRef.current.value === '') {
@@ -411,11 +417,12 @@ function JourneyPlanning() {
     }
 
     async function clearRoute() {
+        setShowFav(false)
         // eslint-disable-next-line
         const geocoder = new google.maps.Geocoder();
         if((destinationRef.current.value === '')&&(startRef.current.value === '')){
            markerSave.setMap(null);
-           setMarkerSave({});
+           setMarkerSave(null);
         }
         else if(startRef.current.value === '') {
             // eslint-disable-next-line
@@ -526,17 +533,24 @@ function JourneyPlanning() {
         console.log("userid: " + userid);
 
         if(starting ==='' || ending ===''){
+            setShowFav(true);
+            setMessage("Please enter both starting and ending point");
+
             console.log("Not filled yet");
         }
 
         else{
-            fetch('https://localhost:8000/loginapi/addfavorites/', {
+            setShowFav(true);
+
+            setMessage("Favorite Added");
+
+            fetch('http://localhost:8000/loginapi/addfavorites/', {
                 method: 'POST',
                 headers: {'Content-Type': 'application/json'},
                 body: JSON.stringify({'user':userid, 'start_point': starting, 'destination': ending})
             }).then(
                 response => {response.json();
-                setShowFav(true);
+                
             }
             )
             .catch( error => console.error(error))
@@ -560,7 +574,7 @@ function JourneyPlanning() {
             <div className="journey-form">
             {isSaveAsMyFavRoute ? (<div>
             <button type="submit" className="btn-save" onClick={addFavoriteRoute}>Save as My Favorite Route</button>
-            {showFav && <h4 style={{paddingLeft:2, paddingTop:3}}>Favorite has been added</h4>}
+            {showFav ? <h4 style={{paddingLeft:2, paddingTop:3}}>{message}</h4> : null}
             </div>
             ): null}
             <div className="container1">
