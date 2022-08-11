@@ -46,20 +46,6 @@ let dublinBusList = []
 
 function JourneyPlanning() {
 
-    useEffect(()=>{
-
-        fetch('http://137.43.49.30:80/loginapi/mapskey')
-            .then( data => data.json())
-            .then(
-            data => {
-       
-                console.log(data);
-                localStorage.setItem("mapsKey",data[0])
-    
-                }
-            ).catch( error => console.error(error))
-      
-    },[])
 
     
     const [mapTheme, setThemes] = useState(Themesmap.lightmap);
@@ -195,8 +181,7 @@ function JourneyPlanning() {
 
     const [map, setMap] = useState(/** @type google.maps.Map */ (null))
     const { isLoaded } = useJsApiLoader({
-    googleMapsApiKey: localStorage.getItem("mapsKey"), 
-    // "AIzaSyCdf-x6SluXsWzP9qpwxVGBY08pm_3TAQU",
+    googleMapsApiKey:  "AIzaSyCdf-x6SluXsWzP9qpwxVGBY08pm_3TAQU",
     libraries:['places']
   })
       if(!isLoaded) {

@@ -26,25 +26,12 @@ const customStyles = {
 function WeatherCard(props) {
 
 
-  useEffect(()=>{
 
-    fetch('http://137.43.49.30:80/loginapi/weatherkey')
-        .then( data => data.json())
-        .then(
-        data => {
-   
-            console.log(data);
-            localStorage.setItem("weatherKey",data[0])
-
-            }
-        ).catch( error => console.error(error))
-  
-  },[])
 
  //console.log("weather key is2" + weatherKey);
 
   const { data,isLoading, errorMessage } = useOpenWeather({
-    key: localStorage.getItem("weatherKey"),
+    key: ,
     lat: '53.344',
     lon: '-6.2672',
     lang: 'en',
