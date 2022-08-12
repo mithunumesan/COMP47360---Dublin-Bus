@@ -12,7 +12,7 @@ Visit our Dublin Bus app [here](http://137.43.49.30/).
 The user can enter a start point, destination and proposed travelling time, and bus routes and the time taken on each route will be displayed.
 <Description>
 
-![Journey Planner](dublinbus/main/static/img/journeyplanner-features.gif)
+![Journey Planner](Dublinbusapp/static/img/test.gif)
 
 ### Route Exploration
 
