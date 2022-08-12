@@ -68,9 +68,23 @@ The current weather conditions, including the temperature, weather description a
 ## Installation
 
 <Installation process>
- 1. Download our application
- 2. on the root directory run the command: pip install -r requirements.txt
- 3. run the command: sudo apt install nodejs
- 4. run the command: sudo apt install npm
- 5. on the frontend directory run the command: npm install --force
- 6. on the root directory: run the commamd: python manage.py runserver
+ 1. Download our application  
+ 2. on the root directory run the command:  
+ ```bash
+ pip install -r requirements.txt
+ ```   
+ 3. run the command: 
+  ```bash
+ sudo apt install nodejs
+ sudo apt install npm
+  ```   
+ 4. install node and npm  
+ ```bash
+ cd frontend
+ npm install --force
+  ```   
+ 5. back to root directory and start our application  
+  ```bash
+cd ..
+python manage.py runserver
+  ``` 
