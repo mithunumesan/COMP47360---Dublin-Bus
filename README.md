@@ -2,7 +2,7 @@
 
 
 <Background>
-The aim of this project is to provide an alternate solution to traveling and commuting around Dublin with and emphasis on Dublin Bus, while also allowing the user access to other transportation options such as DART, Luas, and Go-Ahead. <br />
+The aim of this project is to provide an alternate solution to traveling and commuting around Dublin with and emphasis on Dublin Bus, while also allowing the user access to other transportation options such as DART, Luas, and Go-Ahead.                                                                                                          
 
 
 
