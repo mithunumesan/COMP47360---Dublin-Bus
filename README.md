@@ -2,7 +2,7 @@
 
 
 <Background>
-The aim of this project is to provide an alternate solution to traveling and commuting around Dublin with and emphasis on Dublin Bus, while also allowing the user access to other transportation options such as DART, Luas, and Go-Ahead. \
+The aim of this project is to provide an alternate solution to traveling and commuting around Dublin with and emphasis on Dublin Bus, while also allowing the user access to other transportation options such as DART, Luas, and Go-Ahead. <br />
 
 
 We aimed to create an application that is easy to navigate through its careful choice of features, while still allowing the user access to all elements they made need to choose the best method to get from two different points in Dublin. The Dublin bus time predictions are based off a random forest model trained on historical Dublin Bus data from 2018, while elements such as estimated walk time to a certain stop, transport methods other than Dublin bus and routes that do not exist in this historical data were taken from the Google’s Direction API. 
