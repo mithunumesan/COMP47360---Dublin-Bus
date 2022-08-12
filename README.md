@@ -62,23 +62,24 @@ The current weather conditions, including the temperature, weather description a
 ## Installation
 
 <Installation process>
- 1. Download our application  
- 2. on the root directory run the command:  
- ```bash
+
+* 1. Download our application  
+* 2. on the root directory run the command:  
+```
  pip install -r requirements.txt
- ```   
- 3. run the command: 
-  ```bash
+```
+* 3. run the command: 
+```
  sudo apt install nodejs
  sudo apt install npm
-  ```   
- 4. install node and npm  
- ```bash
+```
+* 4. install node and npm  
+ ```
  cd frontend
  npm install --force
   ```   
  5. back to root directory and start our application  
-  ```bash
-cd ..
-python manage.py runserver
-  ``` 
+```
+  cd ..
+  python manage.py runserver
+```
