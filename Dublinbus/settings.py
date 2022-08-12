@@ -163,4 +163,3 @@ REACT_ROUTES = [
     'weather',
     'routesexploration',
 ]
-

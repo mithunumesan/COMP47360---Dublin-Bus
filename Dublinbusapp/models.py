@@ -27,6 +27,9 @@ class Stops(models.Model):
     latitude = models.FloatField(db_column='latitude',blank=True, null=True)
     longitude = models.FloatField(db_column='longitude',blank=True, null=True)
     agencyLineNum = models.TextField(db_column='agencyLineNum',max_length=2000,blank=True, null=True)
+    
+    # def __unicode__(self):
+    #     return self.stopid
 
     class Meta:
         managed = False
@@ -66,7 +69,8 @@ class Routes(models.Model):
     routeshortname = models.CharField(db_column='routeShortName', max_length=50, blank=True, null=True)  # Field name made lowercase.
     routelongname = models.CharField(db_column='routeLongName', max_length=50, blank=True, null=True)  # Field name made lowercase.
     shapeidlist = models.TextField(db_column='shapeIdlist', max_length=1000, blank=True, null=True)  # Field name made lowercase.
-
+    def __str__(self):
+        return self.route.id
     class Meta:
         managed = False
         db_table = 'routeshape'
