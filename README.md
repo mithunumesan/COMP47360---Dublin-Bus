@@ -60,11 +60,14 @@ The current weather conditions, including the temperature, weather description a
 
 
 ## Technologies
-
+- Python
+- Django 4.0.5
+- React
+- MySQL
+- HTML & CSS
+- Jupyter Notebooks
+- UCD VM
 <Description>
-
-## Production
-<Deployment background>
 
 ## Installation
 
@@ -87,6 +90,6 @@ The current weather conditions, including the temperature, weather description a
 ```   
 * 5. back to root directory and start our application  
 ```
-cd ..
-python manage.py runserver
+ cd ..
+ python manage.py runserver
 ```
