@@ -81,12 +81,12 @@ The current weather conditions, including the temperature, weather description a
  sudo apt install npm
 ```
 * 4. install node and npm  
- ```
+```
  cd frontend
  npm install --force
-  ```   
- 5. back to root directory and start our application  
+```   
+* 5. back to root directory and start our application  
 ```
-  cd ..
-  python manage.py runserver
+cd ..
+python manage.py runserver
 ```
