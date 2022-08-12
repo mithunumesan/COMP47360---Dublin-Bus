@@ -187,7 +187,8 @@ function RouteExploration() {
     const [map, setMap] = useState(/** @type google.maps.Map */ (null))
     
     const { isLoaded } = useJsApiLoader({
-    googleMapsApiKey: "AIzaSyCdf-x6SluXsWzP9qpwxVGBY08pm_3TAQU",
+        googleMapsApiKey: localStorage.getItem("mapsKey"), 
+        // "AIzaSyCdf-x6SluXsWzP9qpwxVGBY08pm_3TAQU",
     libraries:['places']
   })
     
