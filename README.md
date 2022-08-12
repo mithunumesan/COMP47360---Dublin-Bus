@@ -2,7 +2,7 @@
 
 
 <Background>
-The aim of this project is to provide an alternate solution to traveling and commuting around Dublin with and emphasis on Dublin Bus, while also allowing the user access to other transportation options such as DART, Luas, and Go-Ahead. <br />
+The aim of this project is to provide an alternate solution to traveling and commuting around Dublin with an emphasis on Dublin Bus, while also allowing the user access to other transportation options such as DART, Luas, and Go-Ahead. <br />
 <br />
 
 
@@ -51,11 +51,14 @@ The current weather conditions, including the temperature, weather description a
 
 
 ## Technologies
-
+- Python
+- Django 4.0.5
+- React
+- MySQL
+- HTML & CSS
+- Jupyter Notebooks
+- UCD VM
 <Description>
-
-## Production
-<Deployment background>
 
 ## Installation
 
@@ -78,6 +81,6 @@ The current weather conditions, including the temperature, weather description a
 ```   
 * 5. back to root directory and start our application  
 ```
-cd ..
-python manage.py runserver
+ cd ..
+ python manage.py runserver
 ```
