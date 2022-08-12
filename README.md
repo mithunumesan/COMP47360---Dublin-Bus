@@ -11,7 +11,7 @@ Visit our Dublin Bus app [here](http://137.43.49.30/).
 
 <Description>
 
-![Journey Planner](dublinbus/main/static/img/journeyplanner-features.gif)
+![Journey Planner](Dublinbusapp/static/img/test.gif)
 
 ### Route Exploration
 
