@@ -20,4 +20,5 @@ urlpatterns = [
     #path('api/tripschedule/', TripScheduleListView.as_view()),
     #path('api/tripfind/', TripFindListView.as_view()),
     path('api/tripschedule/', TripScheduleListView.as_view())
+
 ]
