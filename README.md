@@ -2,6 +2,18 @@
 
 
 <Background>
+The aim of this project is to provide an alternate solution to traveling and commuting around Dublin with and emphasis on Dublin Bus, while also allowing the user access to other transportation options such as DART, Luas, and Go-Ahead. <br />
+<br />
+
+
+
+We aimed to create an application that is easy to navigate through its careful choice of features, while still allowing the user access to all elements they made need to choose the best method to get from two different points in Dublin. The Dublin bus time predictions are based off a random forest model trained on historical Dublin Bus data from 2018, while elements such as estimated walk time to a certain stop, transport methods other than Dublin bus and routes that do not exist in this historical data were taken from the Google’s Direction API. 
+
+
+
+Our application has several core features such as a journey planner, route explorer, and weather information, while also allowing the user to create a profile. While an account is not necessary to use this application, this adds addition functionality such as the ability to save and use stored favourite routes.
+
+
 
 Visit our Dublin Bus app [here](http://137.43.49.30/).
 
@@ -48,3 +60,24 @@ The current weather conditions, including the temperature, weather description a
 ## Installation
 
 <Installation process>
+
+* 1. Download our application  
+* 2. on the root directory run the command:  
+```
+ pip install -r requirements.txt
+```
+* 3. run the command: 
+```
+ sudo apt install nodejs
+ sudo apt install npm
+```
+* 4. install node and npm  
+```
+ cd frontend
+ npm install --force
+```   
+* 5. back to root directory and start our application  
+```
+cd ..
+python manage.py runserver
+```
